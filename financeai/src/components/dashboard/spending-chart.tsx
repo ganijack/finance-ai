@@ -59,14 +59,14 @@ export function SpendingChart({ data, loading }: SpendingChartProps) {
               <XAxis
                 dataKey="date"
                 tickFormatter={(value) => formatDateShort(value)}
-                stroke="hsl(var(--muted-foreground))"
+                tick={{ fill: "#a1a1aa" }}
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}
               />
               <YAxis
                 tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
-                stroke="hsl(var(--muted-foreground))"
+                tick={{ fill: "#a1a1aa" }}
                 fontSize={12}
                 tickLine={false}
                 axisLine={false}

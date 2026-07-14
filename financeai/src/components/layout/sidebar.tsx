@@ -9,10 +9,14 @@ import {
   BarChart3,
   Settings,
   Wallet,
+  Sparkles,
+  Scan,
 } from "lucide-react";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/ai", label: "AI Input", icon: Sparkles },
+  { href: "/receipts", label: "Receipt Scanner", icon: Scan },
   { href: "/expenses", label: "Expenses", icon: Receipt },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/settings", label: "Settings", icon: Settings },

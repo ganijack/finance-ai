@@ -15,12 +15,31 @@ model Expense {
   date      DateTime
   notes     String?
   userId    String
+  receiptId String?
+  receipt   Receipt? @relation(fields: [receiptId], references: [id], onDelete: SetNull)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([userId])
   @@index([userId, date])
   @@index([userId, category])
+  @@index([receiptId])
+}
+
+model Receipt {
+  id        String    @id @default(cuid())
+  userId    String
+  store     String?
+  date      DateTime?
+  total     Float?
+  status    String    @default("PROCESSED") // PENDING, PROCESSED, FAILED
+  imageUrl  String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  expenses  Expense[]
+
+  @@index([userId])
 }
 
 model UserSettings {
