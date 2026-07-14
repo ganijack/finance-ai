@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { BrandLogo } from "@/components/shared/brand-logo";
 import {
   Card,
   CardContent,
@@ -16,7 +17,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Loader2, Wallet } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
@@ -60,8 +61,8 @@ export default function RegisterPage() {
   return (
     <Card className="border-border/40 shadow-xl">
       <CardHeader className="space-y-3 text-center">
-        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-          <Wallet className="h-6 w-6" />
+        <div className="flex justify-center mb-8">
+          <BrandLogo />
         </div>
         <CardTitle className="text-2xl font-bold tracking-tight">
           Create an account

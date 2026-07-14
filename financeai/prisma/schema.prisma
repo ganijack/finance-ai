@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Expense {
@@ -37,7 +37,7 @@ model Receipt {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 
-  expenses  Expense[]
+  expenses Expense[]
 
   @@index([userId])
 }
@@ -54,7 +54,7 @@ model Budget {
   userId    String
   category  String
   amount    Float
-  month     String   // Format: YYYY-MM
+  month     String // Format: YYYY-MM
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -83,7 +83,7 @@ model RecurringExpense {
   title     String
   amount    Float
   category  String
-  interval  String   // DAILY, WEEKLY, MONTHLY, YEARLY
+  interval  String // DAILY, WEEKLY, MONTHLY, YEARLY
   nextDate  DateTime
   active    Boolean  @default(true)
   createdAt DateTime @default(now())
@@ -98,7 +98,7 @@ model Notification {
   userId    String
   title     String
   message   String
-  type      String   // ALERT, SUCCESS, INFO, WARNING
+  type      String // ALERT, SUCCESS, INFO, WARNING
   read      Boolean  @default(false)
   createdAt DateTime @default(now())
 
@@ -108,9 +108,87 @@ model Notification {
 model Achievement {
   id         String   @id @default(cuid())
   userId     String
-  badgeType  String   // FIRST_EXPENSE, UNDER_BUDGET, etc.
+  badgeType  String // FIRST_EXPENSE, UNDER_BUDGET, etc.
   unlockedAt DateTime @default(now())
 
   @@unique([userId, badgeType])
   @@index([userId])
+}
+
+// ==========================================
+// VERSION 6: ENTERPRISE ADMIN & RBAC MODELS
+// ==========================================
+
+model User {
+  id        String   @id // Matches Supabase Auth UUID
+  email     String   @unique
+  role      String   @default("USER") // USER, ADMIN
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String // e.g. "USER_SUSPENDED", "PROMPT_UPDATED"
+  details   String? // JSON string or plain text
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+model FeatureFlag {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  name        String
+  description String?
+  enabled     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SystemSetting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  description String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Announcement {
+  id         String    @id @default(cuid())
+  title      String
+  content    String
+  active     Boolean   @default(true)
+  validUntil DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  userId    String
+  subject   String
+  content   String
+  category  String // BUG, FEATURE, OTHER
+  status    String   @default("OPEN") // OPEN, CLOSED
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}
+
+model AIPrompt {
+  id          String   @id @default(cuid())
+  name        String   @unique // e.g. "RECEIPT_EXTRACTOR", "BUDGET_COACH"
+  prompt      String   @db.Text
+  version     Int      @default(1)
+  active      Boolean  @default(true)
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

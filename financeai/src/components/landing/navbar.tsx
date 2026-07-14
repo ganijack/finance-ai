@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Wallet, Menu, X, ExternalLink } from "lucide-react";
+import { BrandLogo } from "@/components/shared/brand-logo";
+import { Menu, X, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
@@ -39,13 +40,8 @@ export function LandingNavbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/25 group-hover:shadow-indigo-500/40 transition-shadow">
-              <Wallet className="h-4.5 w-4.5 text-white" />
-            </div>
-            <span className="text-lg font-bold tracking-tight">
-              Finance<span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">AI</span>
-            </span>
+          <Link href="/" className="flex items-center">
+            <BrandLogo />
           </Link>
 
           {/* Desktop Nav */}

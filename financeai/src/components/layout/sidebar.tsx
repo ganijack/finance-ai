@@ -17,9 +17,12 @@ import {
   Target,
   Repeat,
   CalendarDays,
-  PieChart
+  PieChart,
+  MessageSquarePlus,
+  ShieldCheck
 } from "lucide-react";
 import { NotificationsPanel } from "./notifications-panel";
+import { BrandLogo } from "@/components/shared/brand-logo";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -35,24 +38,27 @@ const navItems = [
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/reports", label: "Monthly Report", icon: FileText },
   { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/feedback", label: "Feedback", icon: MessageSquarePlus },
+  { href: "/admin/dashboard", label: "Admin Panel", icon: ShieldCheck },
 ];
 
-export function Sidebar() {
+export function Sidebar({ isAdmin }: { isAdmin?: boolean }) {
   const pathname = usePathname();
+
+  const filteredNavItems = isAdmin 
+    ? navItems 
+    : navItems.filter(item => item.href !== "/admin/dashboard");
 
   return (
     <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 border-r border-border/40 bg-card/50 backdrop-blur-xl">
       {/* Logo */}
-      <div className="flex h-16 items-center gap-2.5 px-6 border-b border-border/40">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-          <Wallet className="h-4 w-4" />
-        </div>
-        <span className="text-lg font-semibold tracking-tight">FinanceAI</span>
+      <div className="flex flex-col justify-center h-20 px-6 border-b border-border/40">
+        <BrandLogo showSubtitle={true} />
       </div>
 
       {/* Navigation */}
       <nav className="flex-1 px-3 py-4 space-y-1">
-        {navItems.map((item) => {
+        {filteredNavItems.map((item) => {
           const isActive =
             pathname === item.href ||
             (item.href !== "/dashboard" && pathname.startsWith(item.href));

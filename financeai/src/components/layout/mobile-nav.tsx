@@ -18,10 +18,13 @@ import {
   Target,
   Repeat,
   CalendarDays,
-  PieChart
+  PieChart,
+  MessageSquarePlus,
+  ShieldCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { BrandLogo } from "@/components/shared/brand-logo";
 import { useState } from "react";
 
 const navItems = [
@@ -38,11 +41,17 @@ const navItems = [
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/reports", label: "Monthly Report", icon: FileText },
   { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/feedback", label: "Feedback", icon: MessageSquarePlus },
+  { href: "/admin/dashboard", label: "Admin Panel", icon: ShieldCheck },
 ];
 
-export function MobileNav() {
+export function MobileNav({ isAdmin }: { isAdmin?: boolean }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  const filteredNavItems = isAdmin 
+    ? navItems 
+    : navItems.filter(item => item.href !== "/admin/dashboard");
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -54,17 +63,13 @@ export function MobileNav() {
       </SheetTrigger>
       <SheetContent side="left" className="w-72 p-0">
         <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
-        <div className="flex h-16 items-center gap-2.5 px-6 border-b border-border/40">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <Wallet className="h-4 w-4" />
-          </div>
-          <span className="text-lg font-semibold tracking-tight">
-            FinanceAI
-          </span>
+        <div className="flex h-16 items-center px-6 border-b border-border/40">
+          <BrandLogo />
         </div>
-        <nav className="px-3 py-4 space-y-1">
-          {navItems.map((item) => {
-            const isActive =
+          {/* Navigation */}
+          <nav className="flex flex-col space-y-1 p-4">
+            {filteredNavItems.map((item) => {
+              const isActive =
               pathname === item.href ||
               (item.href !== "/dashboard" && pathname.startsWith(item.href));
             return (
