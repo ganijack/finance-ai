@@ -10,10 +10,37 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "FinanceAI — Smart Expense Tracker",
+  title: "FinanceAI — Smart Expense Tracker Powered by AI",
   description:
-    "Track your expenses, analyze spending patterns, and take control of your finances with FinanceAI.",
-  keywords: ["expense tracker", "finance", "budgeting", "analytics"],
+    "Track your expenses effortlessly using AI. Type naturally, upload receipts, and receive intelligent financial insights that help you spend smarter.",
+  keywords: [
+    "expense tracker",
+    "finance",
+    "budgeting",
+    "analytics",
+    "AI",
+    "personal finance",
+    "money management",
+  ],
+  openGraph: {
+    title: "FinanceAI — Smart Expense Tracker Powered by AI",
+    description:
+      "Track your expenses effortlessly using AI. Type naturally, upload receipts, and receive intelligent financial insights.",
+    url: "https://financeai.vercel.app",
+    siteName: "FinanceAI",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FinanceAI — Smart Expense Tracker Powered by AI",
+    description:
+      "Track your expenses effortlessly using AI. Type naturally, upload receipts, and receive intelligent financial insights.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
