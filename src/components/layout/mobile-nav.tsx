@@ -19,11 +19,10 @@ import {
   Repeat,
   CalendarDays,
   PieChart,
-  MessageSquarePlus,
   ShieldCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { BrandLogo } from "@/components/shared/brand-logo";
 import { useState } from "react";
 
@@ -32,6 +31,7 @@ const navItems = [
   { href: "/ai", label: "AI Input", icon: Sparkles },
   { href: "/receipts", label: "Receipt Scanner", icon: Scan },
   { href: "/expenses", label: "Expenses", icon: Receipt },
+  { href: "/spendings", label: "Spendings", icon: Receipt },
   { href: "/budgets", label: "Budgets", icon: PieChart },
   { href: "/goals", label: "Savings Goals", icon: Target },
   { href: "/recurring", label: "Recurring", icon: Repeat },
@@ -41,7 +41,6 @@ const navItems = [
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/reports", label: "Monthly Report", icon: FileText },
   { href: "/settings", label: "Settings", icon: Settings },
-  { href: "/feedback", label: "Feedback", icon: MessageSquarePlus },
   { href: "/admin/dashboard", label: "Admin Panel", icon: ShieldCheck },
 ];
 
@@ -73,20 +72,20 @@ export function MobileNav({ isAdmin }: { isAdmin?: boolean }) {
               pathname === item.href ||
               (item.href !== "/dashboard" && pathname.startsWith(item.href));
             return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className={cn(
-                  "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
-                  isActive
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:bg-accent hover:text-foreground"
-                )}
-              >
-                <item.icon className="h-4 w-4" />
-                {item.label}
-              </Link>
+              <SheetClose asChild key={item.href}>
+                <Link
+                  href={item.href}
+                  className={cn(
+                    "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                    isActive
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "text-muted-foreground hover:bg-accent hover:text-foreground"
+                  )}
+                >
+                  <item.icon className="h-4 w-4" />
+                  {item.label}
+                </Link>
+              </SheetClose>
             );
           })}
         </nav>
