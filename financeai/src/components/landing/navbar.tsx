@@ -12,7 +12,6 @@ const navLinks = [
   { label: "Features", href: "#features" },
   { label: "AI", href: "#how-it-works" },
   { label: "Pricing", href: "#", badge: "Soon" },
-  { label: "GitHub", href: "https://github.com", external: true },
 ];
 
 export function LandingNavbar() {

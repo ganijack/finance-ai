@@ -1,6 +1,8 @@
 # FinanceAI — Smart Expense Tracker
 
-A modern, production-ready expense tracker built with Next.js 15, Supabase, Prisma, and shadcn/ui. Features an Apple-inspired minimal design with dark mode support.
+FinanceAI is a modern, AI-powered personal finance tracker built for the web. It leverages generative AI (Google Gemini) to extract data from receipts, categorize transactions, and provide intelligent financial insights.
+
+Version 7 introduces full Production-Readiness, including PWA support, advanced security, system monitoring, and comprehensive data export capabilities.
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=flat-square)
@@ -10,11 +12,15 @@ A modern, production-ready expense tracker built with Next.js 15, Supabase, Pris
 ## Features
 
 - 📊 **Dashboard** — Real-time financial overview with stat cards and charts
-- 💰 **Expense Tracking** — Full CRUD operations with 10 categories
-- 📈 **Analytics** — Pie charts, bar charts, and category rankings
-- 🔍 **Search & Filter** — By date range, category, and text search
-- 📱 **Responsive** — Mobile-first design with adaptive layout
-- 🌙 **Dark Mode** — System-aware theme with manual toggle
+- 🔐 **Enterprise Security**: Advanced rate limiting, CSRF protection, and strict security headers.
+- 📱 **Progressive Web App**: Installable on Desktop/Mobile with offline caching.
+- 💾 **Data Portability**: Export your data to CSV, Excel, PDF, and JSON at any time.
+- 📊 **Monitoring & Admin**: Built-in system health checks and activity logging.
+- 🧠 **AI Receipt Extraction**: Upload receipts and instantly extract items, totals, and categories.
+- 💬 **AI Financial Chat**: Chat with a context-aware AI assistant about your spending habits.
+- 🎯 **Budgeting & Goals**: Set category budgets and track your saving goals over time.
+- ♻️ **Recurring Expenses**: Manage subscriptions and automatic payments.
+- 🌓 **Dark/Light Mode**: Full theme support with glassmorphism UI elements.
 - 🔐 **Authentication** — Secure email login via Supabase Auth
 - 💱 **Currency** — IDR (Indonesian Rupiah) formatting
 

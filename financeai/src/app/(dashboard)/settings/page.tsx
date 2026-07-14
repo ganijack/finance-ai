@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useUser } from "@/hooks/use-user";
+import Link from "next/link";
 import {
   User,
   Palette,
@@ -16,6 +17,9 @@ import {
   Monitor,
   Mail,
   Loader2,
+  Settings as SettingsIcon,
+  Globe,
+  Clock
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -35,11 +39,18 @@ export default function SettingsPage() {
       <div className="flex-1 p-4 sm:p-6 space-y-6 max-w-2xl">
         {/* Profile */}
         <Card className="border-border/40 animate-fade-in">
-          <CardHeader className="flex flex-row items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
-              <User className="h-5 w-5 text-primary" />
+          <CardHeader className="flex flex-row items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
+                <User className="h-5 w-5 text-primary" />
+              </div>
+              <CardTitle className="text-base">Profile</CardTitle>
             </div>
-            <CardTitle className="text-base">Profile</CardTitle>
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/settings/profile">
+                Edit Profile
+              </Link>
+            </Button>
           </CardHeader>
           <CardContent className="space-y-4">
             {loading ? (
@@ -49,8 +60,8 @@ export default function SettingsPage() {
               </div>
             ) : (
               <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-lg font-semibold">
-                  {user?.email?.[0]?.toUpperCase() || "?"}
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground text-lg font-semibold uppercase">
+                  {user?.email?.[0] || "?"}
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
@@ -72,73 +83,122 @@ export default function SettingsPage() {
           </CardContent>
         </Card>
 
-        {/* Currency */}
-        <Card className="border-border/40 animate-fade-in stagger-1">
-          <CardHeader className="flex flex-row items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10">
-              <DollarSign className="h-5 w-5 text-emerald-500" />
-            </div>
-            <CardTitle className="text-base">Currency</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium">Indonesian Rupiah</p>
-                <p className="text-xs text-muted-foreground">
-                  All amounts are displayed in IDR
-                </p>
+        {/* Currency & Language */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {/* Currency */}
+          <Card className="border-border/40 animate-fade-in stagger-1">
+            <CardHeader className="flex flex-row items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10">
+                <DollarSign className="h-5 w-5 text-emerald-500" />
               </div>
-              <Badge variant="secondary" className="text-xs">
-                IDR (Rp)
-              </Badge>
-            </div>
-          </CardContent>
-        </Card>
+              <CardTitle className="text-base">Currency</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium">Indonesian Rupiah</p>
+                  <p className="text-xs text-muted-foreground">
+                    All amounts are in IDR
+                  </p>
+                </div>
+                <Badge variant="secondary" className="text-xs">
+                  IDR (Rp)
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
 
-        {/* Theme */}
-        <Card className="border-border/40 animate-fade-in stagger-2">
-          <CardHeader className="flex flex-row items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/10">
-              <Palette className="h-5 w-5 text-purple-500" />
-            </div>
-            <CardTitle className="text-base">Appearance</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-3 gap-3">
-              {themes.map((t) => {
-                const Icon = t.icon;
-                const isActive = theme === t.value;
-                return (
-                  <button
-                    key={t.value}
-                    onClick={() => setTheme(t.value)}
-                    className={cn(
-                      "flex flex-col items-center gap-2 rounded-xl border-2 p-4 transition-all duration-200 cursor-pointer",
-                      isActive
-                        ? "border-primary bg-primary/5"
-                        : "border-border/40 hover:border-border hover:bg-accent/50"
-                    )}
-                  >
-                    <Icon
+          {/* Language */}
+          <Card className="border-border/40 animate-fade-in stagger-1">
+            <CardHeader className="flex flex-row items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10">
+                <Globe className="h-5 w-5 text-blue-500" />
+              </div>
+              <CardTitle className="text-base">Language</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium">English (US)</p>
+                  <p className="text-xs text-muted-foreground">
+                    Default app language
+                  </p>
+                </div>
+                <Badge variant="secondary" className="text-xs">
+                  EN
+                </Badge>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Theme & Timezone */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {/* Timezone */}
+          <Card className="border-border/40 animate-fade-in stagger-2">
+            <CardHeader className="flex flex-row items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/10">
+                <Clock className="h-5 w-5 text-orange-500" />
+              </div>
+              <CardTitle className="text-base">Timezone</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium">Asia/Jakarta</p>
+                  <p className="text-xs text-muted-foreground">
+                    GMT+7
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          
+          {/* Theme */}
+          <Card className="border-border/40 animate-fade-in stagger-2">
+            <CardHeader className="flex flex-row items-center gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/10">
+                <Palette className="h-5 w-5 text-purple-500" />
+              </div>
+              <CardTitle className="text-base">Appearance</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-3 gap-2">
+                {themes.map((t) => {
+                  const Icon = t.icon;
+                  const isActive = theme === t.value;
+                  return (
+                    <button
+                      key={t.value}
+                      onClick={() => setTheme(t.value)}
                       className={cn(
-                        "h-5 w-5",
-                        isActive ? "text-primary" : "text-muted-foreground"
-                      )}
-                    />
-                    <span
-                      className={cn(
-                        "text-xs font-medium",
-                        isActive ? "text-primary" : "text-muted-foreground"
+                        "flex flex-col items-center gap-1 rounded-xl border-2 p-2 transition-all duration-200 cursor-pointer",
+                        isActive
+                          ? "border-primary bg-primary/5"
+                          : "border-border/40 hover:border-border hover:bg-accent/50"
                       )}
                     >
-                      {t.label}
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
+                      <Icon
+                        className={cn(
+                          "h-4 w-4",
+                          isActive ? "text-primary" : "text-muted-foreground"
+                        )}
+                      />
+                      <span
+                        className={cn(
+                          "text-[10px] font-medium",
+                          isActive ? "text-primary" : "text-muted-foreground"
+                        )}
+                      >
+                        {t.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Logout */}
         <Card className="border-border/40 animate-fade-in stagger-3">

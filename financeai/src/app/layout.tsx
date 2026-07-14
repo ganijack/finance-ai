@@ -12,6 +12,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "FinanceAI",
   description: "AI-Powered Personal Finance Platform",
+  manifest: "/manifest.json",
   icons: {
     icon: "/logo/favicon.ico",
     apple: "/logo/apple-touch-icon.png",

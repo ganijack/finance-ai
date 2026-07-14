@@ -5,6 +5,7 @@ import { Topbar } from "@/components/layout/topbar";
 import { ExpenseFilters } from "@/components/expenses/expense-filters";
 import { ExpenseTable } from "@/components/expenses/expense-table";
 import { ExpenseDialog } from "@/components/expenses/expense-dialog";
+import { ExportButton } from "@/components/dashboard/export-button";
 import { Button } from "@/components/ui/button";
 import { Plus, ChevronLeft, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
@@ -163,16 +164,18 @@ export default function ExpensesPage() {
             category={category}
             onCategoryChange={setCategory}
           />
-          <Button
-            onClick={() => {
-              setEditingExpense(null);
-              setDialogOpen(true);
-            }}
-            className="shrink-0"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Add Expense
-          </Button>
+          <div className="flex items-center gap-2 shrink-0">
+            <ExportButton />
+            <Button
+              onClick={() => {
+                setEditingExpense(null);
+                setDialogOpen(true);
+              }}
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              Add Expense
+            </Button>
+          </div>
         </div>
 
         {/* Results count */}

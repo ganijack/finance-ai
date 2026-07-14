@@ -154,6 +154,12 @@ export function HeroSection() {
                 <Play className="mr-2 h-4 w-4 group-hover:text-indigo-400 transition-colors" />
                 View Demo
               </Button>
+              <Button size="lg" variant="outline" className="w-full sm:w-auto min-w-[160px] h-12 px-8 text-base shadow-sm group" asChild>
+                <Link href="/api/auth/demo">
+                  Try Demo
+                  <ArrowRight className="ml-2 h-4 w-4 opacity-70 group-hover:translate-x-1 transition-all" />
+                </Link>
+              </Button>
             </motion.div>
 
             {/* Social proof */}
