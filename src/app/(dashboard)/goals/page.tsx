@@ -5,9 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { formatCurrency } from "@/lib/utils";
-import { Plus, Target, Trophy, Calendar } from "lucide-react";
+import { Plus, Target, Trophy, Calendar, MoreVertical, PlusCircle, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 export default function GoalsPage() {
   const [goals, setGoals] = useState<any[]>([]);
@@ -19,6 +21,12 @@ export default function GoalsPage() {
   const [currentAmount, setCurrentAmount] = useState("0");
   const [targetDate, setTargetDate] = useState("");
   const [description, setDescription] = useState("");
+
+  // Action state
+  const [selectedGoal, setSelectedGoal] = useState<any>(null);
+  const [isAddFundsOpen, setIsAddFundsOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [addAmount, setAddAmount] = useState("");
 
   const fetchGoals = async () => {
     setLoading(true);
@@ -65,6 +73,41 @@ export default function GoalsPage() {
       fetchGoals();
     } catch (error) {
       toast.error("Failed to create goal");
+    }
+  };
+
+  const handleAddFunds = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedGoal || !addAmount) return;
+
+    try {
+      const res = await fetch(`/api/goals/${selectedGoal.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ addAmount })
+      });
+      if (!res.ok) throw new Error("Failed to add funds");
+      
+      toast.success("Funds added successfully!");
+      setIsAddFundsOpen(false);
+      setAddAmount("");
+      fetchGoals();
+    } catch (error) {
+      toast.error("Failed to add funds");
+    }
+  };
+
+  const handleDeleteGoal = async () => {
+    if (!selectedGoal) return;
+    try {
+      const res = await fetch(`/api/goals/${selectedGoal.id}`, { method: "DELETE" });
+      if (!res.ok) throw new Error("Failed to delete goal");
+      
+      toast.success("Goal deleted!");
+      setIsDeleteOpen(false);
+      fetchGoals();
+    } catch (error) {
+      toast.error("Failed to delete goal");
     }
   };
 
@@ -152,7 +195,26 @@ export default function GoalsPage() {
                             </div>
                           )}
                         </div>
-                        {isCompleted && <Trophy className="h-5 w-5 text-yellow-500" />}
+                        <div className="flex items-center gap-1">
+                          {isCompleted && <Trophy className="h-5 w-5 text-yellow-500 mr-2" />}
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
+                                <MoreVertical className="h-4 w-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuItem onClick={() => { setSelectedGoal(goal); setIsAddFundsOpen(true); }}>
+                                <PlusCircle className="mr-2 h-4 w-4" />
+                                Add Funds
+                              </DropdownMenuItem>
+                              <DropdownMenuItem className="text-destructive focus:text-destructive focus:bg-destructive/10" onClick={() => { setSelectedGoal(goal); setIsDeleteOpen(true); }}>
+                                <Trash2 className="mr-2 h-4 w-4" />
+                                Delete Goal
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
                       </div>
                     </CardHeader>
                     <CardContent className="pb-2">
@@ -178,6 +240,53 @@ export default function GoalsPage() {
           )}
         </div>
       </div>
+
+      {/* Add Funds Dialog */}
+      <Dialog open={isAddFundsOpen} onOpenChange={setIsAddFundsOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Add Funds</DialogTitle>
+            <DialogDescription>
+              How much would you like to add to your '{selectedGoal?.title}' goal?
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleAddFunds} className="space-y-4 pt-4">
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Amount to add</label>
+              <Input 
+                type="number" 
+                min="0.01" 
+                step="0.01" 
+                placeholder="e.g. 50000" 
+                value={addAmount} 
+                onChange={e => setAddAmount(e.target.value)} 
+                required 
+                autoFocus
+              />
+            </div>
+            <DialogFooter>
+              <Button type="button" variant="outline" onClick={() => setIsAddFundsOpen(false)}>Cancel</Button>
+              <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700">Add Funds</Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Goal Dialog */}
+      <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Delete Goal</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete your '{selectedGoal?.title}' goal? This action cannot be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="pt-4">
+            <Button type="button" variant="outline" onClick={() => setIsDeleteOpen(false)}>Cancel</Button>
+            <Button type="button" variant="destructive" onClick={handleDeleteGoal}>Delete</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
