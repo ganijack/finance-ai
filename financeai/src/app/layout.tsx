@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     title: "FinanceAI — Smart Expense Tracker Powered by AI",
     description:
       "Track your expenses effortlessly using AI. Type naturally, upload receipts, and receive intelligent financial insights.",
-    url: "https://financeai.vercel.app",
+    url: "https://financeai.web.id",
     siteName: "FinanceAI",
     locale: "en_US",
     type: "website",

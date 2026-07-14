@@ -4,6 +4,7 @@ import { BrandLogo } from "@/components/shared/brand-logo";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle } from "lucide-react";
 import Link from "next/link";
+import "./globals.css";
 
 export default function GlobalError({
   error,

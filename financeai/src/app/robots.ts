@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/admin/", "/dashboard/", "/settings/", "/api/"],
     },
-    sitemap: "https://financeai.com/sitemap.xml",
+    sitemap: "https://financeai.web.id/sitemap.xml",
   };
 }
