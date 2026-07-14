@@ -1,0 +1,225 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Expense {
+  id        String   @id @default(cuid())
+  title     String
+  amount    Float
+  category  String
+  date      DateTime
+  notes     String?
+  userId    String
+  receiptId String?
+  receipt   Receipt? @relation(fields: [receiptId], references: [id], onDelete: SetNull)
+  source    String   @default("MANUAL") // MANUAL, AI, RECEIPT
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([userId, date])
+  @@index([userId, category])
+  @@index([receiptId])
+}
+
+model Receipt {
+  id        String    @id @default(cuid())
+  userId    String
+  store     String?
+  date      DateTime?
+  total     Float?
+  status    String    @default("PROCESSED") // PENDING, PROCESSED, FAILED
+  imageUrl  String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  expenses Expense[]
+
+  @@index([userId])
+}
+
+model UserSettings {
+  id       String @id @default(cuid())
+  userId   String @unique
+  currency String @default("IDR")
+  theme    String @default("system")
+  language String @default("en")
+  timezone String @default("UTC")
+}
+
+model Budget {
+  id        String   @id @default(cuid())
+  userId    String
+  category  String
+  amount    Float
+  month     String // Format: YYYY-MM
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, category, month])
+  @@index([userId, month])
+}
+
+model SavingGoal {
+  id            String    @id @default(cuid())
+  userId        String
+  title         String
+  targetAmount  Float
+  currentAmount Float     @default(0)
+  targetDate    DateTime?
+  description   String?
+  status        String    @default("ACTIVE") // ACTIVE, COMPLETED
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([userId])
+}
+
+model RecurringExpense {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  amount    Float
+  category  String
+  interval  String // DAILY, WEEKLY, MONTHLY, YEARLY
+  nextDate  DateTime
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([userId, active])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      String // ALERT, SUCCESS, INFO, WARNING
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId, read])
+}
+
+model Achievement {
+  id         String   @id @default(cuid())
+  userId     String
+  badgeType  String // FIRST_EXPENSE, UNDER_BUDGET, etc.
+  unlockedAt DateTime @default(now())
+
+  @@unique([userId, badgeType])
+  @@index([userId])
+}
+
+// ==========================================
+// VERSION 6: ENTERPRISE ADMIN & RBAC MODELS
+// ==========================================
+
+model User {
+  id        String   @id // Matches Supabase Auth UUID
+  email     String   @unique
+  name      String?
+  username  String?  @unique
+  avatarUrl String?
+  role      String   @default("USER") // USER, ADMIN
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  metadata  String?  @db.Text // JSON string
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model LoginHistory {
+  id        String   @id @default(cuid())
+  userId    String
+  ipAddress String?
+  userAgent String?
+  status    String   @default("SUCCESS") // SUCCESS, FAILED
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String // e.g. "USER_SUSPENDED", "PROMPT_UPDATED"
+  details   String? // JSON string or plain text
+  ipAddress String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+model FeatureFlag {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  name        String
+  description String?
+  enabled     Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SystemSetting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  description String?
+  updatedAt   DateTime @updatedAt
+}
+
+model Announcement {
+  id         String    @id @default(cuid())
+  title      String
+  content    String
+  active     Boolean   @default(true)
+  validUntil DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  userId    String
+  subject   String
+  content   String
+  category  String // BUG, FEATURE, OTHER
+  status    String   @default("OPEN") // OPEN, CLOSED
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}
+
+model AIPrompt {
+  id          String   @id @default(cuid())
+  name        String   @unique // e.g. "RECEIPT_EXTRACTOR", "BUDGET_COACH"
+  prompt      String   @db.Text
+  version     Int      @default(1)
+  active      Boolean  @default(true)
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
