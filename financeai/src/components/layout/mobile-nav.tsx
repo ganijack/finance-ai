@@ -12,6 +12,9 @@ import {
   Menu,
   Sparkles,
   Scan,
+  Lightbulb,
+  MessageSquare,
+  FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
@@ -19,10 +22,13 @@ import { useState } from "react";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/insights", label: "AI Insights", icon: Lightbulb },
+  { href: "/chat", label: "Ask AI", icon: MessageSquare },
   { href: "/ai", label: "AI Input", icon: Sparkles },
   { href: "/receipts", label: "Receipt Scanner", icon: Scan },
   { href: "/expenses", label: "Expenses", icon: Receipt },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/reports", label: "Monthly Report", icon: FileText },
   { href: "/settings", label: "Settings", icon: Settings },
 ];
 
