@@ -14,15 +14,24 @@ import {
   Lightbulb,
   MessageSquare,
   FileText,
+  Target,
+  Repeat,
+  CalendarDays,
+  PieChart
 } from "lucide-react";
+import { NotificationsPanel } from "./notifications-panel";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/insights", label: "AI Insights", icon: Lightbulb },
-  { href: "/chat", label: "Ask AI", icon: MessageSquare },
   { href: "/ai", label: "AI Input", icon: Sparkles },
   { href: "/receipts", label: "Receipt Scanner", icon: Scan },
   { href: "/expenses", label: "Expenses", icon: Receipt },
+  { href: "/budgets", label: "Budgets", icon: PieChart },
+  { href: "/goals", label: "Savings Goals", icon: Target },
+  { href: "/recurring", label: "Recurring", icon: Repeat },
+  { href: "/calendar", label: "Calendar", icon: CalendarDays },
+  { href: "/insights", label: "AI Insights", icon: Lightbulb },
+  { href: "/chat", label: "Ask AI", icon: MessageSquare },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/reports", label: "Monthly Report", icon: FileText },
   { href: "/settings", label: "Settings", icon: Settings },
@@ -66,10 +75,11 @@ export function Sidebar() {
       </nav>
 
       {/* Footer */}
-      <div className="p-4 border-t border-border/40">
-        <p className="text-xs text-muted-foreground text-center">
-          FinanceAI v1.0
+      <div className="p-4 border-t border-border/40 flex items-center justify-between">
+        <p className="text-xs text-muted-foreground font-medium">
+          FinanceAI v5.0
         </p>
+        <NotificationsPanel />
       </div>
     </aside>
   );

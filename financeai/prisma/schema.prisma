@@ -48,3 +48,69 @@ model UserSettings {
   currency String @default("IDR")
   theme    String @default("system")
 }
+
+model Budget {
+  id        String   @id @default(cuid())
+  userId    String
+  category  String
+  amount    Float
+  month     String   // Format: YYYY-MM
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, category, month])
+  @@index([userId, month])
+}
+
+model SavingGoal {
+  id            String    @id @default(cuid())
+  userId        String
+  title         String
+  targetAmount  Float
+  currentAmount Float     @default(0)
+  targetDate    DateTime?
+  description   String?
+  status        String    @default("ACTIVE") // ACTIVE, COMPLETED
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([userId])
+}
+
+model RecurringExpense {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  amount    Float
+  category  String
+  interval  String   // DAILY, WEEKLY, MONTHLY, YEARLY
+  nextDate  DateTime
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([userId, active])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      String   // ALERT, SUCCESS, INFO, WARNING
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId, read])
+}
+
+model Achievement {
+  id         String   @id @default(cuid())
+  userId     String
+  badgeType  String   // FIRST_EXPENSE, UNDER_BUDGET, etc.
+  unlockedAt DateTime @default(now())
+
+  @@unique([userId, badgeType])
+  @@index([userId])
+}

@@ -3,18 +3,22 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import {
-  LayoutDashboard,
-  Receipt,
-  BarChart3,
-  Settings,
+import { 
+  BarChart3, 
+  LayoutDashboard, 
+  Menu, 
+  Receipt, 
+  Settings, 
   Wallet,
-  Menu,
   Sparkles,
   Scan,
   Lightbulb,
   MessageSquare,
   FileText,
+  Target,
+  Repeat,
+  CalendarDays,
+  PieChart
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
@@ -22,11 +26,15 @@ import { useState } from "react";
 
 const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/insights", label: "AI Insights", icon: Lightbulb },
-  { href: "/chat", label: "Ask AI", icon: MessageSquare },
   { href: "/ai", label: "AI Input", icon: Sparkles },
   { href: "/receipts", label: "Receipt Scanner", icon: Scan },
   { href: "/expenses", label: "Expenses", icon: Receipt },
+  { href: "/budgets", label: "Budgets", icon: PieChart },
+  { href: "/goals", label: "Savings Goals", icon: Target },
+  { href: "/recurring", label: "Recurring", icon: Repeat },
+  { href: "/calendar", label: "Calendar", icon: CalendarDays },
+  { href: "/insights", label: "AI Insights", icon: Lightbulb },
+  { href: "/chat", label: "Ask AI", icon: MessageSquare },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/reports", label: "Monthly Report", icon: FileText },
   { href: "/settings", label: "Settings", icon: Settings },
