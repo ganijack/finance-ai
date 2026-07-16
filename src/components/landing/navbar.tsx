@@ -78,8 +78,9 @@ export function LandingNavbar() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden p-2 rounded-lg hover:bg-accent/50 transition-colors"
+            className="md:hidden p-2 rounded-lg hover:bg-accent/50 bg-white/5 text-white transition-colors flex items-center justify-center"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle Menu"
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
