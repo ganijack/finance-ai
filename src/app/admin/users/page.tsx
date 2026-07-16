@@ -1,7 +1,8 @@
 import { prisma } from "@/lib/prisma";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ShieldAlert, UserX, MoreHorizontal } from "lucide-react";
+import { ShieldAlert, UserX } from "lucide-react";
+import { UserActions } from "@/components/admin/user-actions";
 
 export const dynamic = "force-dynamic";
 
@@ -44,9 +45,7 @@ export default async function UsersManagement() {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <Button variant="ghost" size="icon" className="h-8 w-8 text-zinc-400 hover:text-white hover:bg-zinc-700">
-                        <MoreHorizontal className="h-4 w-4" />
-                      </Button>
+                      <UserActions userId={u.id} email={u.email} role={u.role} />
                     </td>
                   </tr>
                 ))}
@@ -61,13 +60,6 @@ export default async function UsersManagement() {
                 )}
               </tbody>
             </table>
-          </div>
-          
-          <div className="mt-6 bg-amber-500/10 border border-amber-500/20 rounded-lg p-4 flex gap-3 text-amber-500/90 text-sm">
-            <ShieldAlert className="h-5 w-5 shrink-0" />
-            <p>
-              <strong>Note:</strong> Role management is currently handled manually via Prisma Studio. To grant Admin access, open Prisma Studio and change the role column to <code>ADMIN</code>.
-            </p>
           </div>
         </CardContent>
       </Card>
