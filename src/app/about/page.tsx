@@ -16,7 +16,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             
             {/* Creator Profile - Sticky on Desktop */}
-            <div className="lg:col-span-4 lg:sticky lg:top-32 order-2 lg:order-1 flex flex-col items-center">
+            <div className="lg:col-span-4 lg:sticky lg:top-32 flex flex-col items-center mb-8 lg:mb-0">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -77,7 +77,7 @@ export default function AboutPage() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="lg:col-span-8 order-1 lg:order-2"
+              className="lg:col-span-8"
             >
               <article className="prose prose-invert prose-lg max-w-none">
                 <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
