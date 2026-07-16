@@ -136,7 +136,7 @@ export default function GoalsPage() {
         <Card className="md:col-span-1 border-border/40 shadow-sm h-fit">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
-              <Plus className="h-5 w-5 text-indigo-500" />
+              <Plus className="h-5 w-5 text-zinc-500" />
               New Goal
             </CardTitle>
             <CardDescription>What are you saving for?</CardDescription>
@@ -161,7 +161,7 @@ export default function GoalsPage() {
                 <label className="text-sm font-medium">Target Date (Optional)</label>
                 <Input type="date" value={targetDate} onChange={e => setTargetDate(e.target.value)} />
               </div>
-              <Button type="submit" className="w-full bg-gradient-to-r from-violet-600 to-indigo-600">Create Goal</Button>
+              <Button type="submit" className="w-full bg-gradient-to-r from-violet-600 to-zinc-600">Create Goal</Button>
             </form>
           </CardContent>
         </Card>
@@ -183,7 +183,7 @@ export default function GoalsPage() {
                 const isCompleted = percent >= 100;
                 
                 return (
-                  <Card key={goal.id} className={`border-border/40 shadow-sm overflow-hidden ${isCompleted ? 'bg-indigo-500/5 border-indigo-500/20' : ''}`}>
+                  <Card key={goal.id} className={`border-border/40 shadow-sm overflow-hidden ${isCompleted ? 'bg-zinc-500/5 border-zinc-500/20' : ''}`}>
                     <CardHeader className="pb-2">
                       <div className="flex justify-between items-start">
                         <div>
@@ -219,12 +219,12 @@ export default function GoalsPage() {
                     </CardHeader>
                     <CardContent className="pb-2">
                       <div className="flex justify-between text-sm mb-2">
-                        <span className="font-medium text-indigo-600 dark:text-indigo-400">{formatCurrency(goal.currentAmount)}</span>
+                        <span className="font-medium text-zinc-600 dark:text-zinc-400">{formatCurrency(goal.currentAmount)}</span>
                         <span className="text-muted-foreground">of {formatCurrency(goal.targetAmount)}</span>
                       </div>
                       <div className="h-2.5 rounded-full bg-muted overflow-hidden">
                         <div 
-                          className={`h-full transition-all duration-1000 ${isCompleted ? 'bg-gradient-to-r from-yellow-400 to-yellow-600' : 'bg-gradient-to-r from-violet-500 to-indigo-500'}`} 
+                          className={`h-full transition-all duration-1000 ${isCompleted ? 'bg-gradient-to-r from-yellow-400 to-yellow-600' : 'bg-gradient-to-r from-violet-500 to-zinc-500'}`} 
                           style={{ width: `${percent}%` }} 
                         />
                       </div>
@@ -266,7 +266,7 @@ export default function GoalsPage() {
             </div>
             <DialogFooter>
               <Button type="button" variant="outline" onClick={() => setIsAddFundsOpen(false)}>Cancel</Button>
-              <Button type="submit" className="bg-indigo-600 hover:bg-indigo-700">Add Funds</Button>
+              <Button type="submit" className="bg-zinc-600 hover:bg-zinc-700">Add Funds</Button>
             </DialogFooter>
           </form>
         </DialogContent>

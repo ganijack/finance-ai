@@ -18,7 +18,7 @@ function DashboardMockup() {
       className="relative w-full max-w-xl mx-auto"
     >
       {/* Floating glow */}
-      <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-3xl" />
+      <div className="absolute -inset-4 bg-gradient-to-r from-zinc-500/20 via-zinc-500/20 to-zinc-500/20 rounded-3xl blur-3xl" />
 
       {/* Main card */}
       <div className="relative rounded-2xl border border-border/50 bg-card/80 backdrop-blur-sm p-5 shadow-2xl">
@@ -26,8 +26,8 @@ function DashboardMockup() {
         <div className="grid grid-cols-3 gap-3 mb-4">
           {[
             { label: "Today", amount: "Rp 125.000", icon: DollarSign, color: "text-emerald-400", bg: "bg-emerald-500/10" },
-            { label: "Monthly", amount: "Rp 3.2M", icon: TrendingUp, color: "text-indigo-400", bg: "bg-indigo-500/10" },
-            { label: "Saved", amount: "Rp 850K", icon: PieChart, color: "text-purple-400", bg: "bg-purple-500/10" },
+            { label: "Monthly", amount: "Rp 3.2M", icon: TrendingUp, color: "text-zinc-400", bg: "bg-zinc-500/10" },
+            { label: "Saved", amount: "Rp 850K", icon: PieChart, color: "text-zinc-400", bg: "bg-zinc-500/10" },
           ].map((stat) => (
             <div key={stat.label} className="rounded-xl border border-border/30 bg-background/50 p-3">
               <div className={`flex h-7 w-7 items-center justify-center rounded-lg ${stat.bg} mb-2`}>
@@ -52,16 +52,16 @@ function DashboardMockup() {
                 initial={{ height: 0 }}
                 animate={{ height: `${h}%` }}
                 transition={{ duration: 0.5, delay: 0.5 + i * 0.05 }}
-                className="flex-1 rounded-t-sm bg-gradient-to-t from-indigo-500 to-indigo-400/60"
+                className="flex-1 rounded-t-sm bg-gradient-to-t from-zinc-500 to-zinc-400/60"
               />
             ))}
           </div>
         </div>
 
         {/* AI Insights card */}
-        <div className="rounded-xl border border-indigo-500/20 bg-gradient-to-r from-indigo-500/5 to-purple-500/5 p-3">
+        <div className="rounded-xl border border-zinc-500/20 bg-gradient-to-r from-zinc-500/5 to-zinc-500/5 p-3">
           <div className="flex items-center gap-2 mb-2">
-            <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600">
+            <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-br from-zinc-500 to-zinc-600">
               <Brain className="h-3 w-3 text-white" />
             </div>
             <p className="text-xs font-semibold">AI Insights</p>
@@ -95,17 +95,17 @@ export function HeroSection() {
         <motion.div
           animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
           transition={{ duration: 20, repeat: Infinity }}
-          className="absolute -top-40 -right-40 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px]"
+          className="absolute -top-40 -right-40 w-96 h-96 bg-zinc-500/10 rounded-full blur-[120px]"
         />
         <motion.div
           animate={{ scale: [1.2, 1, 1.2], rotate: [0, -90, 0] }}
           transition={{ duration: 25, repeat: Infinity }}
-          className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]"
+          className="absolute -bottom-40 -left-40 w-96 h-96 bg-zinc-500/10 rounded-full blur-[120px]"
         />
         <motion.div
           animate={{ scale: [1, 1.3, 1] }}
           transition={{ duration: 15, repeat: Infinity }}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-pink-500/5 rounded-full blur-[100px]"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-zinc-500/5 rounded-full blur-[100px]"
         />
       </div>
 
@@ -118,9 +118,9 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/5 text-sm text-indigo-400 mb-6"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-500/20 bg-zinc-500/5 text-sm text-zinc-400 mb-6"
             >
-              <span className="flex h-2 w-2 rounded-full bg-indigo-400 animate-pulse" />
+              <span className="flex h-2 w-2 rounded-full bg-zinc-400 animate-pulse" />
               Powered by AI
             </motion.div>
 
@@ -162,7 +162,7 @@ export function HeroSection() {
               className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start"
             >
               <Magnet magnetStrength={3} padding={60}>
-                <Button size="lg" asChild className="w-full sm:w-auto bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-xl shadow-indigo-500/25 border-0 h-12 px-8 text-base">
+                <Button size="lg" asChild className="w-full sm:w-auto bg-gradient-to-r from-zinc-500 to-zinc-600 hover:from-zinc-600 hover:to-zinc-700 text-white shadow-xl shadow-zinc-500/25 border-0 h-12 px-8 text-base">
                   <Link href="/register">
                     Get Started
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -170,7 +170,7 @@ export function HeroSection() {
                 </Button>
               </Magnet>
               <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 px-8 text-base group">
-                <Play className="mr-2 h-4 w-4 group-hover:text-indigo-400 transition-colors" />
+                <Play className="mr-2 h-4 w-4 group-hover:text-zinc-400 transition-colors" />
                 View Demo
               </Button>
               <Magnet magnetStrength={3} padding={60}>
@@ -191,7 +191,7 @@ export function HeroSection() {
               className="mt-10 flex items-center gap-4 justify-center lg:justify-start"
             >
               <div className="flex -space-x-2">
-                {["bg-indigo-500", "bg-purple-500", "bg-pink-500", "bg-emerald-500"].map((bg, i) => (
+                {["bg-zinc-500", "bg-zinc-500", "bg-zinc-500", "bg-emerald-500"].map((bg, i) => (
                   <div key={i} className={`h-8 w-8 rounded-full ${bg} border-2 border-background flex items-center justify-center text-[10px] text-white font-medium`}>
                     {["A", "B", "C", "D"][i]}
                   </div>

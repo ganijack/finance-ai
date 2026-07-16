@@ -63,7 +63,7 @@ export default function FeatureFlags() {
       <Card className="bg-zinc-900 border-zinc-800 text-zinc-50">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Zap className="h-5 w-5 text-indigo-500" />
+            <Zap className="h-5 w-5 text-zinc-500" />
             Active Features
           </CardTitle>
           <CardDescription className="text-zinc-400">Changes apply globally to all users immediately.</CardDescription>

@@ -143,7 +143,7 @@ export default function ScanReceiptPage() {
                     <Button variant="outline" onClick={handleReset}>
                       Choose Another
                     </Button>
-                    <Button onClick={handleScan} className="bg-gradient-to-r from-violet-600 to-indigo-600">
+                    <Button onClick={handleScan} className="bg-gradient-to-r from-violet-600 to-zinc-600">
                       <UploadCloud className="mr-2 h-4 w-4" />
                       Scan Receipt
                     </Button>
@@ -168,7 +168,7 @@ export default function ScanReceiptPage() {
         </Card>
       ) : (
         <Card className="border-border/40 shadow-xl overflow-hidden">
-          <CardHeader className="bg-gradient-to-r from-violet-600/10 to-indigo-600/10 border-b border-border/40">
+          <CardHeader className="bg-gradient-to-r from-violet-600/10 to-zinc-600/10 border-b border-border/40">
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle>Review Receipt</CardTitle>

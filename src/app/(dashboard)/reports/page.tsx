@@ -77,7 +77,7 @@ export default function ReportsPage() {
             Generate and export your AI-powered financial report.
           </p>
         </div>
-        <Button onClick={handlePrint} className="bg-gradient-to-r from-violet-600 to-indigo-600">
+        <Button onClick={handlePrint} className="bg-gradient-to-r from-violet-600 to-zinc-600">
           <Download className="mr-2 h-4 w-4" />
           Export to PDF
         </Button>
@@ -89,7 +89,7 @@ export default function ReportsPage() {
         {/* Report Header */}
         <div className="border-b pb-6 mb-6 flex justify-between items-end print:border-gray-200">
           <div>
-            <div className="flex items-center gap-2 text-indigo-600 mb-2 print:text-black">
+            <div className="flex items-center gap-2 text-zinc-600 mb-2 print:text-black">
               <FileText className="h-6 w-6" />
               <h2 className="text-2xl font-bold">FinanceAI</h2>
             </div>
@@ -106,13 +106,13 @@ export default function ReportsPage() {
 
         {/* Executive Summary */}
         <section className="mb-8">
-          <h3 className="text-xl font-bold mb-3 border-l-4 border-indigo-500 pl-3 print:border-gray-800">Executive Summary</h3>
+          <h3 className="text-xl font-bold mb-3 border-l-4 border-zinc-500 pl-3 print:border-gray-800">Executive Summary</h3>
           <p className="text-lg leading-relaxed print:text-gray-800">{insights.summaryText}</p>
         </section>
 
         {/* Key Metrics */}
         <section className="mb-8">
-          <h3 className="text-xl font-bold mb-4 border-l-4 border-indigo-500 pl-3 print:border-gray-800">Key Metrics</h3>
+          <h3 className="text-xl font-bold mb-4 border-l-4 border-zinc-500 pl-3 print:border-gray-800">Key Metrics</h3>
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 rounded-lg bg-muted/30 print:bg-gray-50 print:border print:border-gray-200">
               <p className="text-sm text-muted-foreground print:text-gray-600">Total Spent This Month</p>
@@ -127,7 +127,7 @@ export default function ReportsPage() {
 
         {/* Category Breakdown */}
         <section className="mb-8">
-          <h3 className="text-xl font-bold mb-4 border-l-4 border-indigo-500 pl-3 print:border-gray-800">Category Breakdown</h3>
+          <h3 className="text-xl font-bold mb-4 border-l-4 border-zinc-500 pl-3 print:border-gray-800">Category Breakdown</h3>
           <div className="space-y-3">
             {stats.categoryBreakdown.map((cat, i) => (
               <div key={i} className="flex items-center">
@@ -135,7 +135,7 @@ export default function ReportsPage() {
                 <div className="w-2/3 flex items-center gap-3">
                   <div className="h-4 flex-1 bg-muted rounded-sm overflow-hidden print:bg-gray-200">
                     <div 
-                      className="h-full bg-indigo-500 print:bg-gray-800" 
+                      className="h-full bg-zinc-500 print:bg-gray-800" 
                       style={{ width: `${cat.percentage}%` }}
                     />
                   </div>
@@ -150,7 +150,7 @@ export default function ReportsPage() {
 
         {/* AI Recommendations */}
         <section>
-          <h3 className="text-xl font-bold mb-4 border-l-4 border-indigo-500 pl-3 print:border-gray-800">Strategic Recommendations</h3>
+          <h3 className="text-xl font-bold mb-4 border-l-4 border-zinc-500 pl-3 print:border-gray-800">Strategic Recommendations</h3>
           <div className="space-y-4">
             {insights.recommendations.map((rec, i) => (
               <div key={i} className="p-4 rounded-lg border border-border/50 print:border-gray-300">

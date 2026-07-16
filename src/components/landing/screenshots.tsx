@@ -18,7 +18,7 @@ const screenshots = [
     title: "Dashboard",
     description: "Complete financial overview at a glance",
     icon: LayoutDashboard,
-    gradient: "from-indigo-500 to-blue-600",
+    gradient: "from-zinc-500 to-blue-600",
     content: (
       <div className="p-4 space-y-3">
         {/* Stat row */}
@@ -44,7 +44,7 @@ const screenshots = [
           <p className="text-[9px] font-medium mb-2">Spending Trend</p>
           <div className="flex items-end gap-0.5 h-14">
             {[35, 55, 40, 70, 50, 65, 80, 45, 60, 75, 55, 40].map((h, i) => (
-              <div key={i} className="flex-1 rounded-t-sm bg-gradient-to-t from-indigo-500 to-indigo-400/50" style={{ height: `${h}%` }} />
+              <div key={i} className="flex-1 rounded-t-sm bg-gradient-to-t from-zinc-500 to-zinc-400/50" style={{ height: `${h}%` }} />
             ))}
           </div>
         </div>
@@ -60,7 +60,7 @@ const screenshots = [
       <div className="p-4 space-y-2">
         {[
           { name: "Grab Food", cat: "Food", amount: "Rp 45.000", color: "bg-orange-400" },
-          { name: "Netflix", cat: "Subscription", amount: "Rp 54.000", color: "bg-purple-400" },
+          { name: "Netflix", cat: "Subscription", amount: "Rp 54.000", color: "bg-zinc-400" },
           { name: "Coffee Shop", cat: "Food", amount: "Rp 32.000", color: "bg-amber-400" },
           { name: "Electricity", cat: "Bills", amount: "Rp 380.000", color: "bg-blue-400" },
           { name: "Gym Monthly", cat: "Health", amount: "Rp 250.000", color: "bg-rose-400" },
@@ -83,7 +83,7 @@ const screenshots = [
     title: "AI Insights",
     description: "Smart recommendations powered by AI",
     icon: Brain,
-    gradient: "from-purple-500 to-pink-600",
+    gradient: "from-zinc-500 to-zinc-600",
     content: (
       <div className="p-4 space-y-2.5">
         {[
@@ -95,14 +95,14 @@ const screenshots = [
             key={insight.title}
             className={`rounded-lg border p-3 ${
               insight.type === "warning" ? "border-amber-500/20 bg-amber-500/5" :
-              insight.type === "tip" ? "border-indigo-500/20 bg-indigo-500/5" :
+              insight.type === "tip" ? "border-zinc-500/20 bg-zinc-500/5" :
               "border-emerald-500/20 bg-emerald-500/5"
             }`}
           >
             <div className="flex items-center gap-1.5 mb-1">
               <Brain className={`h-3 w-3 ${
                 insight.type === "warning" ? "text-amber-400" :
-                insight.type === "tip" ? "text-indigo-400" :
+                insight.type === "tip" ? "text-zinc-400" :
                 "text-emerald-400"
               }`} />
               <p className="text-[10px] font-semibold">{insight.title}</p>
@@ -142,9 +142,9 @@ const screenshots = [
         {/* Legend */}
         <div className="space-y-1.5">
           {[
-            { name: "Food & Drink", pct: "35%", color: "bg-indigo-400" },
-            { name: "Transport", pct: "25%", color: "bg-purple-400" },
-            { name: "Bills", pct: "20%", color: "bg-pink-400" },
+            { name: "Food & Drink", pct: "35%", color: "bg-zinc-400" },
+            { name: "Transport", pct: "25%", color: "bg-zinc-400" },
+            { name: "Bills", pct: "20%", color: "bg-zinc-400" },
             { name: "Other", pct: "20%", color: "bg-muted-foreground" },
           ].map((c) => (
             <div key={c.name} className="flex items-center justify-between">
@@ -165,7 +165,7 @@ export function ScreenshotsSection() {
   return (
     <section className="relative py-24 sm:py-32 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[150px]" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-zinc-500/5 rounded-full blur-[150px]" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

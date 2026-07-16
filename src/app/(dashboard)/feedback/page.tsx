@@ -50,7 +50,7 @@ export default function FeedbackPage() {
       <Card className="border-border/40 shadow-sm">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <MessageSquarePlus className="h-5 w-5 text-indigo-500" />
+            <MessageSquarePlus className="h-5 w-5 text-zinc-500" />
             Submit Feedback
           </CardTitle>
           <CardDescription>Found a bug or have a feature request? Let us know below.</CardDescription>
@@ -91,7 +91,7 @@ export default function FeedbackPage() {
               />
             </div>
 
-            <Button type="submit" disabled={isSubmitting} className="w-full bg-gradient-to-r from-violet-600 to-indigo-600">
+            <Button type="submit" disabled={isSubmitting} className="w-full bg-gradient-to-r from-violet-600 to-zinc-600">
               {isSubmitting ? "Submitting..." : (
                 <>
                   <Send className="h-4 w-4 mr-2" />

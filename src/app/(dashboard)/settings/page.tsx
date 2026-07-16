@@ -155,8 +155,8 @@ export default function SettingsPage() {
           {/* Theme */}
           <Card className="border-border/40 animate-fade-in stagger-2">
             <CardHeader className="flex flex-row items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/10">
-                <Palette className="h-5 w-5 text-purple-500" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-zinc-500/10">
+                <Palette className="h-5 w-5 text-zinc-500" />
               </div>
               <CardTitle className="text-base">Appearance</CardTitle>
             </CardHeader>

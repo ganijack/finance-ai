@@ -62,7 +62,7 @@ export function LandingNavbar() {
             <Button variant="ghost" size="sm" asChild>
               <Link href="/login">Login</Link>
             </Button>
-            <Button size="sm" asChild className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 border-0">
+            <Button size="sm" asChild className="bg-gradient-to-r from-zinc-500 to-zinc-600 hover:from-zinc-600 hover:to-zinc-700 text-white shadow-lg shadow-zinc-500/25 border-0">
               <Link href="/register">Get Started</Link>
             </Button>
           </div>

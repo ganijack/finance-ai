@@ -59,7 +59,7 @@ export function NotificationsPanel() {
       case 'ALERT': return <AlertTriangle className="h-4 w-4 text-red-500" />;
       case 'WARNING': return <AlertTriangle className="h-4 w-4 text-amber-500" />;
       case 'SUCCESS': return <CheckCircle2 className="h-4 w-4 text-green-500" />;
-      default: return <Info className="h-4 w-4 text-indigo-500" />;
+      default: return <Info className="h-4 w-4 text-zinc-500" />;
     }
   };
 
@@ -78,7 +78,7 @@ export function NotificationsPanel() {
           <SheetTitle className="flex items-center justify-between">
             Notifications
             {unreadCount > 0 && (
-              <span className="text-xs font-normal bg-indigo-500 text-white px-2 py-0.5 rounded-full">
+              <span className="text-xs font-normal bg-zinc-500 text-white px-2 py-0.5 rounded-full">
                 {unreadCount} new
               </span>
             )}

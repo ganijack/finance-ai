@@ -39,7 +39,7 @@ export default async function AdminLayout({
       {/* Admin Sidebar */}
       <aside className="w-64 fixed inset-y-0 border-r border-zinc-800 bg-zinc-900/50 flex flex-col">
         <div className="h-16 flex items-center px-6 border-b border-zinc-800 gap-3">
-          <ShieldCheck className="h-6 w-6 text-indigo-500" />
+          <ShieldCheck className="h-6 w-6 text-zinc-500" />
           <span className="font-bold tracking-tight">Admin Portal</span>
         </div>
         

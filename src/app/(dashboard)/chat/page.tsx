@@ -73,7 +73,7 @@ export default function ChatPage() {
     <div className="mx-auto max-w-4xl h-[calc(100vh-8rem)] flex flex-col animate-fade-in">
       <div className="mb-6">
         <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2">
-          <Sparkles className="h-8 w-8 text-indigo-500" />
+          <Sparkles className="h-8 w-8 text-zinc-500" />
           Ask AI
         </h1>
         <p className="text-muted-foreground mt-1">
@@ -89,7 +89,7 @@ export default function ChatPage() {
                 key={msg.id} 
                 className={`flex gap-3 max-w-[85%] ${msg.role === "user" ? "self-end flex-row-reverse" : "self-start"}`}
               >
-                <div className={`flex items-center justify-center rounded-full h-8 w-8 shrink-0 ${msg.role === "assistant" ? "bg-indigo-500/10 text-indigo-500" : "bg-muted"}`}>
+                <div className={`flex items-center justify-center rounded-full h-8 w-8 shrink-0 ${msg.role === "assistant" ? "bg-zinc-500/10 text-zinc-500" : "bg-muted"}`}>
                   {msg.role === "assistant" ? (
                     <Bot className="h-5 w-5" />
                   ) : (
@@ -116,7 +116,7 @@ export default function ChatPage() {
             
             {isLoading && (
               <div className="flex gap-3 max-w-[85%] self-start">
-                <div className="flex items-center justify-center rounded-full h-8 w-8 shrink-0 bg-indigo-500/10 text-indigo-500">
+                <div className="flex items-center justify-center rounded-full h-8 w-8 shrink-0 bg-zinc-500/10 text-zinc-500">
                   <Bot className="h-5 w-5" />
                 </div>
                 <div className="rounded-2xl px-4 py-3 text-sm bg-muted rounded-tl-sm flex items-center gap-1">
@@ -141,7 +141,7 @@ export default function ChatPage() {
             <Button 
               type="submit" 
               size="icon" 
-              className="rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 shrink-0"
+              className="rounded-full bg-gradient-to-r from-violet-600 to-zinc-600 shrink-0"
               disabled={!input.trim() || isLoading}
             >
               <Send className="h-4 w-4" />

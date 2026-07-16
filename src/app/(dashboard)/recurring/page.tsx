@@ -114,7 +114,7 @@ export default function RecurringPage() {
         <Card className="md:col-span-1 border-border/40 shadow-sm h-fit">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
-              <Plus className="h-5 w-5 text-indigo-500" />
+              <Plus className="h-5 w-5 text-zinc-500" />
               Add Recurring
             </CardTitle>
             <CardDescription>We'll log it automatically.</CardDescription>
@@ -151,7 +151,7 @@ export default function RecurringPage() {
                 <label className="text-sm font-medium">Next Due Date</label>
                 <Input type="date" value={nextDate} onChange={e => setNextDate(e.target.value)} required />
               </div>
-              <Button type="submit" className="w-full bg-gradient-to-r from-violet-600 to-indigo-600">Automate</Button>
+              <Button type="submit" className="w-full bg-gradient-to-r from-violet-600 to-zinc-600">Automate</Button>
             </form>
           </CardContent>
         </Card>

@@ -25,8 +25,8 @@ export default function SystemHealthPage() {
       title: "Server Memory",
       value: "42%",
       icon: Server,
-      color: "text-purple-500",
-      bgColor: "bg-purple-500/10",
+      color: "text-zinc-500",
+      bgColor: "bg-zinc-500/10",
     },
     {
       title: "CPU Usage",

@@ -21,7 +21,7 @@ export function ComparisonSection() {
   return (
     <section className="relative py-24 sm:py-32">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-indigo-500/5 rounded-full blur-[150px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-zinc-500/5 rounded-full blur-[150px]" />
       </div>
 
       <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -84,17 +84,17 @@ export function ComparisonSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5 }}
-            className="relative rounded-2xl border border-indigo-500/30 bg-gradient-to-br from-indigo-500/[0.05] to-purple-500/[0.05] backdrop-blur-sm p-6 sm:p-8 shadow-lg shadow-indigo-500/5"
+            className="relative rounded-2xl border border-zinc-500/30 bg-gradient-to-br from-zinc-500/[0.05] to-zinc-500/[0.05] backdrop-blur-sm p-6 sm:p-8 shadow-lg shadow-zinc-500/5"
           >
             {/* Recommended badge */}
             <div className="absolute -top-3 right-6">
-              <span className="px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg shadow-indigo-500/25">
+              <span className="px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-zinc-500 to-zinc-600 text-white shadow-lg shadow-zinc-500/25">
                 Recommended
               </span>
             </div>
 
             <div className="flex items-center gap-3 mb-6">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/25">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-zinc-500 to-zinc-600 shadow-lg shadow-zinc-500/25">
                 <Check className="h-5 w-5 text-white" />
               </div>
               <div>

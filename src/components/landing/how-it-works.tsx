@@ -9,14 +9,14 @@ const steps = [
     title: "Create Account",
     description: "Sign up in seconds with just your email. No credit card required.",
     icon: UserPlus,
-    gradient: "from-indigo-500 to-blue-600",
+    gradient: "from-zinc-500 to-blue-600",
   },
   {
     step: "02",
     title: "Record Expenses",
     description: "Type naturally, scan receipts, or manually add expenses your way.",
     icon: Receipt,
-    gradient: "from-purple-500 to-pink-600",
+    gradient: "from-zinc-500 to-zinc-600",
   },
   {
     step: "03",
@@ -38,7 +38,7 @@ export function HowItWorksSection() {
   return (
     <section id="how-it-works" className="relative py-24 sm:py-32">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[150px]" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-zinc-500/5 rounded-full blur-[150px]" />
       </div>
 
       <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,12 +50,12 @@ export function HowItWorksSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20 mb-4">
+          <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-zinc-500/10 text-zinc-400 border border-zinc-500/20 mb-4">
             How It Works
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
             Get started in{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-zinc-400 to-zinc-400 bg-clip-text text-transparent">
               4 simple steps
             </span>
           </h2>
@@ -67,7 +67,7 @@ export function HowItWorksSection() {
         {/* Timeline */}
         <div className="relative">
           {/* Vertical line */}
-          <div className="absolute left-[27px] sm:left-1/2 sm:-translate-x-px top-0 bottom-0 w-[2px] bg-gradient-to-b from-indigo-500/50 via-purple-500/50 to-amber-500/50" />
+          <div className="absolute left-[27px] sm:left-1/2 sm:-translate-x-px top-0 bottom-0 w-[2px] bg-gradient-to-b from-zinc-500/50 via-zinc-500/50 to-amber-500/50" />
 
           <div className="space-y-12">
             {steps.map((step, index) => {
