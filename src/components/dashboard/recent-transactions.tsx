@@ -46,7 +46,7 @@ export function RecentTransactions({
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-base">Recent Transactions</CardTitle>
         <Button variant="ghost" size="sm" asChild className="text-xs">
-          <Link href="/spendings">
+          <Link href="/all-transactions">
             View All
             <ArrowRight className="ml-1 h-3 w-3" />
           </Link>

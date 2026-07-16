@@ -9,7 +9,7 @@ const routeConfig: Record<string, { title: string; description?: string }> = {
   "/receipts": { title: "Receipts", description: "Manage your scanned receipts" },
   "/receipts/scan": { title: "Receipt Scanner", description: "Upload and let AI automatically extract the items" },
   "/expenses": { title: "Expenses", description: "View and manage all your expenses" },
-  "/spendings": { title: "Spendings", description: "Track your spending habits" },
+  "/all-transactions": { title: "All Transactions", description: "Track your spending habits" },
   "/budgets": { title: "Budgets", description: "Manage your monthly budgets" },
   "/goals": { title: "Savings Goals", description: "Track your financial goals" },
   "/recurring": { title: "Recurring", description: "Manage subscriptions and recurring bills" },

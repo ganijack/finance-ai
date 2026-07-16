@@ -10,7 +10,7 @@ import { Plus, ChevronLeft, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import type { Expense, DateFilter, SortField, SortOrder } from "@/types";
 
-export default function SpendingsPage() {
+export default function AllTransactionsPage() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
   const [total, setTotal] = useState(0);
@@ -173,12 +173,14 @@ export default function SpendingsPage() {
           </div>
         </div>
 
-        {/* Results count */}
-        {!loading && (
-          <p className="text-sm text-muted-foreground">
-            {total} {total === 1 ? "expense" : "expenses"} found
-          </p>
-        )}
+        <div className="flex flex-col gap-1">
+          <h1 className="text-3xl font-bold tracking-tight">All Transactions</h1>
+          {!loading && (
+            <p className="text-sm text-muted-foreground">
+              {total} {total === 1 ? "expense" : "expenses"} found
+            </p>
+          )}
+        </div>
 
         {/* Table */}
         <ExpenseTable

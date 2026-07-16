@@ -19,7 +19,8 @@ import {
   CalendarDays,
   PieChart,
   MessageSquarePlus,
-  ShieldCheck
+  ShieldCheck,
+  History
 } from "lucide-react";
 import { NotificationsPanel } from "./notifications-panel";
 import { BrandLogo } from "@/components/shared/brand-logo";
@@ -29,7 +30,7 @@ const navItems = [
   { href: "/ai", label: "AI Input", icon: Sparkles },
   { href: "/receipts", label: "Receipt Scanner", icon: Scan },
   { href: "/expenses", label: "Expenses", icon: Receipt },
-  { href: "/spendings", label: "Spendings", icon: Receipt },
+  { href: "/all-transactions", label: "All Transactions", icon: History },
   { href: "/budgets", label: "Budgets", icon: PieChart },
   { href: "/goals", label: "Savings Goals", icon: Target },
   { href: "/recurring", label: "Recurring", icon: Repeat },
