@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { AiReview } from "@/components/ai/ai-review";
 import { ParsedExpense } from "@/services/ai/parser";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function AIInputPage() {
   const [input, setInput] = useState("");
@@ -121,11 +122,32 @@ export default function AIInputPage() {
           </div>
         </motion.div>
       ) : (
-        <AiReview 
-          initialData={parsedExpenses} 
-          onCancel={() => setParsedExpenses(null)}
-          onSuccess={handleSuccess}
-        />
+        <Card className="border-border/40 shadow-xl overflow-hidden animate-in fade-in slide-in-from-bottom-4">
+          <CardHeader className="bg-gradient-to-r from-violet-600/10 to-indigo-600/10 border-b border-border/40">
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle>Review Parsed Expenses</CardTitle>
+                <CardDescription>Verify the extracted data before saving</CardDescription>
+              </div>
+              <div className="flex items-center gap-2 bg-background/50 backdrop-blur px-3 py-1.5 rounded-full border border-border/50 text-sm">
+                <span className="text-muted-foreground">AI Confidence:</span>
+                <span className={`font-semibold ${
+                  parsedExpenses.some(i => i.confidence > 0.8) ? 'text-green-500' : 
+                  parsedExpenses.some(i => i.confidence > 0.5) ? 'text-amber-500' : 'text-red-500'
+                }`}>
+                  High
+                </span>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="p-6">
+            <AiReview 
+              initialData={parsedExpenses} 
+              onCancel={() => setParsedExpenses(null)}
+              onSuccess={handleSuccess}
+            />
+          </CardContent>
+        </Card>
       )}
     </div>
   );

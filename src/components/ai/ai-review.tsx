@@ -97,14 +97,7 @@ export function AiReview({ initialData, onCancel, onSuccess }: AiReviewProps) {
   const total = items.reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
 
   return (
-    <div className="space-y-6 mt-8 animate-in fade-in slide-in-from-bottom-4">
-      <div className="flex items-center justify-between">
-        <h3 className="text-xl font-semibold">Review Parsed Expenses</h3>
-        <p className="text-muted-foreground">
-          Total: <span className="font-bold text-foreground">Rp {formatCurrency(total)}</span>
-        </p>
-      </div>
-
+    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
       <div className="rounded-md border border-border/40 bg-card overflow-x-auto">
         <Table>
           <TableHeader>
@@ -112,6 +105,7 @@ export function AiReview({ initialData, onCancel, onSuccess }: AiReviewProps) {
               <TableHead>Item</TableHead>
               <TableHead>Category</TableHead>
               <TableHead>Date</TableHead>
+              <TableHead>Notes</TableHead>
               <TableHead className="w-[120px] text-right">Amount</TableHead>
               <TableHead className="w-[80px]"></TableHead>
             </TableRow>
@@ -153,6 +147,14 @@ export function AiReview({ initialData, onCancel, onSuccess }: AiReviewProps) {
                 </TableCell>
                 <TableCell>
                   <Input 
+                    value={item.notes || ""} 
+                    onChange={(e) => handleItemChange(index, "notes", e.target.value)} 
+                    className="h-8 min-w-[120px]"
+                    placeholder="Optional"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input 
                     type="number"
                     value={item.amount} 
                     onChange={(e) => handleItemChange(index, "amount", parseFloat(e.target.value) || 0)} 
@@ -173,26 +175,29 @@ export function AiReview({ initialData, onCancel, onSuccess }: AiReviewProps) {
             ))}
           </TableBody>
         </Table>
-      </div>
-
-      <div className="flex flex-col sm:flex-row justify-between gap-4 pt-4 border-t border-border/40">
-        <Button variant="outline" onClick={handleAddItem} className="w-full sm:w-auto">
-          <Plus className="mr-2 h-4 w-4" />
-          Add Row
-        </Button>
-        <div className="flex gap-3">
-          <Button variant="ghost" onClick={onCancel} disabled={isSaving}>
-            Cancel
-          </Button>
-          <Button onClick={handleSave} disabled={isSaving || items.length === 0} className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600">
-            {isSaving ? "Saving..." : (
-              <>
-                <CheckCircle2 className="mr-2 h-4 w-4" />
-                Save {items.length} Expenses
-              </>
-            )}
+        <div className="flex items-center p-2 border-t border-border/40">
+          <Button variant="ghost" size="sm" onClick={handleAddItem} className="text-muted-foreground">
+            <Plus className="mr-2 h-4 w-4" />
+            Add Row
           </Button>
         </div>
+      </div>
+
+      <div className="flex flex-col gap-2 rounded-lg bg-muted/50 p-4">
+        <div className="flex items-center justify-between font-medium">
+          <span>Sum of Items:</span>
+          <span>{formatCurrency(total)}</span>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-end gap-3 pt-4 border-t border-border/40">
+        <Button variant="outline" onClick={onCancel} disabled={isSaving}>
+          Cancel
+        </Button>
+        <Button onClick={handleSave} disabled={isSaving || items.length === 0}>
+          <CheckCircle2 className="mr-2 h-4 w-4" />
+          {isSaving ? "Saving..." : `Save ${items.length} Expenses`}
+        </Button>
       </div>
     </div>
   );

@@ -47,7 +47,7 @@ export function ReceiptReview({ initialData, onCancel }: ReceiptReviewProps) {
   };
 
   const handleAddItem = () => {
-    setItems([...items, { title: "New Item", amount: 0, category: "Other" }]);
+    setItems([...items, { title: "New Item", amount: 0, category: "Other", notes: "" }]);
   };
 
   const handleSave = async () => {
@@ -125,6 +125,7 @@ export function ReceiptReview({ initialData, onCancel }: ReceiptReviewProps) {
             <TableRow>
               <TableHead>Item</TableHead>
               <TableHead>Category</TableHead>
+              <TableHead>Notes</TableHead>
               <TableHead className="w-[120px] text-right">Amount</TableHead>
               <TableHead className="w-[80px]"></TableHead>
             </TableRow>
@@ -158,10 +159,18 @@ export function ReceiptReview({ initialData, onCancel }: ReceiptReviewProps) {
                 </TableCell>
                 <TableCell>
                   <Input 
+                    value={item.notes || ""} 
+                    onChange={(e) => handleItemChange(index, "notes", e.target.value)} 
+                    className="h-8 min-w-[120px]"
+                    placeholder="Optional"
+                  />
+                </TableCell>
+                <TableCell>
+                  <Input 
                     type="number"
                     value={item.amount} 
                     onChange={(e) => handleItemChange(index, "amount", parseFloat(e.target.value) || 0)} 
-                    className="h-8 text-right"
+                    className="h-8 text-right min-w-[100px]"
                   />
                 </TableCell>
                 <TableCell className="text-right">
