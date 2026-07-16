@@ -36,19 +36,19 @@ export function LandingNavbar() {
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex flex-col md:flex-row items-center justify-between py-3 md:py-0 md:h-16 gap-2 md:gap-0">
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <BrandLogo />
           </Link>
 
           {/* Nav Links */}
-          <nav className="flex items-center gap-0.5 sm:gap-1">
+          <nav className="flex items-center gap-4 sm:gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="relative px-2 py-1 sm:px-3.5 sm:py-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/50"
+                className="relative px-2 py-1 sm:px-3.5 sm:py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/50"
               >
                 <span>
                   {link.label}
