@@ -1,7 +1,7 @@
 "use client";
 
 import { LandingNavbar } from "@/components/landing/navbar";
-import { Footer } from "@/components/landing/footer";
+import { LandingFooter } from "@/components/landing/footer";
 import { motion } from "framer-motion";
 import { Brain, Receipt, BarChart3, ScanLine, Sparkles, Send, Coffee } from "lucide-react";
 
@@ -239,7 +239,7 @@ export default function AIPage() {
         </div>
       </main>
 
-      <Footer />
+      <LandingFooter />
     </div>
   );
 }
