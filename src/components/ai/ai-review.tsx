@@ -18,7 +18,6 @@ import { useRouter } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CATEGORIES } from "@/lib/constants";
 import { ParsedExpense } from "@/services/ai/parser";
-import { DatePicker } from "@/components/ui/date-picker";
 import { useExpenses } from "@/hooks/use-expenses";
 import type { ExpenseFormData } from "@/types";
 
@@ -136,9 +135,10 @@ export function AiReview({ initialData, onCancel, onSuccess }: AiReviewProps) {
                   ))}
                 </SelectContent>
               </Select>
-              <DatePicker
-                date={item.date ? new Date(item.date) : undefined}
-                setDate={(newDate) => handleItemChange(index, "date", newDate ? newDate.toISOString().split('T')[0] : new Date().toISOString().split('T')[0])}
+              <Input 
+                type="date"
+                value={item.date} 
+                onChange={(e) => handleItemChange(index, "date", e.target.value)} 
                 className="h-9"
               />
             </div>
@@ -206,11 +206,12 @@ export function AiReview({ initialData, onCancel, onSuccess }: AiReviewProps) {
                   </Select>
                 </TableCell>
                 <TableCell>
-                  <DatePicker
-                date={item.date ? new Date(item.date) : undefined}
-                setDate={(newDate) => handleItemChange(index, "date", newDate ? newDate.toISOString().split('T')[0] : new Date().toISOString().split('T')[0])}
-                className="h-8"
-              />
+                  <Input 
+                    type="date"
+                    value={item.date} 
+                    onChange={(e) => handleItemChange(index, "date", e.target.value)} 
+                    className="h-8"
+                  />
                 </TableCell>
                 <TableCell>
                   <Input 

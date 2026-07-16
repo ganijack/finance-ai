@@ -18,7 +18,6 @@ import { formatCurrency } from "@/lib/utils";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { DatePicker } from "@/components/ui/date-picker";
 import { CATEGORIES } from "@/lib/constants";
 
 interface ReceiptReviewProps {
@@ -111,9 +110,11 @@ export function ReceiptReview({ initialData, onCancel }: ReceiptReviewProps) {
         </div>
         <div className="space-y-2">
           <Label htmlFor="date">Transaction Date</Label>
-          <DatePicker
-            date={date ? new Date(date) : undefined}
-            setDate={(newDate) => setDate(newDate ? newDate.toISOString().split('T')[0] : new Date().toISOString().split('T')[0])}
+          <Input 
+            id="date" 
+            type="date"
+            value={date} 
+            onChange={(e) => setDate(e.target.value)} 
           />
         </div>
       </div>
