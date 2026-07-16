@@ -98,11 +98,79 @@ export function AiReview({ initialData, onCancel, onSuccess }: AiReviewProps) {
 
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
-      <div className="rounded-md border border-border/40 bg-card overflow-x-auto">
+      {/* Mobile: Card layout */}
+      <div className="md:hidden space-y-3">
+        {items.map((item, index) => (
+          <div key={index} className="rounded-lg border border-border/40 bg-card p-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-medium text-muted-foreground">Item {index + 1}</span>
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="h-7 w-7 text-muted-foreground hover:text-destructive"
+                onClick={() => handleDeleteItem(index)}
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+            <Input 
+              value={item.title} 
+              onChange={(e) => handleItemChange(index, "title", e.target.value)} 
+              className="h-9"
+              placeholder="Item name"
+            />
+            <div className="grid grid-cols-2 gap-2">
+              <Select 
+                value={item.category.toLowerCase()} 
+                onValueChange={(value) => handleItemChange(index, "category", value)}
+              >
+                <SelectTrigger className="h-9">
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  {CATEGORIES.map(c => (
+                    <SelectItem key={c.value} value={c.value}>
+                      {c.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Input 
+                type="date"
+                value={item.date} 
+                onChange={(e) => handleItemChange(index, "date", e.target.value)} 
+                className="h-9"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              <Input 
+                value={item.notes || ""} 
+                onChange={(e) => handleItemChange(index, "notes", e.target.value)} 
+                className="h-9"
+                placeholder="Notes (optional)"
+              />
+              <Input 
+                type="number"
+                value={item.amount} 
+                onChange={(e) => handleItemChange(index, "amount", parseFloat(e.target.value) || 0)} 
+                className="h-9 text-right"
+                placeholder="Amount"
+              />
+            </div>
+          </div>
+        ))}
+        <Button variant="outline" size="sm" onClick={handleAddItem} className="w-full">
+          <Plus className="mr-2 h-4 w-4" />
+          Add Row
+        </Button>
+      </div>
+
+      {/* Desktop: Table layout */}
+      <div className="hidden md:block rounded-md border border-border/40 bg-card">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Item</TableHead>
+              <TableHead className="min-w-[180px]">Item</TableHead>
               <TableHead>Category</TableHead>
               <TableHead>Date</TableHead>
               <TableHead>Notes</TableHead>
@@ -117,7 +185,7 @@ export function AiReview({ initialData, onCancel, onSuccess }: AiReviewProps) {
                   <Input 
                     value={item.title} 
                     onChange={(e) => handleItemChange(index, "title", e.target.value)} 
-                    className="h-8 min-w-[150px]"
+                    className="h-8"
                   />
                 </TableCell>
                 <TableCell>
@@ -125,7 +193,7 @@ export function AiReview({ initialData, onCancel, onSuccess }: AiReviewProps) {
                     value={item.category.toLowerCase()} 
                     onValueChange={(value) => handleItemChange(index, "category", value)}
                   >
-                    <SelectTrigger className="h-8 min-w-[140px]">
+                    <SelectTrigger className="h-8">
                       <SelectValue placeholder="Category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -142,14 +210,14 @@ export function AiReview({ initialData, onCancel, onSuccess }: AiReviewProps) {
                     type="date"
                     value={item.date} 
                     onChange={(e) => handleItemChange(index, "date", e.target.value)} 
-                    className="h-8 min-w-[130px]"
+                    className="h-8"
                   />
                 </TableCell>
                 <TableCell>
                   <Input 
                     value={item.notes || ""} 
                     onChange={(e) => handleItemChange(index, "notes", e.target.value)} 
-                    className="h-8 min-w-[120px]"
+                    className="h-8"
                     placeholder="Optional"
                   />
                 </TableCell>
@@ -158,7 +226,7 @@ export function AiReview({ initialData, onCancel, onSuccess }: AiReviewProps) {
                     type="number"
                     value={item.amount} 
                     onChange={(e) => handleItemChange(index, "amount", parseFloat(e.target.value) || 0)} 
-                    className="h-8 text-right min-w-[100px]"
+                    className="h-8 text-right"
                   />
                 </TableCell>
                 <TableCell className="text-right">
