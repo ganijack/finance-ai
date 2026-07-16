@@ -47,7 +47,7 @@ export function UserActions({ userId, email, role }: UserActionsProps) {
   };
 
   const handleBan = async () => {
-    if (!confirm(`Are you sure you want to ban and permanently delete ${email}? This action cannot be undone.`)) {
+    if (!confirm(`Are you sure you want to ban ${email}? They will no longer be able to access their dashboard.`)) {
       return;
     }
 
@@ -62,7 +62,7 @@ export function UserActions({ userId, email, role }: UserActionsProps) {
         throw new Error(error.error || "Failed to ban user");
       }
 
-      toast.success("User has been banned and deleted");
+      toast.success("User has been banned");
       router.refresh();
     } catch (error: any) {
       toast.error(error.message);

@@ -32,6 +32,10 @@ export default async function DashboardLayout({
 
   const isAdmin = dbUser.role === "ADMIN";
 
+  if (dbUser.role === "BANNED") {
+    redirect("/forbidden");
+  }
+
   return (
     <div className="min-h-svh bg-background">
       <AnnouncementBanner />

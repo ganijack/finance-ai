@@ -15,16 +15,10 @@ export async function DELETE(
     
     if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
-    // First delete related records if not using cascade delete in DB
-    // Assuming Prisma schema handles cascading (e.g. expenses, goals) but just in case:
-    await prisma.expense.deleteMany({ where: { userId: id } });
-    await prisma.budget.deleteMany({ where: { userId: id } });
-    await prisma.savingsGoal.deleteMany({ where: { userId: id } });
-    await prisma.recurringExpense.deleteMany({ where: { userId: id } });
-
-    // Then delete the user
-    await prisma.user.delete({
-      where: { id }
+    // Soft ban the user by updating their role
+    await prisma.user.update({
+      where: { id },
+      data: { role: "BANNED" }
     });
 
     return NextResponse.json({ success: true });
