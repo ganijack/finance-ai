@@ -24,7 +24,7 @@ export default async function AdminDashboard() {
         <Card className="bg-zinc-900 border-zinc-800 text-zinc-50">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-zinc-400">Active Users</CardTitle>
-            <Users className="h-4 w-4 text-zinc-500" />
+            <Users className="h-4 w-4 text-indigo-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{totalUsers}</div>
@@ -35,7 +35,7 @@ export default async function AdminDashboard() {
         <Card className="bg-zinc-900 border-zinc-800 text-zinc-50">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-zinc-400">Receipts Processed</CardTitle>
-            <Receipt className="h-4 w-4 text-zinc-500" />
+            <Receipt className="h-4 w-4 text-indigo-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{totalReceipts}</div>
@@ -46,7 +46,7 @@ export default async function AdminDashboard() {
         <Card className="bg-zinc-900 border-zinc-800 text-zinc-50">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-zinc-400">Total Transactions</CardTitle>
-            <Activity className="h-4 w-4 text-zinc-500" />
+            <Activity className="h-4 w-4 text-indigo-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{totalExpenses}</div>
@@ -57,7 +57,7 @@ export default async function AdminDashboard() {
         <Card className="bg-zinc-900 border-zinc-800 text-zinc-50">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-zinc-400">Active AI Alerts</CardTitle>
-            <Brain className="h-4 w-4 text-zinc-500" />
+            <Brain className="h-4 w-4 text-indigo-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{activeAlerts}</div>

@@ -44,7 +44,7 @@ export default function DashboardPage() {
             <CardDescription>Recommendations based on your spending</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="bg-zinc-500/10 text-zinc-700 dark:text-zinc-400 p-4 rounded-xl text-sm border border-zinc-500/20 mb-4 flex gap-3 items-start">
+            <div className="bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 p-4 rounded-xl text-sm border border-indigo-500/20 mb-4 flex gap-3 items-start">
               <Sparkles className="h-5 w-5 shrink-0 mt-0.5" />
               <p>Your expenses are on track this month! Consider setting up a Savings Goal to accelerate your wealth building.</p>
             </div>
@@ -54,7 +54,7 @@ export default function DashboardPage() {
               <div className="grid grid-cols-2 gap-3">
                 <Link href="/budgets">
                   <Button variant="outline" className="w-full justify-start h-auto py-3">
-                    <PieChart className="h-4 w-4 mr-2 text-zinc-500" />
+                    <PieChart className="h-4 w-4 mr-2 text-indigo-500" />
                     Budgets
                   </Button>
                 </Link>

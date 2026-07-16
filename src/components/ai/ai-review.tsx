@@ -184,7 +184,7 @@ export function AiReview({ initialData, onCancel, onSuccess }: AiReviewProps) {
           <Button variant="ghost" onClick={onCancel} disabled={isSaving}>
             Cancel
           </Button>
-          <Button onClick={handleSave} disabled={isSaving || items.length === 0} className="w-full sm:w-auto bg-gradient-to-r from-zinc-600 to-zinc-600">
+          <Button onClick={handleSave} disabled={isSaving || items.length === 0} className="w-full sm:w-auto bg-gradient-to-r from-indigo-600 to-purple-600">
             {isSaving ? "Saving..." : (
               <>
                 <CheckCircle2 className="mr-2 h-4 w-4" />

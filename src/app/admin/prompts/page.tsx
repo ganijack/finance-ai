@@ -79,7 +79,7 @@ export default function PromptManager() {
                 <div>
                   <CardTitle className="text-lg flex items-center gap-2">
                     {p.name}
-                    <span className="text-xs bg-zinc-500/20 text-zinc-400 px-2 py-0.5 rounded-full border border-zinc-500/30">
+                    <span className="text-xs bg-indigo-500/20 text-indigo-400 px-2 py-0.5 rounded-full border border-indigo-500/30">
                       v{p.version}
                     </span>
                   </CardTitle>
@@ -100,7 +100,7 @@ export default function PromptManager() {
                     />
                     <div className="flex justify-end gap-2">
                       <Button variant="ghost" className="text-zinc-400 hover:text-white" onClick={() => setEditingId(null)}>Cancel</Button>
-                      <Button className="bg-zinc-600 hover:bg-zinc-700" onClick={() => handleSave(p.id)}>
+                      <Button className="bg-indigo-600 hover:bg-indigo-700" onClick={() => handleSave(p.id)}>
                         <Save className="h-4 w-4 mr-2" />
                         Save Changes
                       </Button>

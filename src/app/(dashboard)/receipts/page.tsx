@@ -88,7 +88,7 @@ export default function ReceiptsPage() {
           <Button variant="outline" size="icon" onClick={fetchReceipts} disabled={loading}>
             <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
           </Button>
-          <Button asChild className="bg-gradient-to-r from-violet-600 to-zinc-600">
+          <Button asChild className="bg-gradient-to-r from-violet-600 to-indigo-600">
             <Link href="/receipts/scan">
               <Plus className="mr-2 h-4 w-4" />
               Scan New Receipt

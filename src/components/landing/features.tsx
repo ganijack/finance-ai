@@ -25,8 +25,8 @@ const features = [
     icon: MessageSquareText,
     title: "Natural Language Input",
     description: 'Simply type: "I bought coffee for 25k." AI understands automatically.',
-    gradient: "from-zinc-500 to-blue-600",
-    glow: "shadow-zinc-500/25",
+    gradient: "from-indigo-500 to-blue-600",
+    glow: "shadow-indigo-500/25",
     spotlightColor: "rgba(99,102,241,0.08)",
   },
   {
@@ -41,8 +41,8 @@ const features = [
     icon: Brain,
     title: "AI Insights",
     description: "Receive spending analysis and personalized recommendations powered by AI.",
-    gradient: "from-zinc-500 to-zinc-600",
-    glow: "shadow-zinc-500/25",
+    gradient: "from-purple-500 to-pink-600",
+    glow: "shadow-purple-500/25",
     spotlightColor: "rgba(168,85,247,0.08)",
   },
   {
@@ -142,7 +142,7 @@ export function FeaturesSection() {
     <section id="features" className="relative py-24 sm:py-32">
       {/* Background decoration */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-zinc-500/5 rounded-full blur-[150px]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[150px]" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -154,7 +154,7 @@ export function FeaturesSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-zinc-500/10 text-zinc-400 border border-zinc-500/20 mb-4">
+          <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-4">
             Features
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">

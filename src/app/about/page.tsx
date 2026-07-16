@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-zinc-500/30">
+    <div className="min-h-screen bg-background text-foreground flex flex-col selection:bg-indigo-500/30">
       <LandingNavbar />
       
       <main className="flex-1 pt-24 pb-16 sm:pt-32 sm:pb-24">
@@ -83,7 +83,7 @@ export default function AboutPage() {
                 <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 bg-gradient-to-r from-white to-white/70 bg-clip-text text-transparent">
                   About FinanceAI
                 </h1>
-                <h2 className="text-2xl font-semibold text-zinc-400 mt-0 mb-8 border-b border-white/10 pb-4">
+                <h2 className="text-2xl font-semibold text-indigo-400 mt-0 mb-8 border-b border-white/10 pb-4">
                   Smarter Personal Finance Starts Here
                 </h2>
                 
@@ -99,7 +99,7 @@ export default function AboutPage() {
                   <div className="bg-white/5 border border-white/10 rounded-2xl p-6 my-8">
                     <h3 className="text-xl font-medium text-white mb-3">The AI-First Approach</h3>
                     <p className="m-0 text-sm md:text-base">
-                      What makes FinanceAI different is its AI-first approach. You can record transactions using natural language, such as <span className="text-zinc-300 font-medium bg-zinc-500/10 px-2 py-0.5 rounded">"Bought coffee for $5"</span>, and the system automatically understands the amount, category, and transaction type before asking for confirmation. You can also upload receipts, allowing AI-powered OCR to extract transaction details without manual input.
+                      What makes FinanceAI different is its AI-first approach. You can record transactions using natural language, such as <span className="text-indigo-300 font-medium bg-indigo-500/10 px-2 py-0.5 rounded">"Bought coffee for $5"</span>, and the system automatically understands the amount, category, and transaction type before asking for confirmation. You can also upload receipts, allowing AI-powered OCR to extract transaction details without manual input.
                     </p>
                   </div>
                   
@@ -115,7 +115,7 @@ export default function AboutPage() {
                     FinanceAI is continuously evolving. Upcoming features include AI-powered budgeting recommendations, recurring transaction automation, financial goal tracking, subscription management, and personalized spending insights that adapt to each user's financial behavior.
                   </p>
                   
-                  <div className="border-l-4 border-zinc-500 pl-4 py-1 mt-8 italic text-white/90">
+                  <div className="border-l-4 border-indigo-500 pl-4 py-1 mt-8 italic text-white/90">
                     FinanceAI isn't just another expense tracker—it's a smarter way to understand, manage, and improve your personal finances with the help of artificial intelligence.
                   </div>
                 </div>

@@ -39,7 +39,7 @@ export default async function UsersManagement() {
                     <td className="px-6 py-4 font-medium">{u.email}</td>
                     <td className="px-6 py-4 font-mono text-xs text-zinc-500">{u.id}</td>
                     <td className="px-6 py-4">
-                      <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${u.role === 'ADMIN' ? 'bg-zinc-500/20 text-zinc-400 border border-zinc-500/30' : 'bg-zinc-800 text-zinc-300 border border-zinc-700'}`}>
+                      <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${u.role === 'ADMIN' ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30' : 'bg-zinc-800 text-zinc-300 border border-zinc-700'}`}>
                         {u.role}
                       </span>
                     </td>

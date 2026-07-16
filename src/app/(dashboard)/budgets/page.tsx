@@ -99,7 +99,7 @@ export default function BudgetsPage() {
         <Card className="md:col-span-1 border-border/40 shadow-sm h-fit">
           <CardHeader>
             <CardTitle className="flex items-center gap-2 text-lg">
-              <Plus className="h-5 w-5 text-zinc-500" />
+              <Plus className="h-5 w-5 text-indigo-500" />
               Set Budget
             </CardTitle>
             <CardDescription>Allocate limits per category</CardDescription>
@@ -129,7 +129,7 @@ export default function BudgetsPage() {
                   required
                 />
               </div>
-              <Button type="submit" className="w-full bg-gradient-to-r from-violet-600 to-zinc-600">Save Budget</Button>
+              <Button type="submit" className="w-full bg-gradient-to-r from-violet-600 to-indigo-600">Save Budget</Button>
             </form>
           </CardContent>
         </Card>

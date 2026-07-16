@@ -114,11 +114,11 @@ export function LandingFooter() {
             {/* Brand */}
             <div className="col-span-2">
               <Link href="/" className="flex items-center gap-2.5 mb-4">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-zinc-500 to-zinc-600 shadow-lg shadow-zinc-500/25">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 shadow-lg shadow-indigo-500/25">
                   <Wallet className="h-4.5 w-4.5 text-white" />
                 </div>
                 <span className="text-lg font-bold tracking-tight">
-                  Finance<span className="bg-gradient-to-r from-zinc-400 to-zinc-400 bg-clip-text text-transparent">AI</span>
+                  Finance<span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">AI</span>
                 </span>
               </Link>
               <p className="text-sm text-muted-foreground max-w-xs mb-5 leading-relaxed">

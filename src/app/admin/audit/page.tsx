@@ -35,7 +35,7 @@ export default async function AuditLogs() {
               <tbody className="divide-y divide-zinc-800 bg-zinc-900/50">
                 {logs.map((log) => (
                   <tr key={log.id} className="hover:bg-zinc-800/50 transition-colors">
-                    <td className="px-6 py-4 font-semibold text-zinc-400">{log.action}</td>
+                    <td className="px-6 py-4 font-semibold text-indigo-400">{log.action}</td>
                     <td className="px-6 py-4 font-mono text-xs text-zinc-500">{log.userId}</td>
                     <td className="px-6 py-4 text-zinc-400">{log.details || "-"}</td>
                     <td className="px-6 py-4 text-right text-zinc-500 whitespace-nowrap">

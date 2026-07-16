@@ -100,12 +100,12 @@ export default function CalendarPage() {
                     onClick={() => setSelectedDate(day)}
                     className={`h-24 rounded-lg p-2 border cursor-pointer transition-all flex flex-col ${
                       isSelected 
-                        ? 'border-zinc-500 bg-zinc-500/5 ring-1 ring-zinc-500' 
-                        : 'border-border/40 hover:border-zinc-500/50 hover:bg-muted/30'
+                        ? 'border-indigo-500 bg-indigo-500/5 ring-1 ring-indigo-500' 
+                        : 'border-border/40 hover:border-indigo-500/50 hover:bg-muted/30'
                     } ${isToday(day) && !isSelected ? 'bg-muted' : ''}`}
                   >
                     <div className="flex justify-between items-start">
-                      <span className={`text-sm font-medium ${isToday(day) ? 'bg-zinc-500 text-white w-6 h-6 rounded-full flex items-center justify-center' : ''}`}>
+                      <span className={`text-sm font-medium ${isToday(day) ? 'bg-indigo-500 text-white w-6 h-6 rounded-full flex items-center justify-center' : ''}`}>
                         {format(day, dateFormat)}
                       </span>
                       {hasExpenses && (
@@ -147,8 +147,8 @@ export default function CalendarPage() {
                 selectedExpenses.map((expense) => (
                   <div key={expense.id} className="flex justify-between items-center bg-card">
                     <div className="flex items-center gap-3 overflow-hidden">
-                      <div className="bg-zinc-500/10 p-2 rounded-full shrink-0">
-                        <Receipt className="h-4 w-4 text-zinc-500" />
+                      <div className="bg-indigo-500/10 p-2 rounded-full shrink-0">
+                        <Receipt className="h-4 w-4 text-indigo-500" />
                       </div>
                       <div className="truncate">
                         <p className="font-medium text-sm truncate">{expense.title}</p>

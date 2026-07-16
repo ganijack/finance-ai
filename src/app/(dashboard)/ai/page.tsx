@@ -55,7 +55,7 @@ export default function AIInputPage() {
   return (
     <div className="space-y-8 max-w-3xl mx-auto py-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-zinc-400 to-zinc-400 bg-clip-text text-transparent">
+        <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
           AI Expense Input
         </h1>
         <p className="text-muted-foreground mt-2">
@@ -67,14 +67,14 @@ export default function AIInputPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-2xl border border-zinc-500/20 bg-card p-4 sm:p-6 shadow-lg shadow-zinc-500/5"
+          className="rounded-2xl border border-indigo-500/20 bg-card p-4 sm:p-6 shadow-lg shadow-indigo-500/5"
         >
           <div className="relative">
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder='e.g. "I bought coffee at Starbucks for 45k this morning and lunch for 60k"'
-              className="w-full min-h-[160px] p-4 sm:p-6 rounded-xl border border-border bg-background/50 text-base sm:text-lg resize-none focus:outline-none focus:ring-2 focus:ring-zinc-500/50 transition-all placeholder:text-muted-foreground/60"
+              className="w-full min-h-[160px] p-4 sm:p-6 rounded-xl border border-border bg-background/50 text-base sm:text-lg resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500/50 transition-all placeholder:text-muted-foreground/60"
               disabled={loading}
             />
             
@@ -85,7 +85,7 @@ export default function AIInputPage() {
               <Button 
                 onClick={handleAnalyze} 
                 disabled={loading || !input.trim()}
-                className="bg-gradient-to-r from-zinc-500 to-zinc-600 hover:from-zinc-600 hover:to-zinc-700 text-white shadow-md border-0"
+                className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-md border-0"
               >
                 {loading ? (
                   <>
@@ -113,7 +113,7 @@ export default function AIInputPage() {
               <button
                 key={suggestion}
                 onClick={() => setInput(suggestion)}
-                className="text-xs px-3 py-1.5 rounded-full border border-border bg-background hover:bg-accent hover:border-zinc-500/30 transition-colors"
+                className="text-xs px-3 py-1.5 rounded-full border border-border bg-background hover:bg-accent hover:border-indigo-500/30 transition-colors"
               >
                 &quot;{suggestion}&quot;
               </button>
