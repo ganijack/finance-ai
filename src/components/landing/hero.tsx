@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, TrendingUp, PieChart, Brain, DollarSign } from "lucide-react";
 import Galaxy from "@/components/Galaxy";
+import ShinyText from "@/components/ShinyText";
+import Magnet from "@/components/Magnet";
 
 function DashboardMockup() {
   return (
@@ -120,9 +122,14 @@ export function HeroSection() {
               Take Control of{" "}
               <br className="hidden sm:block" />
               Your Money with{" "}
-              <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                AI
-              </span>
+              <ShinyText
+                text="AI"
+                speed={3}
+                shineColor="#a78bfa"
+                color="#818cf8"
+                spread={90}
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold"
+              />
             </motion.h1>
 
             {/* Subtitle */}
@@ -142,22 +149,26 @@ export function HeroSection() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start"
             >
-              <Button size="lg" asChild className="w-full sm:w-auto bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-xl shadow-indigo-500/25 border-0 h-12 px-8 text-base">
-                <Link href="/register">
-                  Get Started
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
+              <Magnet magnetStrength={3} padding={60}>
+                <Button size="lg" asChild className="w-full sm:w-auto bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-xl shadow-indigo-500/25 border-0 h-12 px-8 text-base">
+                  <Link href="/register">
+                    Get Started
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </Magnet>
               <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 px-8 text-base group">
                 <Play className="mr-2 h-4 w-4 group-hover:text-indigo-400 transition-colors" />
                 View Demo
               </Button>
-              <Button size="lg" variant="outline" className="w-full sm:w-auto min-w-[160px] h-12 px-8 text-base shadow-sm group" asChild>
-                <Link href="/api/auth/demo">
-                  Try Demo
-                  <ArrowRight className="ml-2 h-4 w-4 opacity-70 group-hover:translate-x-1 transition-all" />
-                </Link>
-              </Button>
+              <Magnet magnetStrength={3} padding={60}>
+                <Button size="lg" variant="outline" className="w-full sm:w-auto min-w-[160px] h-12 px-8 text-base shadow-sm group" asChild>
+                  <Link href="/api/auth/demo">
+                    Try Demo
+                    <ArrowRight className="ml-2 h-4 w-4 opacity-70 group-hover:translate-x-1 transition-all" />
+                  </Link>
+                </Button>
+              </Magnet>
             </motion.div>
 
             {/* Social proof */}

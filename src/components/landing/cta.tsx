@@ -4,6 +4,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import Magnet from "@/components/Magnet";
+import ShinyText from "@/components/ShinyText";
 
 export function CtaSection() {
   return (
@@ -38,24 +40,33 @@ export function CtaSection() {
 
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
               Start Managing Your Money{" "}
-              <span className="bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Smarter
-              </span>
+              <ShinyText
+                text="Smarter"
+                speed={3}
+                shineColor="#f0abfc"
+                color="#a78bfa"
+                spread={90}
+                className="text-3xl sm:text-4xl font-bold"
+              />
             </h2>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-8">
               Join FinanceAI and let artificial intelligence organize your finances. Free to start, powerful to grow.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Button size="lg" asChild className="w-full sm:w-auto bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-xl shadow-indigo-500/25 border-0 h-12 px-8 text-base">
-                <Link href="/register">
-                  Create Free Account
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild className="w-full sm:w-auto h-12 px-8 text-base">
-                <Link href="/login">Login</Link>
-              </Button>
+              <Magnet magnetStrength={3} padding={60}>
+                <Button size="lg" asChild className="w-full sm:w-auto bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-xl shadow-indigo-500/25 border-0 h-12 px-8 text-base">
+                  <Link href="/register">
+                    Create Free Account
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </Magnet>
+              <Magnet magnetStrength={3} padding={60}>
+                <Button size="lg" variant="outline" asChild className="w-full sm:w-auto h-12 px-8 text-base">
+                  <Link href="/login">Login</Link>
+                </Button>
+              </Magnet>
             </div>
           </div>
         </motion.div>
