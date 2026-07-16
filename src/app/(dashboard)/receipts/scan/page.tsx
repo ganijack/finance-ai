@@ -7,7 +7,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { UploadCloud, FileImage, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { Topbar } from "@/components/layout/topbar";
 
 export default function ScanReceiptPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -93,7 +92,6 @@ export default function ScanReceiptPage() {
 
   return (
     <div className="flex flex-col min-h-full">
-      <Topbar title="Receipt Scanner" description="Upload and let AI automatically extract the items" />
       <div className="flex-1 w-full mx-auto max-w-4xl p-4 sm:p-6 space-y-6 animate-fade-in">
 
       {!parsedData ? (

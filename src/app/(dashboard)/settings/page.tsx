@@ -1,7 +1,6 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import { Topbar } from "@/components/layout/topbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -35,7 +34,6 @@ export default function SettingsPage() {
 
   return (
     <div className="flex flex-col">
-      <Topbar title="Settings" description="Manage your account preferences" />
       <div className="flex-1 p-4 sm:p-6 space-y-6 max-w-2xl">
         {/* Profile */}
         <Card className="border-border/40 animate-fade-in">

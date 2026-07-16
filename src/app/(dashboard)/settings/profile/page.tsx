@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Topbar } from "@/components/layout/topbar";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -35,7 +34,6 @@ export default function EditProfilePage() {
 
   return (
     <div className="flex flex-col">
-      <Topbar title="Edit Profile" description="Update your personal information" />
       <div className="flex-1 p-4 sm:p-6 space-y-6 max-w-2xl">
         <div className="mb-4">
           <Button variant="ghost" size="sm" asChild className="-ml-3 text-muted-foreground">

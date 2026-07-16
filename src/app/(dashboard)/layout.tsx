@@ -3,6 +3,7 @@ import { AnnouncementBanner } from "@/components/shared/announcement-banner";
 import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
+import { DashboardHeader } from "@/components/layout/dashboard-header";
 
 export const dynamic = "force-dynamic";
 
@@ -35,7 +36,8 @@ export default async function DashboardLayout({
     <div className="min-h-svh bg-background">
       <AnnouncementBanner />
       <Sidebar isAdmin={isAdmin} />
-      <main className="lg:pl-64">
+      <main className="lg:pl-64 flex flex-col min-h-screen">
+        <DashboardHeader />
         {children}
       </main>
     </div>

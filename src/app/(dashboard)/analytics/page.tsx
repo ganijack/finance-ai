@@ -13,7 +13,6 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { Topbar } from "@/components/layout/topbar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatCurrency } from "@/lib/utils";
@@ -63,10 +62,6 @@ export default function AnalyticsPage() {
 
   return (
     <div className="flex flex-col">
-      <Topbar
-        title="Analytics"
-        description="Visualize your spending patterns"
-      />
       <div className="flex-1 p-4 sm:p-6 space-y-6">
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
           {/* Category Pie Chart */}

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
-import { Topbar } from "@/components/layout/topbar";
 import { ExpenseFilters } from "@/components/expenses/expense-filters";
 import { ExpenseTable } from "@/components/expenses/expense-table";
 import { ExpenseDialog } from "@/components/expenses/expense-dialog";
@@ -146,10 +145,6 @@ export default function SpendingsPage() {
 
   return (
     <div className="flex flex-col">
-      <Topbar
-        title="All Spendings"
-        description="View your complete history from Manual Inputs, AI, and Receipt Scanner"
-      />
       <div className="flex-1 p-4 sm:p-6 space-y-4">
         {/* Toolbar */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">

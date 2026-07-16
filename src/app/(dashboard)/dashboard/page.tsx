@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Topbar } from "@/components/layout/topbar";
 import { StatCards } from "@/components/dashboard/stat-cards";
 import { SpendingChart } from "@/components/dashboard/spending-chart";
 import { CategoryChart } from "@/components/dashboard/category-chart";
@@ -38,10 +37,6 @@ export default function DashboardPage() {
 
   return (
     <div className="flex flex-col">
-      <Topbar
-        title="Dashboard"
-        description="Your financial overview at a glance"
-      />
       <div className="flex-1 p-4 sm:p-6 space-y-6">
         <Card className="col-span-full lg:col-span-1 shadow-sm border-border/40">
           <CardHeader>
