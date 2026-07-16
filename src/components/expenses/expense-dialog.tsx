@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { DatePicker } from "@/components/ui/date-picker";
 import { CATEGORIES } from "@/lib/constants";
 import { Loader2 } from "lucide-react";
 import type { Expense } from "@/types";
@@ -62,7 +63,7 @@ export function ExpenseDialog({
       setTitle("");
       setAmount("");
       setCategory("food");
-      setDate(new Date().toISOString().split("T")[0]);
+      setDate(new Date().toISOString());
       setNotes("");
     }
   }, [expense, open]);
@@ -128,12 +129,9 @@ export function ExpenseDialog({
             </div>
             <div className="space-y-2">
               <Label htmlFor="date">Date</Label>
-              <Input
-                id="date"
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                required
+              <DatePicker
+                date={date ? new Date(date) : undefined}
+                setDate={(newDate) => setDate(newDate ? newDate.toISOString() : new Date().toISOString())}
               />
             </div>
           </div>
