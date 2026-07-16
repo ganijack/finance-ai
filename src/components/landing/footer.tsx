@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Wallet, ExternalLink, MessageCircle, Mail, X } from "lucide-react";
+import { Wallet, ExternalLink, MessageCircle, Mail, X, Github, Linkedin } from "lucide-react";
 import ProfileCard from "@/components/ProfileCard";
 
 const footerLinks = {
@@ -60,20 +60,43 @@ export function LandingFooter() {
             </button>
 
             <ProfileCard
-              avatarUrl="https://avatars.githubusercontent.com/u/ganijack"
+              avatarUrl="/profile.png"
+              miniAvatarUrl="/profile.png"
               name="Thoriq Abdillah F.K."
               title="AI Engineer"
               handle="ganijack"
               status="Building FinanceAI 🚀"
-              contactText="Contact"
+              contactText="LinkedIn"
               enableTilt={true}
               behindGlowEnabled={true}
               behindGlowColor="rgba(99, 102, 241, 0.5)"
               innerGradient="linear-gradient(145deg, #3730a380 0%, #7c3aed44 100%)"
               onContactClick={() => {
-                window.location.href = "mailto:hello@financeai.com";
+                window.open("https://www.linkedin.com/in/thoriq-abdillah-falian-kusuma-433615289/", "_blank");
               }}
             />
+
+            {/* Social links */}
+            <div className="flex items-center gap-3">
+              <a
+                href="https://github.com/ganijack"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-white text-sm hover:bg-white/20 transition-colors"
+              >
+                <Github className="h-4 w-4" />
+                GitHub
+              </a>
+              <a
+                href="https://www.linkedin.com/in/thoriq-abdillah-falian-kusuma-433615289/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-blue-600/70 border border-blue-500/40 text-white text-sm hover:bg-blue-600/90 transition-colors"
+              >
+                <Linkedin className="h-4 w-4" />
+                LinkedIn
+              </a>
+            </div>
           </div>
         </div>
       )}
