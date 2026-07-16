@@ -29,7 +29,7 @@ const navItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/ai", label: "AI Input", icon: Sparkles },
   { href: "/receipts", label: "Receipt Scanner", icon: Scan },
-  { href: "/expenses", label: "Expenses", icon: Receipt },
+  { href: "/expenses", label: "Manual Input", icon: Receipt },
   { href: "/all-transactions", label: "All Transactions", icon: History },
   { href: "/budgets", label: "Budgets", icon: PieChart },
   { href: "/goals", label: "Savings Goals", icon: Target },
