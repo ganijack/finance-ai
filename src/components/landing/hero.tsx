@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, TrendingUp, PieChart, Brain, DollarSign } from "lucide-react";
-import Galaxy from "@/components/Galaxy";
+
 import ShinyText from "@/components/ShinyText";
 import Magnet from "@/components/Magnet";
 
@@ -77,25 +77,28 @@ function DashboardMockup() {
 export function HeroSection() {
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-16">
-      {/* Galaxy background */}
-      <div className="absolute inset-0 -z-10 pointer-events-none">
-        <Galaxy
-          transparent={false}
-          mouseInteraction={true}
-          mouseRepulsion={true}
-          density={1.2}
-          glowIntensity={0.4}
-          saturation={0.6}
-          hueShift={240}
-          twinkleIntensity={0.4}
-          rotationSpeed={0.03}
-          speed={0.6}
-          repulsionStrength={1.5}
+      {/* Background decorations */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.3)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.3)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black_50%,transparent_100%)]" />
+
+        {/* Gradient orbs */}
+        <motion.div
+          animate={{ scale: [1, 1.2, 1], rotate: [0, 90, 0] }}
+          transition={{ duration: 20, repeat: Infinity }}
+          className="absolute -top-40 -right-40 w-96 h-96 bg-indigo-500/10 rounded-full blur-[120px]"
+        />
+        <motion.div
+          animate={{ scale: [1.2, 1, 1.2], rotate: [0, -90, 0] }}
+          transition={{ duration: 25, repeat: Infinity }}
+          className="absolute -bottom-40 -left-40 w-96 h-96 bg-purple-500/10 rounded-full blur-[120px]"
+        />
+        <motion.div
+          animate={{ scale: [1, 1.3, 1] }}
+          transition={{ duration: 15, repeat: Infinity }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-pink-500/5 rounded-full blur-[100px]"
         />
       </div>
-
-      {/* Subtle overlay gradient so text stays readable */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
