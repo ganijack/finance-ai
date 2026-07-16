@@ -36,29 +36,53 @@ export function LandingNavbar() {
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between py-3 md:py-0 md:h-16 gap-2 md:gap-0">
-          {/* Logo */}
+        {/* Mobile: logo + login button on same row, nav below */}
+        <div className="flex md:hidden items-center justify-between h-14">
+          <Link href="/" className="flex items-center">
+            <BrandLogo />
+          </Link>
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/login">Login</Link>
+            </Button>
+            <Button size="sm" asChild className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 border-0">
+              <Link href="/register">Sign Up</Link>
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile: nav links row */}
+        <div className="flex md:hidden items-center justify-center gap-2 pb-2">
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="px-2.5 py-1 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/50"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+
+        {/* Desktop: all in one row */}
+        <div className="hidden md:flex items-center justify-between h-16">
           <Link href="/" className="flex items-center">
             <BrandLogo />
           </Link>
 
-          {/* Nav Links */}
-          <nav className="flex items-center gap-4 sm:gap-6">
+          <nav className="flex items-center gap-6">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="relative px-2 py-1 sm:px-3.5 sm:py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/50"
+                className="relative px-3.5 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/50"
               >
-                <span>
-                  {link.label}
-                </span>
+                {link.label}
               </a>
             ))}
           </nav>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="flex items-center gap-3">
             <Button variant="ghost" size="sm" asChild>
               <Link href="/login">Login</Link>
             </Button>
@@ -66,7 +90,6 @@ export function LandingNavbar() {
               <Link href="/register">Get Started</Link>
             </Button>
           </div>
-
         </div>
       </div>
     </motion.header>
