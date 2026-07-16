@@ -61,7 +61,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <div className="relative flex min-h-screen flex-col overflow-x-hidden w-full max-w-[100vw]">
+            {children}
+          </div>
           <Toaster richColors position="top-right" />
         </ThemeProvider>
       </body>
