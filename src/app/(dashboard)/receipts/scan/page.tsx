@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { UploadCloud, FileImage, Loader2 } from "lucide-react";
 import { toast } from "sonner";
+import { Topbar } from "@/components/layout/topbar";
 
 export default function ScanReceiptPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -91,13 +92,9 @@ export default function ScanReceiptPage() {
   };
 
   return (
-    <div className="mx-auto max-w-4xl space-y-6 animate-fade-in">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">AI Receipt Scanner</h1>
-        <p className="text-muted-foreground mt-2">
-          Upload a receipt and let Gemini automatically extract the items, store, and total.
-        </p>
-      </div>
+    <div className="flex flex-col min-h-full">
+      <Topbar title="Receipt Scanner" description="Upload and let AI automatically extract the items" />
+      <div className="flex-1 w-full mx-auto max-w-4xl p-4 sm:p-6 space-y-6 animate-fade-in">
 
       {!parsedData ? (
         <Card className="border-border/40 shadow-xl overflow-hidden">
@@ -195,6 +192,7 @@ export default function ScanReceiptPage() {
           </CardContent>
         </Card>
       )}
+      </div>
     </div>
   );
 }
