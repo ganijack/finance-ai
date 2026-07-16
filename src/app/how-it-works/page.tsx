@@ -118,14 +118,12 @@ export default function AIPage() {
               <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 blur-2xl -z-10 rounded-3xl" />
               
               <div className="relative aspect-[3/4] bg-background rounded-xl border border-border overflow-hidden flex items-center justify-center group">
-                {/* Simulated Receipt */}
-                <div className="w-48 bg-white/5 p-4 rounded text-[10px] font-mono text-muted-foreground border-t-[10px] border-emerald-500/50 shadow-2xl">
-                  <div className="text-center font-bold mb-4 text-foreground/80">Kopi Senja</div>
-                  <div className="flex justify-between mb-1"><span>Iced Latte</span><span>35,000</span></div>
-                  <div className="flex justify-between mb-1"><span>Pastry</span><span>25,000</span></div>
-                  <div className="border-t border-dashed border-border my-2" />
-                  <div className="flex justify-between font-bold text-foreground"><span>TOTAL</span><span>60,000</span></div>
-                </div>
+                {/* Real Receipt Image */}
+                <img
+                  src="/struk.jpg"
+                  alt="Receipt"
+                  className="absolute inset-0 w-full h-full object-cover object-top opacity-90"
+                />
                 {/* Scanning Overlay */}
                 <div className="absolute inset-0 bg-emerald-500/5 group-hover:bg-emerald-500/10 transition-colors pointer-events-none" />
                 <motion.div 
