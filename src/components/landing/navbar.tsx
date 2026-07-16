@@ -16,7 +16,6 @@ const navLinks = [
 
 export function LandingNavbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -43,24 +42,16 @@ export function LandingNavbar() {
             <BrandLogo />
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          {/* Nav Links */}
+          <nav className="flex items-center gap-0.5 sm:gap-1">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                target={link.external ? "_blank" : undefined}
-                rel={link.external ? "noopener noreferrer" : undefined}
-                className="relative px-3.5 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/50"
+                className="relative px-2 py-1 sm:px-3.5 sm:py-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/50"
               >
-                <span className="flex items-center gap-1.5">
-                  {link.external && <ExternalLink className="h-3.5 w-3.5" />}
+                <span>
                   {link.label}
-                  {link.badge && (
-                    <span className="px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-                      {link.badge}
-                    </span>
-                  )}
                 </span>
               </a>
             ))}
@@ -76,52 +67,8 @@ export function LandingNavbar() {
             </Button>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-accent/50 bg-white/5 text-white transition-colors flex items-center justify-center"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle Menu"
-          >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
         </div>
       </div>
-
-      {/* Mobile Menu */}
-      {mobileOpen && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border/50"
-        >
-          <div className="px-4 py-4 space-y-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className="block px-3 py-2.5 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-accent/50 transition-colors"
-              >
-                {link.label}
-                {link.badge && (
-                  <span className="ml-2 px-1.5 py-0.5 text-[10px] font-medium rounded-full bg-indigo-500/10 text-indigo-400">
-                    {link.badge}
-                  </span>
-                )}
-              </a>
-            ))}
-            <div className="pt-2 flex flex-col gap-2">
-              <Button variant="outline" asChild className="w-full">
-                <Link href="/login">Login</Link>
-              </Button>
-              <Button asChild className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-0">
-                <Link href="/register">Get Started</Link>
-              </Button>
-            </div>
-          </div>
-        </motion.div>
-      )}
     </motion.header>
   );
 }
