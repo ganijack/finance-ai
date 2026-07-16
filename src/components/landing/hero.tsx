@@ -4,7 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play, TrendingUp, PieChart, Brain, DollarSign } from "lucide-react";
-import Galaxy from "@/components/ui/galaxy";
+import Galaxy from "@/components/Galaxy";
 
 function DashboardMockup() {
   return (
