@@ -7,6 +7,7 @@ import { ArrowRight, Play, TrendingUp, PieChart, Brain, DollarSign } from "lucid
 
 import ShinyText from "@/components/ShinyText";
 import Magnet from "@/components/Magnet";
+import Squares from "@/components/Squares";
 
 function DashboardMockup() {
   return (
@@ -79,8 +80,16 @@ export function HeroSection() {
     <section className="relative min-h-screen flex items-center overflow-hidden pt-16">
       {/* Background decorations */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--border)/0.3)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--border)/0.3)_1px,transparent_1px)] bg-[size:60px_60px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black_50%,transparent_100%)]" />
+        {/* Squares Background */}
+        <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,black_50%,transparent_100%)]">
+          <Squares 
+            direction="diagonal"
+            speed={0.5}
+            squareSize={40}
+            borderColor="hsl(var(--border) / 0.2)"
+            hoverFillColor="hsl(var(--primary) / 0.05)"
+          />
+        </div>
 
         {/* Gradient orbs */}
         <motion.div
