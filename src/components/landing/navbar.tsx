@@ -9,9 +9,9 @@ import { Menu, X, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "AI", href: "#how-it-works" },
-  { label: "Pricing", href: "#", badge: "Soon" },
+  { label: "Features", href: "/#features" },
+  { label: "AI", href: "/#how-it-works" },
+  { label: "About", href: "/about" },
 ];
 
 export function LandingNavbar() {
