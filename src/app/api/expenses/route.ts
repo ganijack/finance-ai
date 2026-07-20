@@ -130,10 +130,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Get user's currency setting
+    const settings = await prisma.userSettings.findUnique({
+      where: { userId: user.id },
+    });
+    const userCurrency = settings?.currency || "IDR";
+
     const expense = await prisma.expense.create({
       data: {
         title,
         amount: Number(amount),
+        currency: userCurrency,
         category,
         date: new Date(date),
         notes,

@@ -5,10 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { formatCurrency } from "@/lib/utils";
+import { } from "@/lib/utils";
 import { Plus, Target, TrendingUp, AlertTriangle } from "lucide-react";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useCurrency } from "@/components/providers/currency-provider";
 
 const CATEGORIES = [
   "Food", "Drink", "Transportation", "Shopping", "Entertainment",
@@ -16,6 +17,7 @@ const CATEGORIES = [
 ];
 
 export default function BudgetsPage() {
+  const { format } = useCurrency();
   const [budgets, setBudgets] = useState<any[]>([]);
   const [expenses, setExpenses] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -176,8 +178,8 @@ export default function BudgetsPage() {
                     </CardHeader>
                     <CardContent>
                       <div className="flex justify-between text-sm mb-2">
-                        <span className="text-muted-foreground">Spent: {formatCurrency(spent)}</span>
-                        <span className="font-medium">Limit: {formatCurrency(budget.amount)}</span>
+                        <span className="text-muted-foreground">Spent: {format(spent)}</span>
+                        <span className="font-medium">Limit: {format(budget.amount)}</span>
                       </div>
                       <div className="h-2 rounded-full bg-muted overflow-hidden">
                         <div className={`h-full ${colorClass} transition-all duration-500`} style={{ width: `${Math.min(percent, 100)}%` }} />

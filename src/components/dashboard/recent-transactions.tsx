@@ -5,7 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { formatCurrency, formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
+import { useCurrency } from "@/components/providers/currency-provider";
 import { getCategoryConfig } from "@/lib/constants";
 import { ArrowRight } from "lucide-react";
 import type { Expense, ExpenseCategory } from "@/types";
@@ -19,6 +20,7 @@ export function RecentTransactions({
   expenses,
   loading,
 }: RecentTransactionsProps) {
+  const { format } = useCurrency();
   if (loading) {
     return (
       <Card className="border-border/40">
@@ -93,7 +95,7 @@ export function RecentTransactions({
                     </div>
                   </div>
                   <p className="text-sm font-semibold tabular-nums">
-                    -{formatCurrency(expense.amount)}
+                    -{format(expense.amount)}
                   </p>
                 </div>
               );

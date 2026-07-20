@@ -5,10 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { formatCurrency } from "@/lib/utils";
+import { } from "@/lib/utils";
 import { Plus, Repeat, Calendar, CheckCircle2, XCircle } from "lucide-react";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useCurrency } from "@/components/providers/currency-provider";
 
 const CATEGORIES = [
   "Food", "Drink", "Transportation", "Shopping", "Entertainment",
@@ -18,6 +19,7 @@ const CATEGORIES = [
 const INTERVALS = ["DAILY", "WEEKLY", "MONTHLY", "YEARLY"];
 
 export default function RecurringPage() {
+  const { format } = useCurrency();
   const [recurring, setRecurring] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   
@@ -179,7 +181,7 @@ export default function RecurringPage() {
                         </p>
                       </div>
                       <div className="text-right">
-                        <span className="font-bold text-lg">{formatCurrency(item.amount)}</span>
+                        <span className="font-bold text-lg">{format(item.amount)}</span>
                         <p className="text-xs text-muted-foreground lowercase">/{item.interval}</p>
                       </div>
                     </div>

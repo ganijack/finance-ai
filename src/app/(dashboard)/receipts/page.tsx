@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { formatCurrency, formatDateShort } from "@/lib/utils";
+import { formatDateShort } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,6 +23,7 @@ import { Badge } from "@/components/ui/badge";
 import { Receipt, FileText, Plus, RefreshCw, Trash2 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
+import { useCurrency } from "@/components/providers/currency-provider";
 
 type ReceiptWithExpenses = {
   id: string;
@@ -34,6 +35,7 @@ type ReceiptWithExpenses = {
 };
 
 export default function ReceiptsPage() {
+  const { format } = useCurrency();
   const [receipts, setReceipts] = useState<ReceiptWithExpenses[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -161,7 +163,7 @@ export default function ReceiptsPage() {
                       </Badge>
                     </TableCell>
                     <TableCell className="text-right font-semibold">
-                      {formatCurrency(receipt.total || 0)}
+                      {format(receipt.total || 0)}
                     </TableCell>
                     <TableCell>
                       <Button

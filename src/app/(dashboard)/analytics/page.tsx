@@ -15,11 +15,13 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { formatCurrency } from "@/lib/utils";
+import { } from "@/lib/utils";
 import { CATEGORY_COLORS, getCategoryConfig } from "@/lib/constants";
 import type { CategoryBreakdown, ExpenseCategory, MonthlyTrend } from "@/types";
+import { useCurrency } from "@/components/providers/currency-provider";
 
 export default function AnalyticsPage() {
+  const { format } = useCurrency();
   const [categoryData, setCategoryData] = useState<CategoryBreakdown[]>([]);
   const [monthlyData, setMonthlyData] = useState<MonthlyTrend[]>([]);
   const [loading, setLoading] = useState(true);
@@ -121,7 +123,7 @@ export default function AnalyticsPage() {
                                     {config.label}
                                   </p>
                                   <p className="text-sm font-semibold">
-                                    {formatCurrency(item.amount)}
+                                    {format(item.amount)}
                                   </p>
                                   <p className="text-xs text-muted-foreground">
                                     {item.percentage.toFixed(1)}% of total
@@ -188,7 +190,7 @@ export default function AnalyticsPage() {
                                   {label}
                                 </p>
                                 <p className="text-sm font-semibold">
-                                  {formatCurrency(
+                                  {format(
                                     payload[0].value as number
                                   )}
                                 </p>
@@ -259,7 +261,7 @@ export default function AnalyticsPage() {
                       </div>
                       <div className="text-right">
                         <p className="text-sm font-semibold tabular-nums">
-                          {formatCurrency(item.amount)}
+                          {format(item.amount)}
                         </p>
                         <p className="text-xs text-muted-foreground">
                           {item.percentage.toFixed(1)}%

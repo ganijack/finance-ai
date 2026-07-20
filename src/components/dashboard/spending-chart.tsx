@@ -11,7 +11,8 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { formatCurrency, formatDateShort } from "@/lib/utils";
+import { formatDateShort } from "@/lib/utils";
+import { useCurrency } from "@/components/providers/currency-provider";
 import type { MonthlyTrend } from "@/types";
 
 interface SpendingChartProps {
@@ -20,6 +21,7 @@ interface SpendingChartProps {
 }
 
 export function SpendingChart({ data, loading }: SpendingChartProps) {
+  const { format } = useCurrency();
   if (loading) {
     return (
       <Card className="border-border/40">
@@ -80,7 +82,7 @@ export function SpendingChart({ data, loading }: SpendingChartProps) {
                           {label ? formatDateShort(label as string) : ""}
                         </p>
                         <p className="text-sm font-semibold">
-                          {formatCurrency(payload[0].value as number)}
+                          {format(payload[0].value as number)}
                         </p>
                       </div>
                     );

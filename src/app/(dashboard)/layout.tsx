@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
 import { DashboardHeader } from "@/components/layout/dashboard-header";
+import { DashboardProviders } from "@/components/providers/dashboard-providers";
 
 export const dynamic = "force-dynamic";
 
@@ -42,7 +43,9 @@ export default async function DashboardLayout({
       <Sidebar isAdmin={isAdmin} />
       <main className="lg:pl-64 flex flex-col min-h-screen">
         <DashboardHeader />
-        {children}
+        <DashboardProviders>
+          {children}
+        </DashboardProviders>
       </main>
     </div>
   );

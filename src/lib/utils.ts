@@ -1,17 +1,18 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { CURRENCY } from "./constants";
+import { getCurrencyByCode } from "./currencies";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat(CURRENCY.locale, {
+export function formatCurrency(amount: number, currencyCode: string = "IDR"): string {
+  const currencyInfo = getCurrencyByCode(currencyCode);
+  return new Intl.NumberFormat(currencyInfo.locale, {
     style: "currency",
-    currency: CURRENCY.code,
+    currency: currencyInfo.code,
     minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
+    maximumFractionDigits: ["IDR", "JPY", "KRW", "VND"].includes(currencyInfo.code) ? 0 : 2,
   }).format(amount);
 }
 

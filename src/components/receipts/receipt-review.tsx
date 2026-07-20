@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/table";
 import { ParsedReceipt, ReceiptItem } from "@/services/ai/receipt";
 import { Plus, Trash2, CheckCircle2, AlertTriangle } from "lucide-react";
-import { formatCurrency } from "@/lib/utils";
+import { useCurrency } from "@/components/providers/currency-provider";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -31,6 +31,7 @@ export function ReceiptReview({ initialData, onCancel }: ReceiptReviewProps) {
   const [date, setDate] = useState(initialData.date);
   const [items, setItems] = useState<ReceiptItem[]>(initialData.items);
   const [isSaving, setIsSaving] = useState(false);
+  const { format } = useCurrency();
 
   const calculateTotal = () => {
     return items.reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
@@ -258,12 +259,12 @@ export function ReceiptReview({ initialData, onCancel }: ReceiptReviewProps) {
       <div className="flex flex-col gap-2 rounded-lg bg-muted/50 p-4">
         <div className="flex items-center justify-between font-medium">
           <span>Sum of Items:</span>
-          <span>{formatCurrency(computedTotal)}</span>
+          <span>{format(computedTotal)}</span>
         </div>
         {hasDiscrepancy && (
           <div className="flex items-center gap-2 text-sm text-amber-500">
             <AlertTriangle className="h-4 w-4" />
-            <span>AI detected a total of {formatCurrency(initialData.total)} on the receipt. Please verify the items above.</span>
+            <span>AI detected a total of {format(initialData.total)} on the receipt. Please verify the items above.</span>
           </div>
         )}
       </div>

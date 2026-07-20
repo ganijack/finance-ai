@@ -17,15 +17,38 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
+import { Loader2, Search, Check } from "lucide-react";
+import { CURRENCIES, getPopularCurrencies, getOtherCurrencies, type CurrencyInfo } from "@/lib/currencies";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [currency, setCurrency] = useState("IDR");
+  const [currencySearch, setCurrencySearch] = useState("");
+  const [currencyOpen, setCurrencyOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const supabase = createClient();
+
+  const selectedCurrency = CURRENCIES.find(c => c.code === currency) || CURRENCIES[0];
+
+  const filteredPopular = getPopularCurrencies().filter(c =>
+    currencySearch === "" ||
+    c.name.toLowerCase().includes(currencySearch.toLowerCase()) ||
+    c.code.toLowerCase().includes(currencySearch.toLowerCase())
+  );
+
+  const filteredOther = getOtherCurrencies().filter(c =>
+    currencySearch === "" ||
+    c.name.toLowerCase().includes(currencySearch.toLowerCase()) ||
+    c.code.toLowerCase().includes(currencySearch.toLowerCase())
+  );
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -48,6 +71,17 @@ export default function RegisterPage() {
         return;
       }
 
+      // Save currency preference
+      try {
+        await fetch("/api/settings", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ currency }),
+        });
+      } catch {
+        // Non-critical, settings will default to IDR
+      }
+
       toast.success("Account created! Redirecting...");
       router.push("/dashboard");
       router.refresh();
@@ -57,6 +91,28 @@ export default function RegisterPage() {
       setLoading(false);
     }
   };
+
+  const renderCurrencyItem = (c: CurrencyInfo) => (
+    <button
+      key={c.code}
+      type="button"
+      onClick={() => {
+        setCurrency(c.code);
+        setCurrencyOpen(false);
+        setCurrencySearch("");
+      }}
+      className="flex items-center gap-3 w-full px-3 py-2 text-left text-sm rounded-lg hover:bg-accent/50 transition-colors"
+    >
+      <span className="text-lg">{c.flag}</span>
+      <div className="flex-1 min-w-0">
+        <p className="font-medium truncate">{c.code}</p>
+        <p className="text-xs text-muted-foreground truncate">{c.name}</p>
+      </div>
+      {currency === c.code && (
+        <Check className="h-4 w-4 text-primary shrink-0" />
+      )}
+    </button>
+  );
 
   return (
     <Card className="border-border/40 shadow-xl">
@@ -110,6 +166,63 @@ export default function RegisterPage() {
               autoComplete="new-password"
               minLength={6}
             />
+          </div>
+
+          {/* Currency Selector */}
+          <div className="space-y-2">
+            <Label>Currency</Label>
+            <Popover open={currencyOpen} onOpenChange={setCurrencyOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full justify-start font-normal"
+                >
+                  <span className="text-lg mr-2">{selectedCurrency.flag}</span>
+                  <span className="font-medium">{selectedCurrency.code}</span>
+                  <span className="text-muted-foreground ml-2 truncate">
+                    — {selectedCurrency.name}
+                  </span>
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[320px] p-0" align="start">
+                <div className="p-3 border-b border-border/40">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Search currency..."
+                      value={currencySearch}
+                      onChange={(e) => setCurrencySearch(e.target.value)}
+                      className="pl-9 h-9"
+                    />
+                  </div>
+                </div>
+                <div className="max-h-[280px] overflow-y-auto p-2">
+                  {filteredPopular.length > 0 && (
+                    <>
+                      <p className="px-3 py-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                        Popular
+                      </p>
+                      {filteredPopular.map(renderCurrencyItem)}
+                    </>
+                  )}
+                  {filteredOther.length > 0 && (
+                    <>
+                      <div className="my-2 border-t border-border/40" />
+                      <p className="px-3 py-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                        All Currencies
+                      </p>
+                      {filteredOther.map(renderCurrencyItem)}
+                    </>
+                  )}
+                  {filteredPopular.length === 0 && filteredOther.length === 0 && (
+                    <p className="text-center text-sm text-muted-foreground py-4">
+                      No currency found
+                    </p>
+                  )}
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">

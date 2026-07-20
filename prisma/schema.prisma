@@ -9,18 +9,21 @@ datasource db {
 }
 
 model Expense {
-  id        String   @id @default(cuid())
-  title     String
-  amount    Float
-  category  String
-  date      DateTime
-  notes     String?
-  userId    String
-  receiptId String?
-  receipt   Receipt? @relation(fields: [receiptId], references: [id], onDelete: SetNull)
-  source    String   @default("MANUAL") // MANUAL, AI, RECEIPT
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id               String   @id @default(cuid())
+  title            String
+  amount           Float
+  currency         String   @default("IDR")
+  originalAmount   Float?
+  originalCurrency String?
+  category         String
+  date             DateTime
+  notes            String?
+  userId           String
+  receiptId        String?
+  receipt          Receipt? @relation(fields: [receiptId], references: [id], onDelete: SetNull)
+  source           String   @default("MANUAL") // MANUAL, AI, RECEIPT
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
   @@index([userId])
   @@index([userId, date])

@@ -108,9 +108,3 @@ export const CATEGORY_COLORS: Record<ExpenseCategory, string> = {
 export const getCategoryConfig = (category: ExpenseCategory) => {
   return CATEGORIES.find((c) => c.value === category) || CATEGORIES[9];
 };
-
-export const CURRENCY = {
-  code: "IDR",
-  symbol: "Rp",
-  locale: "id-ID",
-};

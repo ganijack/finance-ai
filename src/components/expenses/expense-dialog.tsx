@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/select";
 import { CATEGORIES } from "@/lib/constants";
 import { Loader2 } from "lucide-react";
+import { useCurrency } from "@/components/providers/currency-provider";
 import type { Expense } from "@/types";
 
 interface ExpenseDialogProps {
@@ -48,6 +49,7 @@ export function ExpenseDialog({
   const [date, setDate] = useState("");
   const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
+  const { currency } = useCurrency();
 
   const isEditing = !!expense;
 
@@ -114,7 +116,7 @@ export function ExpenseDialog({
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="amount">Amount (IDR)</Label>
+              <Label htmlFor="amount">Amount ({currency})</Label>
               <Input
                 id="amount"
                 type="number"

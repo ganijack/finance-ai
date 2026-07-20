@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { formatCurrency } from "@/lib/utils";
+import { } from "@/lib/utils";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -17,8 +17,10 @@ import {
 } from "lucide-react";
 import { AnalyticsSummary } from "@/services/analytics";
 import { AIInsightsResponse } from "@/services/ai/insights";
+import { useCurrency } from "@/components/providers/currency-provider";
 
 export default function InsightsPage() {
+  const { format } = useCurrency();
   const [data, setData] = useState<{ stats: AnalyticsSummary; insights: AIInsightsResponse } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -146,7 +148,7 @@ export default function InsightsPage() {
             <div className="grid grid-cols-2 gap-4 mt-6">
               <div className="bg-muted/30 rounded-lg p-4">
                 <p className="text-sm text-muted-foreground">Current Month Total</p>
-                <p className="text-2xl font-bold">{formatCurrency(stats.currentMonthTotal)}</p>
+                <p className="text-2xl font-bold">{format(stats.currentMonthTotal)}</p>
                 <div className="flex items-center gap-1 mt-1 text-sm">
                   {stats.percentageChange <= 0 ? (
                     <TrendingDown className="h-4 w-4 text-green-500" />
@@ -161,8 +163,8 @@ export default function InsightsPage() {
               </div>
               <div className="bg-muted/30 rounded-lg p-4">
                 <p className="text-sm text-muted-foreground">Predicted End of Month</p>
-                <p className="text-2xl font-bold">{formatCurrency(stats.predictedEndOfMonth)}</p>
-                <p className="text-sm text-muted-foreground mt-1">Based on daily avg of {formatCurrency(stats.dailyAverage)}</p>
+                <p className="text-2xl font-bold">{format(stats.predictedEndOfMonth)}</p>
+                <p className="text-sm text-muted-foreground mt-1">Based on daily avg of {format(stats.dailyAverage)}</p>
               </div>
             </div>
           </CardContent>
@@ -218,7 +220,7 @@ export default function InsightsPage() {
                   <div key={i}>
                     <div className="flex justify-between text-sm mb-1">
                       <span>{cat.name}</span>
-                      <span className="font-medium">{formatCurrency(cat.amount)} ({cat.percentage.toFixed(0)}%)</span>
+                      <span className="font-medium">{format(cat.amount)} ({cat.percentage.toFixed(0)}%)</span>
                     </div>
                     <div className="h-2 rounded-full bg-muted overflow-hidden">
                       <div className="h-full bg-primary" style={{ width: `${cat.percentage}%` }} />
@@ -238,7 +240,7 @@ export default function InsightsPage() {
                         <p className="font-medium">{item.title}</p>
                         <p className="text-xs text-muted-foreground">Purchased {item.count} times</p>
                       </div>
-                      <span className="font-semibold">{formatCurrency(item.totalAmount)}</span>
+                      <span className="font-semibold">{format(item.totalAmount)}</span>
                     </div>
                   ))
                 ) : (

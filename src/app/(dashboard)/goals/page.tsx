@@ -4,14 +4,16 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { formatCurrency } from "@/lib/utils";
+import { } from "@/lib/utils";
 import { Plus, Target, Trophy, Calendar, MoreVertical, PlusCircle, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { useCurrency } from "@/components/providers/currency-provider";
 
 export default function GoalsPage() {
+  const { format } = useCurrency();
   const [goals, setGoals] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   
@@ -219,8 +221,8 @@ export default function GoalsPage() {
                     </CardHeader>
                     <CardContent className="pb-2">
                       <div className="flex justify-between text-sm mb-2">
-                        <span className="font-medium text-indigo-600 dark:text-indigo-400">{formatCurrency(goal.currentAmount)}</span>
-                        <span className="text-muted-foreground">of {formatCurrency(goal.targetAmount)}</span>
+                        <span className="font-medium text-indigo-600 dark:text-indigo-400">{format(goal.currentAmount)}</span>
+                        <span className="text-muted-foreground">of {format(goal.targetAmount)}</span>
                       </div>
                       <div className="h-2.5 rounded-full bg-muted overflow-hidden">
                         <div 

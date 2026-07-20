@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { formatCurrency } from "@/lib/utils";
+import { useCurrency } from "@/components/providers/currency-provider";
 import {
   CalendarDays,
   CalendarRange,
@@ -66,6 +66,7 @@ export function StatCards({
     thisYear,
     dailyAverage,
   };
+  const { format } = useCurrency();
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
@@ -84,7 +85,7 @@ export function StatCards({
                   <Skeleton className="h-8 w-32" />
                 ) : (
                   <p className="text-2xl font-bold tracking-tight">
-                    {formatCurrency(values[card.key])}
+                    {format(values[card.key])}
                   </p>
                 )}
               </div>

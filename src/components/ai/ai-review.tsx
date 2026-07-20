@@ -12,7 +12,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Plus, Trash2, CheckCircle2 } from "lucide-react";
-import { formatCurrency } from "@/lib/utils";
+import { useCurrency } from "@/components/providers/currency-provider";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -32,6 +32,7 @@ export function AiReview({ initialData, onCancel, onSuccess }: AiReviewProps) {
   const { createExpense } = useExpenses();
   const [items, setItems] = useState<ParsedExpense[]>(initialData);
   const [isSaving, setIsSaving] = useState(false);
+  const { format } = useCurrency();
 
   const handleItemChange = (index: number, field: keyof ParsedExpense, value: string | number) => {
     const newItems = [...items];
@@ -254,7 +255,7 @@ export function AiReview({ initialData, onCancel, onSuccess }: AiReviewProps) {
       <div className="flex flex-col gap-2 rounded-lg bg-muted/50 p-4">
         <div className="flex items-center justify-between font-medium">
           <span>Sum of Items:</span>
-          <span>{formatCurrency(total)}</span>
+          <span>{format(total)}</span>
         </div>
       </div>
 

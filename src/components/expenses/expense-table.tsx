@@ -15,7 +15,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { formatCurrency, formatDate } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
+import { useCurrency } from "@/components/providers/currency-provider";
 import { getCategoryConfig } from "@/lib/constants";
 import { Pencil, Trash2 } from "lucide-react";
 import type { Expense, ExpenseCategory } from "@/types";
@@ -33,6 +34,7 @@ export function ExpenseTable({
   onEdit,
   onDelete,
 }: ExpenseTableProps) {
+  const { format } = useCurrency();
   if (loading) {
     return (
       <div className="space-y-3">
@@ -120,7 +122,7 @@ export function ExpenseTable({
                 {formatDate(expense.date)}
               </span>
               <span className="text-sm font-semibold text-right tabular-nums">
-                {formatCurrency(expense.amount)}
+                {format(expense.amount)}
               </span>
               <span className="text-xs text-muted-foreground truncate">
                 {expense.notes || "—"}
@@ -194,7 +196,7 @@ export function ExpenseTable({
                 </div>
                 <div className="text-right shrink-0">
                   <p className="text-sm font-semibold tabular-nums">
-                    {formatCurrency(expense.amount)}
+                    {format(expense.amount)}
                   </p>
                   <div className="flex items-center justify-end gap-1 mt-1">
                     <Button

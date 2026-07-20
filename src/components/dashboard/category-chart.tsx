@@ -9,7 +9,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { formatCurrency } from "@/lib/utils";
+import { useCurrency } from "@/components/providers/currency-provider";
 import { CATEGORY_COLORS, getCategoryConfig } from "@/lib/constants";
 import type { CategoryBreakdown, ExpenseCategory } from "@/types";
 
@@ -19,6 +19,7 @@ interface CategoryChartProps {
 }
 
 export function CategoryChart({ data, loading }: CategoryChartProps) {
+  const { format } = useCurrency();
   if (loading) {
     return (
       <Card className="border-border/40">
@@ -88,7 +89,7 @@ export function CategoryChart({ data, loading }: CategoryChartProps) {
                             {config.label}
                           </p>
                           <p className="text-sm font-semibold">
-                            {formatCurrency(item.amount)}
+                            {format(item.amount)}
                           </p>
                           <p className="text-xs text-muted-foreground">
                             {item.percentage.toFixed(1)}%
@@ -130,7 +131,7 @@ export function CategoryChart({ data, loading }: CategoryChartProps) {
                     </div>
                     <div className="text-right">
                       <span className="text-sm font-semibold">
-                        {formatCurrency(item.amount)}
+                        {format(item.amount)}
                       </span>
                       <span className="ml-2 text-xs text-muted-foreground">
                         {item.percentage.toFixed(0)}%

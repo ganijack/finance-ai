@@ -1,15 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { formatCurrency } from "@/lib/utils";
+import { } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Download, FileText, Calendar } from "lucide-react";
 import { AnalyticsSummary } from "@/services/analytics";
 import { AIInsightsResponse } from "@/services/ai/insights";
+import { useCurrency } from "@/components/providers/currency-provider";
 
 export default function ReportsPage() {
+  const { format } = useCurrency();
   const [data, setData] = useState<{ stats: AnalyticsSummary; insights: AIInsightsResponse } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -116,11 +118,11 @@ export default function ReportsPage() {
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 rounded-lg bg-muted/30 print:bg-gray-50 print:border print:border-gray-200">
               <p className="text-sm text-muted-foreground print:text-gray-600">Total Spent This Month</p>
-              <p className="text-3xl font-bold mt-1">{formatCurrency(stats.currentMonthTotal)}</p>
+              <p className="text-3xl font-bold mt-1">{format(stats.currentMonthTotal)}</p>
             </div>
             <div className="p-4 rounded-lg bg-muted/30 print:bg-gray-50 print:border print:border-gray-200">
               <p className="text-sm text-muted-foreground print:text-gray-600">Predicted End of Month</p>
-              <p className="text-3xl font-bold mt-1">{formatCurrency(stats.predictedEndOfMonth)}</p>
+              <p className="text-3xl font-bold mt-1">{format(stats.predictedEndOfMonth)}</p>
             </div>
           </div>
         </section>
@@ -140,7 +142,7 @@ export default function ReportsPage() {
                     />
                   </div>
                   <div className="w-24 text-right text-sm">
-                    {formatCurrency(cat.amount)}
+                    {format(cat.amount)}
                   </div>
                 </div>
               </div>

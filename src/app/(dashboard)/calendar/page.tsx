@@ -5,10 +5,12 @@ import { format, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterv
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Receipt } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { formatCurrency } from "@/lib/utils";
+import { } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useCurrency } from "@/components/providers/currency-provider";
 
 export default function CalendarPage() {
+  const { format } = useCurrency();
   const [currentDate, setCurrentDate] = useState(new Date());
   const [expenses, setExpenses] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -114,7 +116,7 @@ export default function CalendarPage() {
                     </div>
                     {hasExpenses && (
                       <div className="mt-auto text-xs font-semibold text-red-500 dark:text-red-400">
-                        {formatCurrency(dayExpenses.reduce((sum, e) => sum + e.amount, 0))}
+                        {format(dayExpenses.reduce((sum, e) => sum + e.amount, 0))}
                       </div>
                     )}
                   </div>
@@ -132,7 +134,7 @@ export default function CalendarPage() {
             
             <div className="bg-muted/30 p-4 rounded-xl mb-6 flex justify-between items-center">
               <span className="font-medium text-sm text-muted-foreground">Total Daily Spent</span>
-              <span className="text-xl font-bold">{formatCurrency(selectedTotal)}</span>
+              <span className="text-xl font-bold">{format(selectedTotal)}</span>
             </div>
 
             <h4 className="font-semibold text-sm mb-4 border-b pb-2">Transactions ({selectedExpenses.length})</h4>
@@ -156,7 +158,7 @@ export default function CalendarPage() {
                       </div>
                     </div>
                     <span className="font-semibold text-sm shrink-0 pl-3">
-                      {formatCurrency(expense.amount)}
+                      {format(expense.amount)}
                     </span>
                   </div>
                 ))
