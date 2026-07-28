@@ -52,10 +52,10 @@ export default function DashboardPage() {
         </Card>
         {/* Stat Cards */}
         <StatCards
-          today={stats?.today ?? 0}
+          totalBalance={stats?.totalBalance ?? 0}
+          totalIncome={stats?.totalIncome ?? 0}
+          totalExpense={stats?.totalExpense ?? 0}
           thisMonth={stats?.thisMonth ?? 0}
-          thisYear={stats?.thisYear ?? 0}
-          dailyAverage={stats?.dailyAverage ?? 0}
           loading={statsLoading}
         />
 

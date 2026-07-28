@@ -11,21 +11,37 @@ import {
 } from "lucide-react";
 
 interface StatCardsProps {
-  today: number;
+  totalBalance: number;
+  totalIncome: number;
+  totalExpense: number;
   thisMonth: number;
-  thisYear: number;
-  dailyAverage: number;
   loading: boolean;
 }
 
 const cards = [
   {
-    key: "today",
-    label: "Today's Expense",
-    icon: CalendarDays,
+    key: "totalBalance",
+    label: "Total Balance",
+    icon: TrendingUp,
     gradient: "from-blue-500/10 to-indigo-500/10",
     iconColor: "text-blue-500",
     iconBg: "bg-blue-500/10",
+  },
+  {
+    key: "totalIncome",
+    label: "Total Income",
+    icon: TrendingUp,
+    gradient: "from-emerald-500/10 to-teal-500/10",
+    iconColor: "text-emerald-500",
+    iconBg: "bg-emerald-500/10",
+  },
+  {
+    key: "totalExpense",
+    label: "Total Expense",
+    icon: Calendar,
+    gradient: "from-orange-500/10 to-amber-500/10",
+    iconColor: "text-orange-500",
+    iconBg: "bg-orange-500/10",
   },
   {
     key: "thisMonth",
@@ -35,36 +51,20 @@ const cards = [
     iconColor: "text-purple-500",
     iconBg: "bg-purple-500/10",
   },
-  {
-    key: "thisYear",
-    label: "Yearly Expense",
-    icon: Calendar,
-    gradient: "from-orange-500/10 to-amber-500/10",
-    iconColor: "text-orange-500",
-    iconBg: "bg-orange-500/10",
-  },
-  {
-    key: "dailyAverage",
-    label: "Daily Average",
-    icon: TrendingUp,
-    gradient: "from-emerald-500/10 to-teal-500/10",
-    iconColor: "text-emerald-500",
-    iconBg: "bg-emerald-500/10",
-  },
 ];
 
 export function StatCards({
-  today,
+  totalBalance,
+  totalIncome,
+  totalExpense,
   thisMonth,
-  thisYear,
-  dailyAverage,
   loading,
 }: StatCardsProps) {
   const values: Record<string, number> = {
-    today,
+    totalBalance,
+    totalIncome,
+    totalExpense,
     thisMonth,
-    thisYear,
-    dailyAverage,
   };
   const { format } = useCurrency();
 

@@ -28,10 +28,11 @@ export async function GET() {
     const startOfYear = getStartOfYear(now);
 
     // Get aggregated totals
-    const [todayResult, monthResult, yearResult] = await Promise.all([
+    const [todayResult, monthResult, yearResult, allIncome, allExpense] = await Promise.all([
       prisma.expense.aggregate({
         where: {
           userId: user.id,
+          type: "EXPENSE",
           date: { gte: startOfDay, lte: endOfDay },
         },
         _sum: { amount: true },
@@ -39,6 +40,7 @@ export async function GET() {
       prisma.expense.aggregate({
         where: {
           userId: user.id,
+          type: "EXPENSE",
           date: { gte: startOfMonth, lte: endOfDay },
         },
         _sum: { amount: true },
@@ -46,8 +48,17 @@ export async function GET() {
       prisma.expense.aggregate({
         where: {
           userId: user.id,
+          type: "EXPENSE",
           date: { gte: startOfYear, lte: endOfDay },
         },
+        _sum: { amount: true },
+      }),
+      prisma.expense.aggregate({
+        where: { userId: user.id, type: "INCOME" },
+        _sum: { amount: true },
+      }),
+      prisma.expense.aggregate({
+        where: { userId: user.id, type: "EXPENSE" },
         _sum: { amount: true },
       }),
     ]);
@@ -55,8 +66,12 @@ export async function GET() {
     const today = todayResult._sum.amount || 0;
     const thisMonth = monthResult._sum.amount || 0;
     const thisYear = yearResult._sum.amount || 0;
+    
+    const totalIncome = allIncome._sum.amount || 0;
+    const totalExpense = allExpense._sum.amount || 0;
+    const totalBalance = totalIncome - totalExpense;
 
-    // Calculate daily average for this month
+    // Calculate daily average for this month (Expense only)
     const dayOfMonth = now.getDate();
     const dailyAverage = dayOfMonth > 0 ? thisMonth / dayOfMonth : 0;
 
@@ -64,6 +79,7 @@ export async function GET() {
     const monthExpenses = await prisma.expense.findMany({
       where: {
         userId: user.id,
+        type: "EXPENSE",
         date: { gte: startOfMonth, lte: endOfDay },
       },
       select: { date: true, amount: true },
@@ -95,6 +111,7 @@ export async function GET() {
       by: ["category"],
       where: {
         userId: user.id,
+        type: "EXPENSE",
         date: { gte: startOfMonth, lte: endOfDay },
       },
       _sum: { amount: true },
@@ -109,6 +126,9 @@ export async function GET() {
     }));
 
     return NextResponse.json({
+      totalBalance,
+      totalIncome,
+      totalExpense,
       today,
       thisMonth,
       thisYear,

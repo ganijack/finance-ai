@@ -32,6 +32,9 @@ export interface ExpenseFormData {
 }
 
 export interface ExpenseStats {
+  totalBalance: number;
+  totalIncome: number;
+  totalExpense: number;
   today: number;
   thisMonth: number;
   thisYear: number;
