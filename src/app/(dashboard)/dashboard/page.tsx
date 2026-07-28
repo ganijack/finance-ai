@@ -56,6 +56,8 @@ export default function DashboardPage() {
           totalIncome={stats?.totalIncome ?? 0}
           totalExpense={stats?.totalExpense ?? 0}
           thisMonth={stats?.thisMonth ?? 0}
+          today={stats?.today ?? 0}
+          thisYear={stats?.thisYear ?? 0}
           loading={statsLoading}
         />
 

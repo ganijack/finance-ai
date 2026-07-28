@@ -14,7 +14,9 @@ interface StatCardsProps {
   totalBalance: number;
   totalIncome: number;
   totalExpense: number;
+  today: number;
   thisMonth: number;
+  thisYear: number;
   loading: boolean;
 }
 
@@ -51,25 +53,45 @@ const cards = [
     iconColor: "text-purple-500",
     iconBg: "bg-purple-500/10",
   },
+  {
+    key: "today",
+    label: "Today's Expense",
+    icon: CalendarDays,
+    gradient: "from-blue-500/10 to-indigo-500/10",
+    iconColor: "text-blue-500",
+    iconBg: "bg-blue-500/10",
+  },
+  {
+    key: "thisYear",
+    label: "Yearly Expense",
+    icon: Calendar,
+    gradient: "from-rose-500/10 to-red-500/10",
+    iconColor: "text-rose-500",
+    iconBg: "bg-rose-500/10",
+  },
 ];
 
 export function StatCards({
   totalBalance,
   totalIncome,
   totalExpense,
+  today,
   thisMonth,
+  thisYear,
   loading,
 }: StatCardsProps) {
   const values: Record<string, number> = {
     totalBalance,
     totalIncome,
     totalExpense,
+    today,
     thisMonth,
+    thisYear,
   };
   const { format } = useCurrency();
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
       {cards.map((card, i) => (
         <Card
           key={card.key}
