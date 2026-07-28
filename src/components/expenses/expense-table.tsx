@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -26,6 +27,9 @@ interface ExpenseTableProps {
   loading: boolean;
   onEdit: (expense: Expense) => void;
   onDelete: (id: string) => void;
+  selectedIds?: Set<string>;
+  onSelect?: (id: string, checked: boolean) => void;
+  onSelectAll?: (checked: boolean) => void;
 }
 
 export function ExpenseTable({
@@ -33,6 +37,9 @@ export function ExpenseTable({
   loading,
   onEdit,
   onDelete,
+  selectedIds = new Set(),
+  onSelect,
+  onSelectAll,
 }: ExpenseTableProps) {
   const { format } = useCurrency();
   if (loading) {
@@ -85,7 +92,14 @@ export function ExpenseTable({
   return (
     <div className="space-y-2">
       {/* Desktop Table Header */}
-      <div className="hidden md:grid md:grid-cols-[1fr,120px,120px,120px,140px,80px] gap-4 px-4 py-2 text-xs font-medium text-muted-foreground uppercase tracking-wider">
+      <div className="hidden md:grid md:grid-cols-[40px,1fr,120px,120px,120px,140px,80px] gap-4 px-4 py-2 text-xs font-medium text-muted-foreground uppercase tracking-wider items-center">
+        <div>
+          <Checkbox 
+            checked={expenses.length > 0 && selectedIds.size === expenses.length}
+            onCheckedChange={(checked) => onSelectAll?.(!!checked)}
+            aria-label="Select all"
+          />
+        </div>
         <span>Expense</span>
         <span>Category</span>
         <span>Date</span>
@@ -104,7 +118,14 @@ export function ExpenseTable({
             className="border-border/40 hover:border-border/60 transition-all duration-200"
           >
             {/* Desktop View */}
-            <div className="hidden md:grid md:grid-cols-[1fr,120px,120px,120px,140px,80px] gap-4 items-center p-4">
+            <div className={`hidden md:grid md:grid-cols-[40px,1fr,120px,120px,120px,140px,80px] gap-4 items-center p-4 ${selectedIds.has(expense.id) ? 'bg-primary/5' : ''}`}>
+              <div>
+                <Checkbox 
+                  checked={selectedIds.has(expense.id)}
+                  onCheckedChange={(checked) => onSelect?.(expense.id, !!checked)}
+                  aria-label={`Select ${expense.title}`}
+                />
+              </div>
               <div className="flex items-center gap-3 min-w-0">
                 <div
                   className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${config.bgColor}`}
@@ -169,31 +190,40 @@ export function ExpenseTable({
             </div>
 
             {/* Mobile View */}
-            <div className="md:hidden p-4">
-              <div className="flex items-start justify-between gap-3">
-                <div className="flex items-center gap-3 min-w-0">
-                  <div
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${config.bgColor}`}
-                  >
-                    <Icon className={`h-4 w-4 ${config.color}`} />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium truncate">
-                      {expense.title}
-                    </p>
-                    <div className="flex items-center gap-2 mt-0.5">
-                      <Badge
-                        variant="secondary"
-                        className="text-[10px] px-1.5 py-0"
-                      >
-                        {config.label}
-                      </Badge>
-                      <span className="text-xs text-muted-foreground">
-                        {formatDate(expense.date)}
-                      </span>
+            <div className={`md:hidden p-4 ${selectedIds.has(expense.id) ? 'bg-primary/5' : ''}`}>
+              <div className="flex items-start gap-3">
+                <div className="pt-2">
+                  <Checkbox 
+                    checked={selectedIds.has(expense.id)}
+                    onCheckedChange={(checked) => onSelect?.(expense.id, !!checked)}
+                    aria-label={`Select ${expense.title}`}
+                  />
+                </div>
+                <div className="flex-1 flex items-start justify-between min-w-0">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${config.bgColor}`}
+                    >
+                      <Icon className={`h-4 w-4 ${config.color}`} />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium truncate">
+                        {expense.title}
+                      </p>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <Badge
+                          variant="secondary"
+                          className="text-[10px] px-1.5 py-0"
+                        >
+                          {config.label}
+                        </Badge>
+                        <span className="text-xs text-muted-foreground">
+                          {formatDate(expense.date)}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
+
                 <div className="text-right shrink-0">
                   <p className="text-sm font-semibold tabular-nums">
                     {format(expense.amount)}
@@ -237,6 +267,7 @@ export function ExpenseTable({
                       </AlertDialogContent>
                     </AlertDialog>
                   </div>
+                </div>
                 </div>
               </div>
             </div>

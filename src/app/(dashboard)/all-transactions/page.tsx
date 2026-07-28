@@ -12,7 +12,9 @@ import type { Expense, DateFilter, SortField, SortOrder } from "@/types";
 
 export default function AllTransactionsPage() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
+  const [isDeletingBulk, setIsDeletingBulk] = useState(false);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -53,6 +55,8 @@ export default function AllTransactionsPage() {
         setExpenses(data.expenses);
         setTotal(data.total);
         setTotalPages(data.totalPages);
+        // Reset selections when fetching new page or search
+        setSelectedIds(new Set());
       }
     } catch {
       toast.error("Failed to fetch expenses");
@@ -124,12 +128,60 @@ export default function AllTransactionsPage() {
       const res = await fetch(`/api/expenses/${id}`, { method: "DELETE" });
       if (res.ok) {
         toast.success("Expense deleted");
+        setSelectedIds((prev) => {
+          const next = new Set(prev);
+          next.delete(id);
+          return next;
+        });
         fetchExpenses();
       } else {
         toast.error("Failed to delete expense");
       }
     } catch {
       toast.error("Failed to delete expense");
+    }
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedIds.size === 0) return;
+    
+    setIsDeletingBulk(true);
+    try {
+      const res = await fetch("/api/expenses", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: Array.from(selectedIds) })
+      });
+      
+      if (res.ok) {
+        const data = await res.json();
+        toast.success(`Deleted ${data.count} expenses`);
+        setSelectedIds(new Set());
+        fetchExpenses();
+      } else {
+        toast.error("Failed to delete selected expenses");
+      }
+    } catch {
+      toast.error("Failed to delete selected expenses");
+    } finally {
+      setIsDeletingBulk(false);
+    }
+  };
+
+  const handleSelect = (id: string, checked: boolean) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (checked) next.add(id);
+      else next.delete(id);
+      return next;
+    });
+  };
+
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      setSelectedIds(new Set(expenses.map(e => e.id)));
+    } else {
+      setSelectedIds(new Set());
     }
   };
 
@@ -159,7 +211,16 @@ export default function AllTransactionsPage() {
             category={category}
             onCategoryChange={setCategory}
           />
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2 shrink-0 flex-wrap justify-end">
+            {selectedIds.size > 0 && (
+              <Button
+                variant="destructive"
+                onClick={handleBulkDelete}
+                disabled={isDeletingBulk}
+              >
+                {isDeletingBulk ? "Deleting..." : `Delete Selected (${selectedIds.size})`}
+              </Button>
+            )}
             <ExportButton />
             <Button
               onClick={() => {
@@ -182,12 +243,14 @@ export default function AllTransactionsPage() {
           )}
         </div>
 
-        {/* Table */}
         <ExpenseTable
           expenses={expenses}
           loading={loading}
           onEdit={handleEdit}
           onDelete={handleDelete}
+          selectedIds={selectedIds}
+          onSelect={handleSelect}
+          onSelectAll={handleSelectAll}
         />
 
         {/* Pagination */}

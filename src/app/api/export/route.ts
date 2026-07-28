@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createClient } from "@/lib/supabase/server";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: Request) {
   try {
     const supabase = await createClient();
@@ -33,6 +35,7 @@ export async function GET(request: Request) {
         headers: {
           "Content-Type": "application/json",
           "Content-Disposition": `attachment; filename="financeai-export-${new Date().toISOString().split('T')[0]}.json"`,
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
         },
       });
     }

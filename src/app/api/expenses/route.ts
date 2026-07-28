@@ -158,3 +158,34 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+
+// DELETE /api/expenses — Bulk delete expenses
+export async function DELETE(request: NextRequest) {
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const body = await request.json();
+    const { ids } = body;
+
+    if (!Array.isArray(ids) || ids.length === 0) {
+      return NextResponse.json({ error: "No ids provided" }, { status: 400 });
+    }
+
+    const { count } = await prisma.expense.deleteMany({
+      where: {
+        id: { in: ids },
+        userId: user.id
+      }
+    });
+
+    return NextResponse.json({ message: `Deleted ${count} expenses`, count });
+  } catch (error) {
+    console.error("Error bulk deleting expenses:", error);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+  }
+}
