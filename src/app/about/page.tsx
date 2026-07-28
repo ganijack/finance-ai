@@ -3,7 +3,7 @@
 import { LandingNavbar } from "@/components/landing/navbar";
 import { LandingFooter } from "@/components/landing/footer";
 import ProfileCard from "@/components/ProfileCard";
-import { ExternalLink, Github, Linkedin } from "lucide-react";
+
 import { motion } from "framer-motion";
 
 export default function AboutPage() {
