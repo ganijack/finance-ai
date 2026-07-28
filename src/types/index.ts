@@ -20,6 +20,7 @@ export interface Expense {
   userId: string;
   createdAt: string;
   updatedAt: string;
+  type?: "INCOME" | "EXPENSE";
 }
 
 export interface ExpenseFormData {

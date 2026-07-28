@@ -34,6 +34,7 @@ interface ExpenseDialogProps {
     category: string;
     date: string;
     notes?: string;
+    type: "INCOME" | "EXPENSE";
   }) => Promise<void>;
 }
 
@@ -48,6 +49,7 @@ export function ExpenseDialog({
   const [category, setCategory] = useState<string>("food");
   const [date, setDate] = useState("");
   const [notes, setNotes] = useState("");
+  const [type, setType] = useState<"INCOME" | "EXPENSE">("EXPENSE");
   const [loading, setLoading] = useState(false);
   const { currency } = useCurrency();
 
@@ -60,12 +62,14 @@ export function ExpenseDialog({
       setCategory(expense.category);
       setDate(new Date(expense.date).toISOString().split("T")[0]);
       setNotes(expense.notes || "");
+      setType((expense as any).type || "EXPENSE");
     } else {
       setTitle("");
       setAmount("");
       setCategory("food");
       setDate(new Date().toISOString().split("T")[0]);
       setNotes("");
+      setType("EXPENSE");
     }
   }, [expense, open]);
 
@@ -80,6 +84,7 @@ export function ExpenseDialog({
         category,
         date: new Date(date).toISOString(),
         notes: notes || undefined,
+        type,
       });
       onOpenChange(false);
     } catch {
@@ -103,6 +108,28 @@ export function ExpenseDialog({
           </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-2">
+            <Label>Type</Label>
+            <div className="grid grid-cols-2 gap-4">
+              <Button
+                type="button"
+                variant={type === "EXPENSE" ? "default" : "outline"}
+                className={type === "EXPENSE" ? "bg-red-500 hover:bg-red-600" : ""}
+                onClick={() => setType("EXPENSE")}
+              >
+                Expense (Kredit)
+              </Button>
+              <Button
+                type="button"
+                variant={type === "INCOME" ? "default" : "outline"}
+                className={type === "INCOME" ? "bg-emerald-500 hover:bg-emerald-600" : ""}
+                onClick={() => setType("INCOME")}
+              >
+                Income (Debit)
+              </Button>
+            </div>
+          </div>
+
           <div className="space-y-2">
             <Label htmlFor="title">Title</Label>
             <Input

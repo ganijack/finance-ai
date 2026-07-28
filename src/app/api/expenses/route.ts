@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { title, amount, category, date, notes, source } = body;
+    const { title, amount, category, date, notes, source, type } = body;
 
     if (!title || !amount || !category || !date) {
       return NextResponse.json(
@@ -146,6 +146,7 @@ export async function POST(request: NextRequest) {
         notes,
         userId: user.id,
         source: source || "MANUAL",
+        type: type || "EXPENSE",
       },
     });
 

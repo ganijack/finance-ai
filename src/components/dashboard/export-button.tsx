@@ -12,7 +12,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
-import * as XLSX from "xlsx";
+import * as ExcelJS from "exceljs";
+import { saveAs } from "file-saver";
 import Papa from "papaparse";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
@@ -24,6 +25,7 @@ interface Expense {
   category: string;
   date: string;
   notes: string | null;
+  type?: "INCOME" | "EXPENSE";
 }
 
 export function ExportButton() {
@@ -64,17 +66,102 @@ export function ExportButton() {
     try {
       setIsExporting(true);
       const data = await fetchExpenses();
-      const formattedData = data.map(d => ({
-        ...d,
-        date: new Date(d.date).toLocaleDateString()
-      }));
       
-      const worksheet = XLSX.utils.json_to_sheet(formattedData);
-      const workbook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(workbook, worksheet, "Expenses");
-      XLSX.writeFile(workbook, `financeai-export-${new Date().toISOString().split('T')[0]}.xlsx`);
+      // Sort data chronologically (oldest to newest) to calculate running balance
+      const sortedData = [...data].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet("KEUANGAN KESELURUHAN");
+
+      // Set Title
+      worksheet.mergeCells('A1:G1');
+      const titleCell = worksheet.getCell('A1');
+      titleCell.value = "KEUANGAN KESELURUHAN";
+      titleCell.font = { bold: true, size: 14 };
+      titleCell.alignment = { horizontal: 'center', vertical: 'middle' };
+      
+      // Leave row 2 and 3 blank as per user example (optional but looks nice)
+      
+      // Define Columns at row 4
+      const columns = [
+        { header: 'NO', key: 'no', width: 5 },
+        { header: 'HARI/TANGGAL', key: 'tanggal', width: 15 },
+        { header: 'KETERANGAN', key: 'keterangan', width: 35 },
+        { header: 'KATEGORI', key: 'kategori', width: 20 },
+        { header: 'DEBIT (Rp)', key: 'debit', width: 20 },
+        { header: 'KREDIT (Rp)', key: 'kredit', width: 20 },
+        { header: 'SALDO (Rp)', key: 'saldo', width: 20 },
+      ];
+      
+      worksheet.getRow(4).values = columns.map(col => col.header);
+      
+      // Style Header
+      const headerRow = worksheet.getRow(4);
+      headerRow.eachCell((cell) => {
+        cell.fill = {
+          type: 'pattern',
+          pattern: 'solid',
+          fgColor: { argb: 'FFD9E1F2' } // Light blue like image or pinkish
+        };
+        cell.font = { bold: true };
+        cell.alignment = { horizontal: 'center', vertical: 'middle' };
+        cell.border = {
+          top: {style:'thin'},
+          left: {style:'thin'},
+          bottom: {style:'thin'},
+          right: {style:'thin'}
+        };
+      });
+
+      let runningBalance = 0;
+      
+      // Add Data
+      sortedData.forEach((row, index) => {
+        const isIncome = row.type === "INCOME";
+        const amount = Number(row.amount);
+        
+        const debit = isIncome ? amount : null;
+        const kredit = !isIncome ? amount : null;
+        
+        if (isIncome) {
+          runningBalance += amount;
+        } else {
+          runningBalance -= amount;
+        }
+
+        // Format Date to short format like dd/mm/yyyy
+        const dateObj = new Date(row.date);
+        const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/${dateObj.getFullYear()}`;
+
+        const addedRow = worksheet.addRow([
+          index + 1,
+          formattedDate,
+          row.title,
+          row.category,
+          debit,
+          kredit,
+          runningBalance
+        ]);
+        
+        // Style Data Row
+        addedRow.eachCell((cell, colNumber) => {
+          cell.border = {
+            top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'}
+          };
+          if (colNumber >= 5) {
+            // Currency formatting
+            cell.numFmt = 'Rp#,##0.00;[Red]-Rp#,##0.00';
+          }
+        });
+      });
+
+      const buffer = await workbook.xlsx.writeBuffer();
+      const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+      saveAs(blob, `financeai-export-${new Date().toISOString().split('T')[0]}.xlsx`);
+
       toast.success("Excel Export successful!");
     } catch (error) {
+      console.error(error);
       toast.error("Export failed");
     } finally {
       setIsExporting(false);

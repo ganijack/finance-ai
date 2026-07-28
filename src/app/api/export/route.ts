@@ -27,6 +27,7 @@ export async function GET(request: Request) {
         category: true,
         date: true,
         notes: true,
+        type: true,
       }
     });
 

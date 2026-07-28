@@ -54,7 +54,7 @@ export async function PUT(
 
     const { id } = await params;
     const body = await request.json();
-    const { title, amount, category, date, notes } = body;
+    const { title, amount, category, date, notes, type } = body;
 
     // Verify ownership
     const existing = await prisma.expense.findFirst({
@@ -73,6 +73,7 @@ export async function PUT(
         ...(category && { category }),
         ...(date && { date: new Date(date) }),
         ...(notes !== undefined && { notes: notes || null }),
+        ...(type && { type }),
       },
     });
 
