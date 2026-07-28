@@ -92,7 +92,7 @@ export function ExpenseTable({
   return (
     <div className="space-y-2">
       {/* Desktop Table Header */}
-      <div className="hidden md:grid md:grid-cols-[40px,1fr,120px,120px,120px,140px,80px] gap-4 px-4 py-2 text-xs font-medium text-muted-foreground uppercase tracking-wider items-center">
+      <div className="hidden md:grid md:grid-cols-[40px,80px,1fr,120px,120px,120px,140px,80px] gap-4 px-4 py-2 text-xs font-medium text-muted-foreground uppercase tracking-wider items-center">
         <div>
           <Checkbox 
             checked={expenses.length > 0 && selectedIds.size === expenses.length}
@@ -100,7 +100,8 @@ export function ExpenseTable({
             aria-label="Select all"
           />
         </div>
-        <span>Expense</span>
+        <span>Type</span>
+        <span>Title</span>
         <span>Category</span>
         <span>Date</span>
         <span className="text-right">Amount</span>
@@ -118,13 +119,18 @@ export function ExpenseTable({
             className="border-border/40 hover:border-border/60 transition-all duration-200"
           >
             {/* Desktop View */}
-            <div className={`hidden md:grid md:grid-cols-[40px,1fr,120px,120px,120px,140px,80px] gap-4 items-center p-4 ${selectedIds.has(expense.id) ? 'bg-primary/5' : ''}`}>
+            <div className={`hidden md:grid md:grid-cols-[40px,80px,1fr,120px,120px,120px,140px,80px] gap-4 items-center p-4 ${selectedIds.has(expense.id) ? 'bg-primary/5' : ''}`}>
               <div>
                 <Checkbox 
                   checked={selectedIds.has(expense.id)}
                   onCheckedChange={(checked) => onSelect?.(expense.id, !!checked)}
                   aria-label={`Select ${expense.title}`}
                 />
+              </div>
+              <div>
+                <Badge variant={expense.type === "INCOME" ? "default" : "destructive"} className={expense.type === "INCOME" ? "bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20 border-emerald-500/20" : "bg-red-500/10 text-red-500 hover:bg-red-500/20 border-red-500/20"}>
+                  {expense.type === "INCOME" ? "INCOME" : "EXPENSE"}
+                </Badge>
               </div>
               <div className="flex items-center gap-3 min-w-0">
                 <div
@@ -142,8 +148,8 @@ export function ExpenseTable({
               <span className="text-sm text-muted-foreground">
                 {formatDate(expense.date)}
               </span>
-              <span className="text-sm font-semibold text-right tabular-nums">
-                {format(expense.amount)}
+              <span className={`text-sm font-semibold text-right tabular-nums ${expense.type === "INCOME" ? "text-emerald-500" : ""}`}>
+                {expense.type === "INCOME" ? "+" : "-"}{format(expense.amount)}
               </span>
               <span className="text-xs text-muted-foreground truncate">
                 {expense.notes || "—"}
@@ -211,6 +217,9 @@ export function ExpenseTable({
                         {expense.title}
                       </p>
                       <div className="flex items-center gap-2 mt-0.5">
+                        <Badge variant={expense.type === "INCOME" ? "default" : "destructive"} className={`text-[10px] px-1.5 py-0 ${expense.type === "INCOME" ? "bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500/20 border-emerald-500/20" : "bg-red-500/10 text-red-500 hover:bg-red-500/20 border-red-500/20"}`}>
+                          {expense.type === "INCOME" ? "INCOME" : "EXPENSE"}
+                        </Badge>
                         <Badge
                           variant="secondary"
                           className="text-[10px] px-1.5 py-0"
@@ -225,8 +234,8 @@ export function ExpenseTable({
                   </div>
 
                 <div className="text-right shrink-0">
-                  <p className="text-sm font-semibold tabular-nums">
-                    {format(expense.amount)}
+                  <p className={`text-sm font-semibold tabular-nums ${expense.type === "INCOME" ? "text-emerald-500" : ""}`}>
+                    {expense.type === "INCOME" ? "+" : "-"}{format(expense.amount)}
                   </p>
                   <div className="flex items-center justify-end gap-1 mt-1">
                     <Button
