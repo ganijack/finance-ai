@@ -19,6 +19,7 @@ model Expense {
   date             DateTime
   notes            String?
   userId           String
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   receiptId        String?
   receipt          Receipt? @relation(fields: [receiptId], references: [id], onDelete: SetNull)
   source           String   @default("MANUAL") // MANUAL, AI, RECEIPT
@@ -34,6 +35,7 @@ model Expense {
 model Receipt {
   id        String    @id @default(cuid())
   userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   store     String?
   date      DateTime?
   total     Float?
@@ -50,16 +52,17 @@ model Receipt {
 model UserSettings {
   id       String @id @default(cuid())
   userId   String @unique
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   currency String @default("IDR")
   theme    String @default("system")
   language String @default("en")
   timezone String @default("UTC")
 }
 
-
 model Notification {
   id        String   @id @default(cuid())
   userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   title     String
   message   String
   type      String // ALERT, SUCCESS, INFO, WARNING
@@ -72,6 +75,7 @@ model Notification {
 model Achievement {
   id         String   @id @default(cuid())
   userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   badgeType  String // FIRST_EXPENSE, UNDER_BUDGET, etc.
   unlockedAt DateTime @default(now())
 
@@ -92,11 +96,22 @@ model User {
   role      String   @default("USER") // USER, ADMIN
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  expenses      Expense[]
+  receipts      Receipt[]
+  settings      UserSettings?
+  notifications Notification[]
+  achievements  Achievement[]
+  activityLogs  ActivityLog[]
+  loginHistory  LoginHistory[]
+  auditLogs     AuditLog[]
+  feedbacks     Feedback[]
 }
 
 model ActivityLog {
   id        String   @id @default(cuid())
   userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   action    String
   metadata  String?  @db.Text // JSON string
   ipAddress String?
@@ -109,6 +124,7 @@ model ActivityLog {
 model LoginHistory {
   id        String   @id @default(cuid())
   userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   ipAddress String?
   userAgent String?
   status    String   @default("SUCCESS") // SUCCESS, FAILED
@@ -121,6 +137,7 @@ model LoginHistory {
 model AuditLog {
   id        String   @id @default(cuid())
   userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   action    String // e.g. "USER_SUSPENDED", "PROMPT_UPDATED"
   details   String? // JSON string or plain text
   ipAddress String?
@@ -162,6 +179,7 @@ model Announcement {
 model Feedback {
   id        String   @id @default(cuid())
   userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   subject   String
   content   String
   category  String // BUG, FEATURE, OTHER
