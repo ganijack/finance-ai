@@ -9,7 +9,7 @@ import { useExpenseStats } from "@/hooks/use-expenses";
 import type { Expense } from "@/types";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Sparkles, PieChart, Target, Repeat, CalendarDays } from "lucide-react";
+import { Sparkles, CalendarDays } from "lucide-react";
 import Link from "next/link";
 
 export default function DashboardPage() {
@@ -46,37 +46,7 @@ export default function DashboardPage() {
           <CardContent>
             <div className="bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 p-4 rounded-xl text-sm border border-indigo-500/20 mb-4 flex gap-3 items-start">
               <Sparkles className="h-5 w-5 shrink-0 mt-0.5" />
-              <p>Your expenses are on track this month! Consider setting up a Savings Goal to accelerate your wealth building.</p>
-            </div>
-            
-            <div className="space-y-4 mt-6">
-              <h4 className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Quick Actions</h4>
-              <div className="grid grid-cols-2 gap-3">
-                <Link href="/budgets">
-                  <Button variant="outline" className="w-full justify-start h-auto py-3">
-                    <PieChart className="h-4 w-4 mr-2 text-indigo-500" />
-                    Budgets
-                  </Button>
-                </Link>
-                <Link href="/goals">
-                  <Button variant="outline" className="w-full justify-start h-auto py-3">
-                    <Target className="h-4 w-4 mr-2 text-green-500" />
-                    Goals
-                  </Button>
-                </Link>
-                <Link href="/recurring">
-                  <Button variant="outline" className="w-full justify-start h-auto py-3">
-                    <Repeat className="h-4 w-4 mr-2 text-amber-500" />
-                    Recurring
-                  </Button>
-                </Link>
-                <Link href="/calendar">
-                  <Button variant="outline" className="w-full justify-start h-auto py-3">
-                    <CalendarDays className="h-4 w-4 mr-2 text-blue-500" />
-                    Calendar
-                  </Button>
-                </Link>
-              </div>
+              <p>Your expenses are on track this month! Keep up the good work and stay disciplined with your spending.</p>
             </div>
           </CardContent>
         </Card>

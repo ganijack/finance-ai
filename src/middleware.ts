@@ -69,7 +69,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // General auth protection for dashboard routes
-  const protectedRoutes = ['/dashboard', '/budgets', '/goals', '/recurring', '/calendar', '/insights', '/chat', '/ai', '/receipts', '/expenses', '/analytics', '/reports', '/settings'];
+  const protectedRoutes = ['/dashboard', '/calendar', '/insights', '/chat', '/ai', '/receipts', '/expenses', '/analytics', '/settings'];
   const isProtectedRoute = protectedRoutes.some(route => request.nextUrl.pathname.startsWith(route));
 
   if (isProtectedRoute && !session) {

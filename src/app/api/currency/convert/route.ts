@@ -62,57 +62,7 @@ export async function POST(request: NextRequest) {
 
     await Promise.all(updatePromises);
 
-    // Also convert budgets
-    const budgets = await prisma.budget.findMany({
-      where: { userId: user.id },
-      select: { id: true, amount: true },
-    });
 
-    const budgetUpdates = budgets.map((budget) => {
-      const convertedAmount = Math.round(budget.amount * rate * 100) / 100;
-      return prisma.budget.update({
-        where: { id: budget.id },
-        data: { amount: convertedAmount },
-      });
-    });
-
-    await Promise.all(budgetUpdates);
-
-    // Also convert saving goals
-    const goals = await prisma.savingGoal.findMany({
-      where: { userId: user.id },
-      select: { id: true, targetAmount: true, currentAmount: true },
-    });
-
-    const goalUpdates = goals.map((goal) => {
-      const convertedTarget = Math.round(goal.targetAmount * rate * 100) / 100;
-      const convertedCurrent = Math.round(goal.currentAmount * rate * 100) / 100;
-      return prisma.savingGoal.update({
-        where: { id: goal.id },
-        data: {
-          targetAmount: convertedTarget,
-          currentAmount: convertedCurrent,
-        },
-      });
-    });
-
-    await Promise.all(goalUpdates);
-
-    // Also convert recurring expenses
-    const recurring = await prisma.recurringExpense.findMany({
-      where: { userId: user.id },
-      select: { id: true, amount: true },
-    });
-
-    const recurringUpdates = recurring.map((item) => {
-      const convertedAmount = Math.round(item.amount * rate * 100) / 100;
-      return prisma.recurringExpense.update({
-        where: { id: item.id },
-        data: { amount: convertedAmount },
-      });
-    });
-
-    await Promise.all(recurringUpdates);
 
     // Update user settings
     await prisma.userSettings.upsert({
@@ -122,11 +72,11 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({
-      message: `Successfully converted ${expenses.length} expenses, ${budgets.length} budgets, ${goals.length} goals, and ${recurring.length} recurring expenses`,
+      message: `Successfully converted ${expenses.length} expenses`,
       rate,
       from,
       to,
-      converted: expenses.length + budgets.length + goals.length + recurring.length,
+      converted: expenses.length,
     });
   } catch (error) {
     console.error("Error converting currency:", error);

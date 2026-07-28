@@ -112,7 +112,7 @@ export default function AboutPage() {
                   </p>
                   
                   <p>
-                    FinanceAI is continuously evolving. Upcoming features include AI-powered budgeting recommendations, recurring transaction automation, financial goal tracking, subscription management, and personalized spending insights that adapt to each user's financial behavior.
+                    FinanceAI is continuously evolving. Upcoming features include subscription management and personalized spending insights that adapt to each user's financial behavior.
                   </p>
                   
                   <div className="border-l-4 border-indigo-500 pl-4 py-1 mt-8 italic text-white/90">

@@ -396,7 +396,7 @@ export default function SettingsPage() {
                   </p>
                 )}
                 <p className="text-xs text-amber-500">
-                  ⚠️ This will convert all expenses, budgets, goals, and recurring expenses. Original values will be saved as backup.
+                  ⚠️ This will convert all expenses. Original values will be saved as backup.
                 </p>
               </div>
             </AlertDialogDescription>
