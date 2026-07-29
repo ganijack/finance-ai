@@ -41,11 +41,33 @@ export function ExportButton() {
     try {
       setIsExporting(true);
       const data = await fetchExpenses();
-      const csv = Papa.unparse(data.map(d => ({
-        ...d,
-        date: new Date(d.date).toLocaleDateString()
-      })));
+      const sortedData = [...data].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
       
+      let runningBalance = 0;
+      const csvData = sortedData.map((row, index) => {
+        const isIncome = row.type === "INCOME";
+        const amount = Number(row.amount);
+        const debit = isIncome ? amount : null;
+        const kredit = !isIncome ? amount : null;
+        
+        if (isIncome) runningBalance += amount;
+        else runningBalance -= amount;
+
+        const dateObj = new Date(row.date);
+        const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/${dateObj.getFullYear()}`;
+
+        return {
+          NO: index + 1,
+          "HARI/TANGGAL": formattedDate,
+          KETERANGAN: row.title,
+          KATEGORI: row.category,
+          "DEBIT (Rp)": debit,
+          "KREDIT (Rp)": kredit,
+          "SALDO (Rp)": runningBalance
+        };
+      });
+
+      const csv = Papa.unparse(csvData);
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
@@ -172,22 +194,43 @@ export function ExportButton() {
     try {
       setIsExporting(true);
       const data = await fetchExpenses();
+      const sortedData = [...data].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
       
       const doc = new jsPDF();
-      doc.text("FinanceAI - Expense Report", 14, 15);
+      doc.text("KEUANGAN KESELURUHAN", 14, 15);
       
-      const tableData = data.map(d => [
-        new Date(d.date).toLocaleDateString(),
-        d.title,
-        d.category,
-        new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(d.amount),
-        d.notes || ""
-      ]);
+      let runningBalance = 0;
+      const formatCurrency = (val: number | null) => val !== null ? new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(val) : "-";
+      
+      const tableData = sortedData.map((row, index) => {
+        const isIncome = row.type === "INCOME";
+        const amount = Number(row.amount);
+        const debit = isIncome ? amount : null;
+        const kredit = !isIncome ? amount : null;
+        
+        if (isIncome) runningBalance += amount;
+        else runningBalance -= amount;
+
+        const dateObj = new Date(row.date);
+        const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/${dateObj.getFullYear()}`;
+
+        return [
+          index + 1,
+          formattedDate,
+          row.title,
+          row.category,
+          formatCurrency(debit),
+          formatCurrency(kredit),
+          formatCurrency(runningBalance)
+        ];
+      });
 
       autoTable(doc, {
-        head: [['Date', 'Title', 'Category', 'Amount', 'Notes']],
+        head: [['NO', 'HARI/TANGGAL', 'KETERANGAN', 'KATEGORI', 'DEBIT', 'KREDIT', 'SALDO']],
         body: tableData,
         startY: 20,
+        styles: { fontSize: 8 },
+        headStyles: { fillColor: [217, 225, 242], textColor: [0, 0, 0] },
       });
 
       doc.save(`financeai-export-${new Date().toISOString().split('T')[0]}.pdf`);
@@ -202,8 +245,45 @@ export function ExportButton() {
   const handleExportJSON = async () => {
     try {
       setIsExporting(true);
-      window.location.href = "/api/export?format=json";
-      toast.success("JSON Export started!");
+      const data = await fetchExpenses();
+      const sortedData = [...data].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+      
+      let runningBalance = 0;
+      const jsonData = sortedData.map((row, index) => {
+        const isIncome = row.type === "INCOME";
+        const amount = Number(row.amount);
+        const debit = isIncome ? amount : null;
+        const kredit = !isIncome ? amount : null;
+        
+        if (isIncome) runningBalance += amount;
+        else runningBalance -= amount;
+
+        const dateObj = new Date(row.date);
+        const formattedDate = `${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/${dateObj.getFullYear()}`;
+
+        return {
+          NO: index + 1,
+          "HARI/TANGGAL": formattedDate,
+          KETERANGAN: row.title,
+          KATEGORI: row.category,
+          "DEBIT (Rp)": debit,
+          "KREDIT (Rp)": kredit,
+          "SALDO (Rp)": runningBalance,
+          id: row.id,
+          notes: row.notes
+        };
+      });
+
+      const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", `financeai-export-${new Date().toISOString().split('T')[0]}.json`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      toast.success("JSON Export successful!");
     } catch (error) {
       toast.error("Export failed");
     } finally {
