@@ -107,6 +107,8 @@ model User {
   loginHistory  LoginHistory[]
   auditLogs     AuditLog[]
   feedbacks     Feedback[]
+  products      Product[]
+  orders        Order[]
 }
 
 model ActivityLog {
@@ -201,4 +203,57 @@ model AIPrompt {
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+// ==========================================
+// WA COMMERCE MODELS
+// ==========================================
+
+model Product {
+  id          String   @id @default(cuid())
+  userId      String   
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name        String
+  description String?
+  price       Float
+  imageUrl    String?
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  orderItems  OrderItem[]
+
+  @@index([userId])
+}
+
+model Order {
+  id            String   @id @default(cuid())
+  userId        String   
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  customerPhone String   
+  customerName  String?
+  totalAmount   Float
+  status        String   @default("PENDING") // PENDING, PAID, CANCELED
+  paymentLink   String?
+  paymentId     String?  // Midtrans transaction ID
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  items         OrderItem[]
+
+  @@index([userId])
+  @@index([customerPhone])
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product  @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float    // Snapshot of price at time of order
+
+  @@index([orderId])
+  @@index([productId])
 }
