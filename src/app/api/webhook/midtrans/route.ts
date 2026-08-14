@@ -60,6 +60,13 @@ export async function POST(req: Request) {
     } else if (transactionStatus === "cancel" || transactionStatus === "expire") {
       const order = await prisma.order.findUnique({
         where: { id: orderId },
+        include: {
+          items: {
+            include: {
+              product: { select: { name: true } },
+            },
+          },
+        },
       });
 
       if (order && order.status === "PENDING") {
@@ -68,9 +75,13 @@ export async function POST(req: Request) {
           data: { status: "CANCELED" },
         });
 
+        const productNames = order.items
+          .map((item) => `${item.product.name} x${item.quantity}`)
+          .join(", ");
+
         await sendWhatsAppMessage(
           order.customerPhone,
-          `❌ Pembayaran kedaluwarsa atau dibatalkan untuk pesanan #${orderId.substring(0, 8)}.`
+          `❌ Pesanan *${productNames}* (kode #${orderId.substring(0, 8)}) telah dibatalkan karena melewati batas waktu pembayaran 30 menit.\n\nSilakan pesan kembali jika masih berminat. Terima kasih! 🙏`
         );
       }
     }

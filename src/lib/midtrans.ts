@@ -41,6 +41,10 @@ export async function generateMidtransPayment(
         },
         item_details: itemDetails,
         customer_details: customerDetails,
+        expiry: {
+          unit: "minutes",
+          duration: 30,
+        },
       }),
     });
 
