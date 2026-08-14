@@ -6,10 +6,10 @@ export async function handleWhatsAppMessage(messageData: any) {
   const from = messageData.from;
   const type = messageData.type;
 
-  // We need an admin user who owns the products.
-  // For sandbox purposes, we'll just pick the first user or pass a specific user ID.
-  // In a real multi-tenant system, you'd match the WA business number to a user.
-  const adminUser = await prisma.user.findFirst();
+  // Link all WA commerce orders to the shop owner's account
+  const adminUser = await prisma.user.findUnique({
+    where: { email: "thorikabdillah12@gmail.com" },
+  });
   if (!adminUser) {
     return sendWhatsAppMessage(from, "Sistem sedang dalam gangguan. Harap hubungi admin.");
   }

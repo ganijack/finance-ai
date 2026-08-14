@@ -20,7 +20,8 @@ import {
   PieChart,
   MessageSquarePlus,
   ShieldCheck,
-  History
+  History,
+  Store
 } from "lucide-react";
 import { NotificationsPanel } from "./notifications-panel";
 import { BrandLogo } from "@/components/shared/brand-logo";
@@ -35,6 +36,7 @@ const navItems = [
   { href: "/insights", label: "AI Insights", icon: Lightbulb },
   { href: "/chat", label: "Ask AI", icon: MessageSquare },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/wa-commerce", label: "WA Commerce", icon: Store },
   { href: "/settings", label: "Settings", icon: Settings },
   { href: "/admin/dashboard", label: "Admin Panel", icon: ShieldCheck },
 ];

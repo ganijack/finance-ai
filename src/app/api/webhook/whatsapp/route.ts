@@ -21,14 +21,27 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
+    console.log("=== WEBHOOK POST RECEIVED ===");
+    console.log("Body object:", body.object);
 
     if (body.object === "whatsapp_business_account") {
       for (const entry of body.entry) {
         for (const change of entry.changes) {
+          console.log("Change field:", change.field);
           if (change.value && change.value.messages) {
             for (const message of change.value.messages) {
-              await handleWhatsAppMessage(message);
+              console.log(">>> MESSAGE FROM:", message.from);
+              console.log(">>> MESSAGE TYPE:", message.type);
+              if (message.type === "text") {
+                console.log(">>> TEXT:", message.text?.body);
+              }
+              const result = await handleWhatsAppMessage(message);
+              console.log(">>> HANDLER RESULT:", result);
             }
+          } else if (change.value && change.value.statuses) {
+            console.log(">>> STATUS UPDATE (not a message, ignoring)");
+          } else {
+            console.log(">>> No messages in this change");
           }
         }
       }
@@ -40,3 +53,4 @@ export async function POST(req: Request) {
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 }
+
