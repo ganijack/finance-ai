@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatDate } from "@/lib/utils";
 import { useCurrency } from "@/components/providers/currency-provider";
+import { useLanguage } from "@/components/providers/language-provider";
 import { getCategoryConfig } from "@/lib/constants";
 import { ArrowRight } from "lucide-react";
 import type { Expense, ExpenseCategory } from "@/types";
@@ -21,11 +22,12 @@ export function RecentTransactions({
   loading,
 }: RecentTransactionsProps) {
   const { format } = useCurrency();
+  const { t } = useLanguage();
   if (loading) {
     return (
       <Card className="border-border/40">
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle className="text-base">Recent Transactions</CardTitle>
+          <CardTitle className="text-base">{t("dashboard.recentTransactions")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {Array.from({ length: 5 }).map((_, i) => (
@@ -46,19 +48,19 @@ export function RecentTransactions({
   return (
     <Card className="border-border/40">
       <CardHeader className="flex flex-row items-center justify-between">
-        <CardTitle className="text-base">Recent Transactions</CardTitle>
+        <CardTitle className="text-base">{t("dashboard.recentTransactions")}</CardTitle>
         <Button variant="ghost" size="sm" asChild className="text-xs">
           <Link href="/all-transactions">
-            View All
+            {t("dashboard.viewAll")}
             <ArrowRight className="ml-1 h-3 w-3" />
           </Link>
         </Button>
       </CardHeader>
       <CardContent>
         {expenses.length === 0 ? (
-          <div className="flex h-32 items-center justify-center">
+          <div className="flex h-32 items-center justify-center text-center">
             <p className="text-sm text-muted-foreground">
-              No transactions yet. Add your first expense!
+              {t("dashboard.noTransactions")}.<br/>{t("dashboard.addTransaction")}!
             </p>
           </div>
         ) : (

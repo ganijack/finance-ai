@@ -25,24 +25,33 @@ import {
 } from "lucide-react";
 import { NotificationsPanel } from "./notifications-panel";
 import { BrandLogo } from "@/components/shared/brand-logo";
+import { useLanguage } from "@/components/providers/language-provider";
+import { TranslationKey } from "@/lib/i18n/en";
 
-const navItems = [
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/ai", label: "AI Input", icon: Sparkles },
-  { href: "/receipts", label: "Receipt Scanner", icon: Scan },
-  { href: "/expenses", label: "Manual Input", icon: Receipt },
-  { href: "/all-transactions", label: "All Transactions", icon: History },
-  { href: "/calendar", label: "Calendar", icon: CalendarDays },
-  { href: "/insights", label: "AI Insights", icon: Lightbulb },
-  { href: "/chat", label: "Ask AI", icon: MessageSquare },
-  { href: "/analytics", label: "Analytics", icon: BarChart3 },
-  { href: "/wa-commerce", label: "WA Commerce", icon: Store },
-  { href: "/settings", label: "Settings", icon: Settings },
-  { href: "/admin/dashboard", label: "Admin Panel", icon: ShieldCheck },
+type NavItem = {
+  href: string;
+  labelKey: TranslationKey;
+  icon: any;
+};
+
+const navItems: NavItem[] = [
+  { href: "/dashboard", labelKey: "nav.dashboard", icon: LayoutDashboard },
+  { href: "/ai", labelKey: "nav.aiInput", icon: Sparkles },
+  { href: "/receipts", labelKey: "nav.receiptScanner", icon: Scan },
+  { href: "/expenses", labelKey: "nav.manualInput", icon: Receipt },
+  { href: "/all-transactions", labelKey: "nav.allTransactions", icon: History },
+  { href: "/calendar", labelKey: "nav.calendar", icon: CalendarDays },
+  { href: "/insights", labelKey: "nav.aiInsights", icon: Lightbulb },
+  { href: "/chat", labelKey: "nav.askAi", icon: MessageSquare },
+  { href: "/analytics", labelKey: "nav.analytics", icon: BarChart3 },
+  { href: "/wa-commerce", labelKey: "nav.waCommerce", icon: Store },
+  { href: "/settings", labelKey: "nav.settings", icon: Settings },
+  { href: "/admin/dashboard", labelKey: "nav.adminPanel", icon: ShieldCheck },
 ];
 
 export function Sidebar({ isAdmin }: { isAdmin?: boolean }) {
   const pathname = usePathname();
+  const { t } = useLanguage();
 
   const filteredNavItems = isAdmin 
     ? navItems 
@@ -73,7 +82,7 @@ export function Sidebar({ isAdmin }: { isAdmin?: boolean }) {
               )}
             >
               <item.icon className="h-4 w-4" />
-              {item.label}
+              {t(item.labelKey)}
             </Link>
           );
         })}

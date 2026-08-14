@@ -11,9 +11,11 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Button } from "@/components/ui/button";
 import { Sparkles, CalendarDays } from "lucide-react";
 import Link from "next/link";
+import { useLanguage } from "@/components/providers/language-provider";
 
 export default function DashboardPage() {
   const { stats, loading: statsLoading } = useExpenseStats();
+  const { t } = useLanguage();
   const [selectedMonth, setSelectedMonth] = useState<string>(new Date().toISOString().slice(0, 7));
   const [recentExpenses, setRecentExpenses] = useState<Expense[]>([]);
   const [recentLoading, setRecentLoading] = useState(true);
@@ -40,13 +42,13 @@ export default function DashboardPage() {
       <div className="flex-1 p-4 sm:p-6 space-y-6">
         <Card className="col-span-full lg:col-span-1 shadow-sm border-border/40">
           <CardHeader>
-            <CardTitle className="text-lg">AI Financial Coach</CardTitle>
-            <CardDescription>Recommendations based on your spending</CardDescription>
+            <CardTitle className="text-lg">{t("dashboard.aiCoach")}</CardTitle>
+            <CardDescription>{t("dashboard.aiCoachDesc")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 p-4 rounded-xl text-sm border border-indigo-500/20 mb-4 flex gap-3 items-start">
               <Sparkles className="h-5 w-5 shrink-0 mt-0.5" />
-              <p>Your expenses are on track this month! Keep up the good work and stay disciplined with your spending.</p>
+              <p>{t("dashboard.aiCoachMsg")}</p>
             </div>
           </CardContent>
         </Card>

@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { useUser } from "@/hooks/use-user";
 import { useCurrency } from "@/components/providers/currency-provider";
+import { useLanguage } from "@/components/providers/language-provider";
 import Link from "next/link";
 import {
   User,
@@ -50,6 +51,7 @@ export default function SettingsPage() {
   const { user, loading, signOut } = useUser();
   const { theme, setTheme } = useTheme();
   const { currency, currencyInfo, changeCurrency } = useCurrency();
+  const { language, setLanguage, t } = useLanguage();
   const router = useRouter();
 
   const [currencySearch, setCurrencySearch] = useState("");
@@ -60,9 +62,9 @@ export default function SettingsPage() {
   const [exchangeRate, setExchangeRate] = useState<number | null>(null);
 
   const themes = [
-    { value: "light", label: "Light", icon: Sun },
-    { value: "dark", label: "Dark", icon: Moon },
-    { value: "system", label: "System", icon: Monitor },
+    { value: "light", labelKey: "settings.light" as const, icon: Sun },
+    { value: "dark", labelKey: "settings.dark" as const, icon: Moon },
+    { value: "system", labelKey: "settings.system" as const, icon: Monitor },
   ];
 
   const filteredPopular = getPopularCurrencies().filter(c =>
@@ -146,11 +148,11 @@ export default function SettingsPage() {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
                 <User className="h-5 w-5 text-primary" />
               </div>
-              <CardTitle className="text-base">Profile</CardTitle>
+              <CardTitle className="text-base">{t("settings.profile")}</CardTitle>
             </div>
             <Button variant="outline" size="sm" asChild>
               <Link href="/settings/profile">
-                Edit Profile
+                {t("settings.editProfile")}
               </Link>
             </Button>
           </CardHeader>
@@ -171,9 +173,9 @@ export default function SettingsPage() {
                     <p className="text-sm font-medium">{user?.email}</p>
                   </div>
                   <p className="text-xs text-muted-foreground mt-0.5">
-                    Joined{" "}
+                    {t("settings.joined")}{" "}
                     {user?.created_at
-                      ? new Date(user.created_at).toLocaleDateString("en-US", {
+                      ? new Date(user.created_at).toLocaleDateString(language === "id" ? "id-ID" : "en-US", {
                           month: "long",
                           year: "numeric",
                         })
@@ -193,7 +195,7 @@ export default function SettingsPage() {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10">
                 <DollarSign className="h-5 w-5 text-emerald-500" />
               </div>
-              <CardTitle className="text-base">Currency</CardTitle>
+              <CardTitle className="text-base">{t("settings.currency")}</CardTitle>
             </CardHeader>
             <CardContent>
               <Popover open={currencyOpen} onOpenChange={setCurrencyOpen}>
@@ -256,19 +258,36 @@ export default function SettingsPage() {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10">
                 <Globe className="h-5 w-5 text-blue-500" />
               </div>
-              <CardTitle className="text-base">Language</CardTitle>
+              <CardTitle className="text-base">{t("settings.language")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium">English (US)</p>
+                  <p className="text-sm font-medium">
+                    {language === "id" ? "Bahasa Indonesia" : "English (US)"}
+                  </p>
                   <p className="text-xs text-muted-foreground">
-                    Default app language
+                    {t("settings.language.desc")}
                   </p>
                 </div>
-                <Badge variant="secondary" className="text-xs">
-                  EN
-                </Badge>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant={language === "en" ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setLanguage("en")}
+                    className="h-7 px-3 text-xs"
+                  >
+                    EN
+                  </Button>
+                  <Button
+                    variant={language === "id" ? "default" : "outline"}
+                    size="sm"
+                    onClick={() => setLanguage("id")}
+                    className="h-7 px-3 text-xs"
+                  >
+                    ID
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -282,7 +301,7 @@ export default function SettingsPage() {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/10">
                 <Clock className="h-5 w-5 text-orange-500" />
               </div>
-              <CardTitle className="text-base">Timezone</CardTitle>
+              <CardTitle className="text-base">{t("settings.timezone")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex items-center justify-between">
@@ -302,7 +321,7 @@ export default function SettingsPage() {
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/10">
                 <Palette className="h-5 w-5 text-purple-500" />
               </div>
-              <CardTitle className="text-base">Appearance</CardTitle>
+              <CardTitle className="text-base">{t("settings.appearance")}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-3 gap-2">
@@ -332,7 +351,7 @@ export default function SettingsPage() {
                           isActive ? "text-primary" : "text-muted-foreground"
                         )}
                       >
-                        {t.label}
+                        {t(tItem.labelKey)}
                       </span>
                     </button>
                   );

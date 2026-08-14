@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { LanguageProvider } from "@/components/providers/language-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -55,17 +56,19 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans overflow-x-hidden`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="relative flex min-h-screen flex-col overflow-x-hidden w-full max-w-[100vw]">
-            {children}
-          </div>
-          <Toaster richColors position="top-right" />
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="relative flex min-h-screen flex-col overflow-x-hidden w-full max-w-[100vw]">
+              {children}
+            </div>
+            <Toaster richColors position="top-right" />
+          </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );
