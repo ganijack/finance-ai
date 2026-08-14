@@ -93,11 +93,11 @@ export async function handleWhatsAppMessage(messageData: any) {
           });
 
           const expiredAt = new Date(Date.now() + 30 * 60 * 1000);
-          const expiredTime = expiredAt.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Makassar" });
+          const expiredTime = expiredAt.toLocaleTimeString("id-ID", { hour: "2-digit", minute: "2-digit", timeZone: "Asia/Jakarta" });
 
           return sendWhatsAppMessage(
             from,
-            `Pesanan *${product.name}* berhasil dibuat.\nTotal: Rp ${product.price.toLocaleString("id-ID")}\n\nSilakan selesaikan pembayaran Anda melalui link berikut:\n${paymentLink}\n\n⏰ *Batas waktu pembayaran: ${expiredTime} WITA (30 menit)*\nPesanan akan otomatis dibatalkan jika melewati batas waktu.`
+            `Pesanan *${product.name}* berhasil dibuat.\nTotal: Rp ${product.price.toLocaleString("id-ID")}\n\nSilakan selesaikan pembayaran Anda melalui link berikut:\n${paymentLink}\n\n⏰ *Batas waktu pembayaran: ${expiredTime} WIB (30 menit)*\nPesanan akan otomatis dibatalkan jika melewati batas waktu.`
           );
         } else {
           return sendWhatsAppMessage(from, "Maaf, terjadi kesalahan saat membuat link pembayaran.");
