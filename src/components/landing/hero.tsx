@@ -48,16 +48,7 @@ export function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left - Content */}
           <div className="text-center lg:text-left">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-blue-500/20 bg-blue-500/5 text-sm text-blue-400 mb-6"
-            >
-              <span className="flex h-2 w-2 rounded-full bg-blue-400 animate-pulse" />
-              Lebih dari sekadar kasir
-            </motion.div>
+
 
             {/* Headline */}
             <motion.h1
@@ -99,16 +90,8 @@ export function HeroSection() {
               <Magnet magnetStrength={3} padding={60}>
                 <Button size="lg" asChild className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-xl shadow-blue-500/25 border-0 h-12 px-8 text-base">
                   <Link href="/register">
-                    Coba Gratis 14 Hari
+                    Coba gratis
                     <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </Magnet>
-              <Magnet magnetStrength={3} padding={60}>
-                <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 px-8 text-base shadow-sm group" asChild>
-                  <Link href="/api/auth/demo">
-                    Lihat Demo
-                    <Play className="ml-2 h-4 w-4 opacity-70 group-hover:text-blue-400 transition-colors" />
                   </Link>
                 </Button>
               </Magnet>

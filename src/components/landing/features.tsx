@@ -41,7 +41,7 @@ export function FeaturesSection() {
   return (
     <section id="features" className="relative py-24 sm:py-32 overflow-hidden bg-slate-50/50 dark:bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -50,9 +50,6 @@ export function FeaturesSection() {
           transition={{ duration: 0.5 }}
           className="text-center mb-20"
         >
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-blue-500/10 text-blue-500 border border-blue-500/20 mb-4">
-            Fitur Unggulan
-          </span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
             Satu Sistem untuk{" "}
             <ShinyText
@@ -74,14 +71,14 @@ export function FeaturesSection() {
           {features.map((feature, index) => {
             const Icon = feature.icon;
             const isReversed = feature.reversed;
-            
+
             return (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12 lg:gap-20`}
               >
                 {/* Text Content */}
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, x: isReversed ? 50 : -50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
@@ -98,7 +95,7 @@ export function FeaturesSection() {
                 </motion.div>
 
                 {/* Image/Mockup */}
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true, margin: "-100px" }}
@@ -107,10 +104,10 @@ export function FeaturesSection() {
                 >
                   {/* Decorative background blob */}
                   <div className="absolute inset-0 bg-blue-500/10 blur-[60px] rounded-full" />
-                  
+
                   <div className={`relative w-full ${feature.aspectRatio || 'max-w-[320px] aspect-[3/4] mx-auto'} rounded-2xl border-4 border-border/50 bg-card overflow-hidden shadow-2xl`}>
-                    <Image 
-                      src={feature.image} 
+                    <Image
+                      src={feature.image}
                       alt={feature.title}
                       fill
                       className="object-cover"
