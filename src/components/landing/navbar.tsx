@@ -45,7 +45,7 @@ export function LandingNavbar() {
             <Button variant="ghost" size="sm" asChild>
               <Link href="/login">Login</Link>
             </Button>
-            <Button size="sm" asChild className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 border-0">
+            <Button size="sm" asChild className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white shadow-lg shadow-blue-500/25 border-0">
               <Link href="/register">Sign Up</Link>
             </Button>
           </div>
@@ -86,7 +86,7 @@ export function LandingNavbar() {
             <Button variant="ghost" size="sm" asChild>
               <Link href="/login">Login</Link>
             </Button>
-            <Button size="sm" asChild className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 border-0">
+            <Button size="sm" asChild className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white shadow-lg shadow-blue-500/25 border-0">
               <Link href="/register">Get Started</Link>
             </Button>
           </div>

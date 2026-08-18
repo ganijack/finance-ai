@@ -1,190 +1,127 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import {
-  Zap,
-  MessageSquareText,
-  ScanLine,
-  Brain,
-  BarChart3,
-  Shield,
-} from "lucide-react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { MessageCircle, QrCode, BrainCircuit, Receipt } from "lucide-react";
 import ShinyText from "@/components/ShinyText";
 
 const features = [
   {
-    icon: Zap,
-    title: "Smart Expense Tracking",
-    description: "Record expenses in seconds with an intuitive interface designed for speed.",
-    gradient: "from-amber-500 to-orange-600",
-    glow: "shadow-amber-500/25",
-    spotlightColor: "rgba(251,191,36,0.08)",
+    title: "Admin WhatsApp 24 Jam Non-stop",
+    description: "Tinggalkan cara manual membalas chat. FinanceAI secara otomatis membalas pesanan pelanggan dengan katalog menu interaktif langsung di dalam WhatsApp.",
+    icon: MessageCircle,
+    image: "/landing-hero.jpg",
+    reversed: false,
   },
   {
-    icon: MessageSquareText,
-    title: "Natural Language Input",
-    description: 'Simply type: "I bought coffee for 25k." AI understands automatically.',
-    gradient: "from-indigo-500 to-blue-600",
-    glow: "shadow-indigo-500/25",
-    spotlightColor: "rgba(99,102,241,0.08)",
+    title: "Pembayaran Otomatis & Cepat",
+    description: "Pelanggan bisa langsung membayar via QRIS, Virtual Account, atau E-Wallet (GoPay, OVO, Dana). Pesanan akan otomatis batal jika tidak dibayar dalam 30 menit (Anti-Ghosting).",
+    icon: QrCode,
+    image: "/landing-payment.jpg",
+    reversed: true,
   },
   {
-    icon: ScanLine,
-    title: "Receipt Scanner",
-    description: "Upload receipts and let AI extract every expense detail instantly.",
-    gradient: "from-emerald-500 to-teal-600",
-    glow: "shadow-emerald-500/25",
-    spotlightColor: "rgba(16,185,129,0.08)",
+    title: "Dashboard Keuangan AI",
+    description: "Setiap pesanan yang dibayar otomatis tercatat sebagai pendapatan. Pantau arus kas harian, mingguan, dan bulanan dengan visualisasi data yang mudah dipahami.",
+    icon: BrainCircuit,
+    image: "/landing-dashboard.jpg",
+    reversed: false,
+    aspectRatio: "aspect-[16/9]"
   },
   {
-    icon: Brain,
-    title: "AI Insights",
-    description: "Receive spending analysis and personalized recommendations powered by AI.",
-    gradient: "from-purple-500 to-pink-600",
-    glow: "shadow-purple-500/25",
-    spotlightColor: "rgba(168,85,247,0.08)",
-  },
-  {
-    icon: BarChart3,
-    title: "Analytics Dashboard",
-    description: "Visualize your spending with beautiful, interactive charts and trends.",
-    gradient: "from-cyan-500 to-blue-600",
-    glow: "shadow-cyan-500/25",
-    spotlightColor: "rgba(6,182,212,0.08)",
-  },
-  {
-    icon: Shield,
-    title: "Secure Cloud Sync",
-    description: "Your data is safely stored with enterprise-grade encryption, accessible anywhere.",
-    gradient: "from-rose-500 to-red-600",
-    glow: "shadow-rose-500/25",
-    spotlightColor: "rgba(244,63,94,0.08)",
-  },
+    title: "Catat Pengeluaran dengan Foto Struk",
+    description: "Habis belanja bahan baku? Cukup foto struk belanja Anda, dan AI kami akan otomatis mengekstrak rincian barang, harga, dan total belanjaan ke dalam laporan pengeluaran.",
+    icon: Receipt,
+    image: "/landing-scan.jpg",
+    reversed: true,
+  }
 ];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
-
-function SpotlightCard({
-  feature,
-}: {
-  feature: (typeof features)[0];
-}) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const spotX = useSpring(mouseX, { stiffness: 200, damping: 30 });
-  const spotY = useSpring(mouseY, { stiffness: 200, damping: 30 });
-  const opacity = useMotionValue(0);
-  const spotOpacity = useSpring(opacity, { stiffness: 200, damping: 30 });
-
-  const background = useTransform(
-    [spotX, spotY],
-    ([x, y]: number[]) =>
-      `radial-gradient(300px circle at ${x}px ${y}px, ${feature.spotlightColor}, transparent 80%)`
-  );
-
-  const Icon = feature.icon;
-  return (
-    <motion.div
-      ref={cardRef}
-      variants={itemVariants}
-      className="group relative rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm p-6 overflow-hidden cursor-default"
-      onMouseMove={(e) => {
-        const rect = cardRef.current?.getBoundingClientRect();
-        if (!rect) return;
-        mouseX.set(e.clientX - rect.left);
-        mouseY.set(e.clientY - rect.top);
-        opacity.set(1);
-      }}
-      onMouseLeave={() => opacity.set(0)}
-      whileHover={{ y: -4, borderColor: "hsl(var(--border))" }}
-      transition={{ duration: 0.2 }}
-    >
-      {/* Spotlight overlay */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 rounded-2xl z-0"
-        style={{ background, opacity: spotOpacity }}
-      />
-
-      {/* Content */}
-      <div className="relative z-10">
-        {/* Icon */}
-        <div
-          className={`inline-flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br ${feature.gradient} shadow-lg ${feature.glow} mb-4`}
-        >
-          <Icon className="h-5 w-5 text-white" />
-        </div>
-
-        {/* Content */}
-        <h3 className="text-base font-semibold mb-2">{feature.title}</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          {feature.description}
-        </p>
-      </div>
-    </motion.div>
-  );
-}
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="relative py-24 sm:py-32">
-      {/* Background decoration */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-[150px]" />
-      </div>
-
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="features" className="relative py-24 sm:py-32 overflow-hidden bg-slate-50/50 dark:bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 mb-4">
-            Features
+          <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-blue-500/10 text-blue-500 border border-blue-500/20 mb-4">
+            Fitur Unggulan
           </span>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
-            Everything you need to{" "}
+            Satu Sistem untuk{" "}
             <ShinyText
-              text="manage money"
+              text="Semua Kebutuhan"
               speed={4}
-              shineColor="#a78bfa"
-              color="#818cf8"
+              shineColor="#93c5fd"
+              color="#3b82f6"
               spread={100}
               className="text-3xl sm:text-4xl font-bold"
             />
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Powerful AI-driven tools that make expense tracking effortless and insightful.
+            Mulai dari urusan penjualan hingga pembukuan, FinanceAI menangani semuanya secara otomatis.
           </p>
         </motion.div>
 
-        {/* Cards Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
-        >
-          {features.map((feature) => (
-            <SpotlightCard key={feature.title} feature={feature} />
-          ))}
-        </motion.div>
+        {/* Feature Blocks */}
+        <div className="space-y-24 md:space-y-32">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            const isReversed = feature.reversed;
+            
+            return (
+              <div 
+                key={index} 
+                className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12 lg:gap-20`}
+              >
+                {/* Text Content */}
+                <motion.div 
+                  initial={{ opacity: 0, x: isReversed ? 50 : -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6 }}
+                  className="flex-1 space-y-6 text-center md:text-left"
+                >
+                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-500 mb-2">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-bold">{feature.title}</h3>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    {feature.description}
+                  </p>
+                </motion.div>
+
+                {/* Image/Mockup */}
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="flex-1 w-full max-w-md mx-auto md:max-w-none relative"
+                >
+                  {/* Decorative background blob */}
+                  <div className="absolute inset-0 bg-blue-500/10 blur-[60px] rounded-full" />
+                  
+                  <div className={`relative w-full ${feature.aspectRatio || 'max-w-[320px] aspect-[3/4] mx-auto'} rounded-2xl border-4 border-border/50 bg-card overflow-hidden shadow-2xl`}>
+                    <Image 
+                      src={feature.image} 
+                      alt={feature.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </motion.div>
+              </div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );

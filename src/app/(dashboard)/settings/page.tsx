@@ -325,13 +325,13 @@ export default function SettingsPage() {
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-3 gap-2">
-                {themes.map((t) => {
-                  const Icon = t.icon;
-                  const isActive = theme === t.value;
+                {themes.map((themeItem) => {
+                  const Icon = themeItem.icon;
+                  const isActive = theme === themeItem.value;
                   return (
                     <button
-                      key={t.value}
-                      onClick={() => setTheme(t.value)}
+                      key={themeItem.value}
+                      onClick={() => setTheme(themeItem.value)}
                       className={cn(
                         "flex flex-col items-center gap-1 rounded-xl border-2 p-2 transition-all duration-200 cursor-pointer",
                         isActive
@@ -351,7 +351,7 @@ export default function SettingsPage() {
                           isActive ? "text-primary" : "text-muted-foreground"
                         )}
                       >
-                        {t(tItem.labelKey)}
+                        {t(themeItem.labelKey as any)}
                       </span>
                     </button>
                   );
