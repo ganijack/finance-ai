@@ -2,8 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { MessageCircle, QrCode, BrainCircuit, Receipt } from "lucide-react";
-import ShinyText from "@/components/ShinyText";
+import { MessageCircle, QrCode, BarChart3, Receipt } from "lucide-react";
 
 const features = [
   {
@@ -15,22 +14,22 @@ const features = [
   },
   {
     title: "Pembayaran Otomatis & Cepat",
-    description: "Pelanggan bisa langsung membayar via QRIS, Virtual Account, atau E-Wallet (GoPay, OVO, Dana). Pesanan akan otomatis batal jika tidak dibayar dalam 30 menit (Anti-Ghosting).",
+    description: "Pelanggan bisa langsung membayar via QRIS, Virtual Account, atau E-Wallet (GoPay, OVO, Dana). Pesanan akan otomatis dibatalkan jika tidak dibayar dalam batas waktu yang ditentukan.",
     icon: QrCode,
     image: "/landing-payment.jpg",
     reversed: true,
   },
   {
-    title: "Dashboard Keuangan AI",
+    title: "Dashboard Keuangan & Laporan",
     description: "Setiap pesanan yang dibayar otomatis tercatat sebagai pendapatan. Pantau arus kas harian, mingguan, dan bulanan dengan visualisasi data yang mudah dipahami.",
-    icon: BrainCircuit,
+    icon: BarChart3,
     image: "/landing-dashboard.jpg",
     reversed: false,
     aspectRatio: "aspect-[16/9]"
   },
   {
     title: "Catat Pengeluaran dengan Foto Struk",
-    description: "Habis belanja bahan baku? Cukup foto struk belanja Anda, dan AI kami akan otomatis mengekstrak rincian barang, harga, dan total belanjaan ke dalam laporan pengeluaran.",
+    description: "Habis belanja bahan baku? Cukup foto struk belanja Anda, dan sistem akan mengekstrak rincian barang, harga, dan total belanjaan ke dalam laporan pengeluaran.",
     icon: Receipt,
     image: "/landing-scan.jpg",
     reversed: true,
@@ -39,73 +38,45 @@ const features = [
 
 export function FeaturesSection() {
   return (
-    <section id="features" className="relative py-24 sm:py-32 overflow-hidden bg-slate-50/50 dark:bg-background">
+    <section id="features" className="relative py-20 sm:py-28 overflow-hidden bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-20"
-        >
+        <div className="text-center mb-16 sm:mb-24">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
             Satu Sistem untuk{" "}
-            <ShinyText
-              text="Semua Kebutuhan"
-              speed={4}
-              shineColor="#93c5fd"
-              color="#3b82f6"
-              spread={100}
-              className="text-3xl sm:text-4xl font-bold"
-            />
+            <span className="text-blue-600 dark:text-blue-400">Semua Kebutuhan Bisnis</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Mulai dari urusan penjualan hingga pembukuan, FinanceAI menangani semuanya secara otomatis.
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
+            Mulai dari urusan penjualan WhatsApp hingga pembukuan keuangan, semuanya terintegrasi dengan rapi.
           </p>
-        </motion.div>
+        </div>
 
         {/* Feature Blocks */}
-        <div className="space-y-24 md:space-y-32">
+        <div className="space-y-20 md:space-y-28">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             const isReversed = feature.reversed;
 
             return (
               <div
-                key={index}
-                className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12 lg:gap-20`}
+                key={feature.title}
+                className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-10 lg:gap-16`}
               >
                 {/* Text Content */}
-                <motion.div
-                  initial={{ opacity: 0, x: isReversed ? 50 : -50 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.6 }}
-                  className="flex-1 space-y-6 text-center md:text-left"
-                >
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-500/10 text-blue-500 mb-2">
-                    <Icon className="h-6 w-6" />
+                <div className="flex-1 space-y-4 text-center md:text-left">
+                  <div className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400 mb-1">
+                    <Icon className="h-5 w-5" />
                   </div>
-                  <h3 className="text-2xl sm:text-3xl font-bold">{feature.title}</h3>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <h3 className="text-2xl sm:text-3xl font-bold tracking-tight">{feature.title}</h3>
+                  <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
                     {feature.description}
                   </p>
-                </motion.div>
+                </div>
 
                 {/* Image/Mockup */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="flex-1 w-full max-w-md mx-auto md:max-w-none relative"
-                >
-                  {/* Decorative background blob */}
-                  <div className="absolute inset-0 bg-blue-500/10 blur-[60px] rounded-full" />
-
-                  <div className={`relative w-full ${feature.aspectRatio || 'max-w-[320px] aspect-[3/4] mx-auto'} rounded-2xl border-4 border-border/50 bg-card overflow-hidden shadow-2xl`}>
+                <div className="flex-1 w-full max-w-md mx-auto md:max-w-none relative">
+                  <div className={`relative w-full ${feature.aspectRatio || 'max-w-[320px] aspect-[3/4] mx-auto'} rounded-2xl border border-border bg-card overflow-hidden shadow-lg`}>
                     <Image
                       src={feature.image}
                       alt={feature.title}
@@ -113,7 +84,7 @@ export function FeaturesSection() {
                       className="object-cover"
                     />
                   </div>
-                </motion.div>
+                </div>
               </div>
             );
           })}

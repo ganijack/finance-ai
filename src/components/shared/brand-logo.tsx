@@ -34,7 +34,7 @@ export function BrandLogo({ className = "", showSubtitle = false }: BrandLogoPro
       </div>
       {showSubtitle && (
         <span className="mt-1 text-[10px] sm:text-xs text-muted-foreground font-medium tracking-wide">
-          AI-Powered Personal Finance Platform
+          Platform Pembukuan Bisnis &amp; WhatsApp
         </span>
       )}
     </div>

@@ -11,36 +11,35 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "FinanceAI",
-  description: "AI-Powered Personal Finance Platform",
+  title: "FinanceAI — Pembukuan Bisnis & Otomasi WhatsApp",
+  description: "Platform untuk mencatat transaksi keuangan dan mengotomatisasi pesanan bisnis melalui WhatsApp.",
   manifest: "/manifest.json",
   icons: {
     icon: "/logo/favicon.ico",
     apple: "/logo/apple-touch-icon.png",
   },
   keywords: [
-    "expense tracker",
+    "pembukuan whatsapp",
+    "catat keuangan",
+    "bot whatsapp bisnis",
     "finance",
-    "budgeting",
-    "analytics",
-    "AI",
-    "personal finance",
-    "money management",
+    "qris payment",
+    "laporan keuangan",
   ],
   openGraph: {
-    title: "FinanceAI — Smart Expense Tracker Powered by AI",
+    title: "FinanceAI — Pembukuan Bisnis & Otomasi WhatsApp",
     description:
-      "Track your expenses effortlessly using AI. Type naturally, upload receipts, and receive intelligent financial insights.",
+      "Catat transaksi, terima pembayaran otomatis, dan pantau laporan keuangan bisnis langsung dari WhatsApp.",
     url: "https://financeai.web.id",
     siteName: "FinanceAI",
-    locale: "en_US",
+    locale: "id_ID",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "FinanceAI — Smart Expense Tracker Powered by AI",
+    title: "FinanceAI — Pembukuan Bisnis & Otomasi WhatsApp",
     description:
-      "Track your expenses effortlessly using AI. Type naturally, upload receipts, and receive intelligent financial insights.",
+      "Catat transaksi, terima pembayaran otomatis, dan pantau laporan keuangan bisnis langsung dari WhatsApp.",
   },
   robots: {
     index: true,
@@ -54,12 +53,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="id" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans overflow-x-hidden`} suppressHydrationWarning>
         <LanguageProvider>
           <ThemeProvider
             attribute="class"
-            defaultTheme="dark"
+            defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >

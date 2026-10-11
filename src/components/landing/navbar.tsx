@@ -2,16 +2,14 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/shared/brand-logo";
-import { Menu, X, ExternalLink } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { label: "Features", href: "/#features" },
-  { label: "AI", href: "/how-it-works" },
-  { label: "About", href: "/about" },
+  { label: "Fitur", href: "/#features" },
+  { label: "Cara Kerja", href: "/how-it-works" },
+  { label: "Tentang Kami", href: "/about" },
 ];
 
 export function LandingNavbar() {
@@ -24,29 +22,26 @@ export function LandingNavbar() {
   }, []);
 
   return (
-    <motion.header
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.5 }}
+    <header
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-200",
         scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-sm"
+          ? "bg-background/90 backdrop-blur-md border-b border-border shadow-xs"
           : "bg-transparent"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Mobile: logo + login button on same row, nav below */}
+        {/* Mobile: logo + login button on same row */}
         <div className="flex md:hidden items-center justify-between h-14">
           <Link href="/" className="flex items-center">
             <BrandLogo />
           </Link>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" asChild>
-              <Link href="/login">Login</Link>
+              <Link href="/login">Masuk</Link>
             </Button>
-            <Button size="sm" asChild className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white shadow-lg shadow-blue-500/25 border-0">
-              <Link href="/register">Sign Up</Link>
+            <Button size="sm" asChild className="bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-xs">
+              <Link href="/register">Coba Gratis</Link>
             </Button>
           </div>
         </div>
@@ -54,13 +49,13 @@ export function LandingNavbar() {
         {/* Mobile: nav links row */}
         <div className="flex md:hidden items-center justify-center gap-2 pb-2">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.label}
               href={link.href}
-              className="px-2.5 py-1 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/50"
+              className="px-2.5 py-1 text-xs text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-accent/50"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -72,26 +67,26 @@ export function LandingNavbar() {
 
           <nav className="flex items-center gap-6">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.label}
                 href={link.href}
-                className="relative px-3.5 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/50"
+                className="px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-accent/50 font-medium"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="sm" asChild>
-              <Link href="/login">Login</Link>
+              <Link href="/login">Masuk</Link>
             </Button>
-            <Button size="sm" asChild className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white shadow-lg shadow-blue-500/25 border-0">
-              <Link href="/register">Get Started</Link>
+            <Button size="sm" asChild className="bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-xs px-4">
+              <Link href="/register">Coba Gratis</Link>
             </Button>
           </div>
         </div>
       </div>
-    </motion.header>
+    </header>
   );
 }

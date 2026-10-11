@@ -3,7 +3,7 @@
 import { LandingNavbar } from "@/components/landing/navbar";
 import { LandingFooter } from "@/components/landing/footer";
 import { motion } from "framer-motion";
-import { Brain, Receipt, BarChart3, ScanLine, Sparkles, Send, Coffee } from "lucide-react";
+import { Brain, Receipt, BarChart3, ScanLine, Send, Coffee } from "lucide-react";
 
 export default function AIPage() {
   return (
@@ -18,19 +18,12 @@ export default function AIPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-indigo-500/20 bg-indigo-500/5 text-sm text-indigo-400 mb-6">
-              <Sparkles className="h-4 w-4" />
-              FinanceAI Engine
-            </span>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              How It{" "}
-              <span className="bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent">
-                Works
-              </span>
+              Cara Kerja <span className="text-blue-600 dark:text-blue-400">FinanceAI</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Our AI is designed to make expense tracking completely frictionless. 
-              No more manual data entry. Just type or scan, and we handle the rest.
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              Pencatatan keuangan bisnis dan pesanan WhatsApp dirancang tanpa ribet.
+              Cukup kirim pesan atau unggah foto struk, dan sistem kami merangkum semuanya.
             </p>
           </motion.div>
         </div>
@@ -71,9 +64,8 @@ export default function AIPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative rounded-2xl border border-border/50 bg-card p-6 shadow-2xl"
+              className="relative rounded-2xl border border-border bg-card p-6 shadow-md"
             >
-              <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500/20 to-purple-500/20 blur-2xl -z-10 rounded-3xl" />
               
               <div className="space-y-4">
                 {/* User Message */}
@@ -113,9 +105,8 @@ export default function AIPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative rounded-2xl border border-border/50 bg-card p-6 shadow-2xl order-2 lg:order-1"
+              className="relative rounded-2xl border border-border bg-card p-6 shadow-md order-2 lg:order-1"
             >
-              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-teal-500/20 blur-2xl -z-10 rounded-3xl" />
               
               <div className="relative aspect-[3/4] bg-background rounded-xl border border-border overflow-hidden flex items-center justify-center group">
                 {/* Real Receipt Image */}
@@ -200,35 +191,33 @@ export default function AIPage() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="relative rounded-2xl border border-border/50 bg-card p-6 shadow-2xl"
+              className="relative rounded-2xl border border-border bg-card p-6 shadow-md"
             >
-              <div className="absolute -inset-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 blur-2xl -z-10 rounded-3xl" />
-              
               <div className="space-y-4">
                 {/* Stats Row */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-background border border-border rounded-xl p-4">
-                    <p className="text-xs text-muted-foreground mb-1">Total Spent</p>
-                    <p className="text-xl font-bold">Rp 3.5M</p>
+                    <p className="text-xs text-muted-foreground mb-1">Total Pengeluaran</p>
+                    <p className="text-xl font-bold">Rp 3.500.000</p>
                   </div>
                   <div className="bg-background border border-border rounded-xl p-4">
-                    <p className="text-xs text-muted-foreground mb-1">AI Prediction</p>
-                    <p className="text-xl font-bold text-amber-500">Rp 4.2M</p>
+                    <p className="text-xs text-muted-foreground mb-1">Estimasi Akhir Bulan</p>
+                    <p className="text-xl font-bold text-blue-600 dark:text-blue-400">Rp 4.200.000</p>
                   </div>
                 </div>
                 
                 {/* Chart Area */}
                 <div className="bg-background border border-border rounded-xl p-4 h-32 flex items-end gap-2 justify-between">
                   {[40, 60, 45, 80, 55, 90, 70].map((h, i) => (
-                    <div key={i} className="w-full rounded-t-md bg-gradient-to-t from-purple-500 to-indigo-500/50" style={{ height: `${h}%` }} />
+                    <div key={i} className="w-full rounded-t-md bg-blue-500/60" style={{ height: `${h}%` }} />
                   ))}
                 </div>
                 
                 {/* Insight */}
-                <div className="bg-purple-500/10 border border-purple-500/20 rounded-xl p-3 flex items-start gap-3">
-                  <Sparkles className="h-4 w-4 text-purple-400 shrink-0 mt-0.5" />
+                <div className="bg-muted/50 border border-border rounded-xl p-3 flex items-start gap-3">
+                  <BarChart3 className="h-4 w-4 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    <strong className="text-foreground">Insight:</strong> Your transport spending is 15% higher this week. Consider taking the train to save Rp 200,000.
+                    <strong className="text-foreground">Catatan Arus Kas:</strong> Biaya operasional minggu ini meningkat 15%. Pastikan rekap pengeluaran bahan baku sudah tercatat lengkap.
                   </p>
                 </div>
               </div>
