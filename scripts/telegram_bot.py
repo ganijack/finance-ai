@@ -10,6 +10,14 @@ import asyncio
 from pathlib import Path
 from dotenv import load_dotenv
 
+# Ensure UTF-8 output on Windows terminal
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 # Load env variables from root .env.local or .env
 WORKSPACE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(WORKSPACE_DIR / ".env.local")
