@@ -37,6 +37,38 @@ BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 ALLOWED_USER_ID = os.getenv("TELEGRAM_ALLOWED_USER_ID")
 
 
+def save_allowed_user_id(user_id: str):
+    """Saves the owner Telegram user ID to .env.local to persist security."""
+    env_path = WORKSPACE_DIR / ".env.local"
+    try:
+        if env_path.exists():
+            content = env_path.read_text(encoding="utf-8")
+            if "TELEGRAM_ALLOWED_USER_ID" in content:
+                lines = content.splitlines()
+                new_lines = []
+                for line in lines:
+                    if line.startswith("TELEGRAM_ALLOWED_USER_ID="):
+                        new_lines.append(f'TELEGRAM_ALLOWED_USER_ID="{user_id}"')
+                    else:
+                        new_lines.append(line)
+                env_path.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
+            else:
+                with open(env_path, "a", encoding="utf-8") as f:
+                    f.write(f'\nTELEGRAM_ALLOWED_USER_ID="{user_id}"\n')
+        else:
+            env_path.write_text(f'TELEGRAM_ALLOWED_USER_ID="{user_id}"\n', encoding="utf-8")
+    except Exception as e:
+        print(f"Error saving TELEGRAM_ALLOWED_USER_ID to .env.local: {e}")
+
+
+def is_user_allowed(user_id: int | str) -> bool:
+    """Checks whether the user ID matches the allowed owner(s)."""
+    if not ALLOWED_USER_ID:
+        return True
+    allowed_list = [uid.strip() for uid in str(ALLOWED_USER_ID).split(",") if uid.strip()]
+    return str(user_id) in allowed_list
+
+
 def get_git_status() -> str:
     try:
         res = subprocess.run(
@@ -93,35 +125,60 @@ def auto_git_push(prompt: str) -> str:
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+    is_locked = bool(ALLOWED_USER_ID)
     welcome_text = (
         f"👋 Halo *{update.effective_user.first_name}*!\n\n"
-        f"Bot Antigravity siap menerima prompt kamu.\n\n"
-        f"🆔 Telegram ID kamu: `{user_id}`\n\n"
+        f"Bot Antigravity siap menerima instruksi coding.\n\n"
+        f"🆔 Telegram ID kamu: `{user_id}`\n"
+        f"🔐 Status Akses: {'🔒 Terkunci privat' if is_locked else '⚠️ Terbuka (ketik /lock untuk mengunci ke akunmu)'}\n\n"
         f"📌 *Perintah yang tersedia:*\n"
-        f"• Kirim text apapun: Eksekusi prompt via Antigravity di workspace `{WORKSPACE_DIR}`\n"
+        f"• Kirim text apapun: Eksekusi prompt via Antigravity di workspace\n"
+        f"• `/lock` - Kunci bot khusus untuk akun Telegram kamu\n"
+        f"• `/myid` - Lihat Telegram ID kamu\n"
         f"• `/status` - Cek git status & branch aktif\n"
         f"• `/push` - Push manual perubahan ke origin main\n"
         f"• `/help` - Tampilkan panduan ini\n"
     )
-    if not ALLOWED_USER_ID:
-        welcome_text += (
-            f"\n⚠️ *Catatan Keamanan:*\n"
-            f"Set `TELEGRAM_ALLOWED_USER_ID={user_id}` di `.env.local` agar bot hanya melayani kamu."
-        )
     await update.message.reply_text(welcome_text, parse_mode="Markdown")
 
 
+async def lock_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    global ALLOWED_USER_ID
+    user_id = str(update.effective_user.id)
+    if ALLOWED_USER_ID and not is_user_allowed(user_id):
+        await update.message.reply_text("⛔ Akses ditolak. Bot sudah dikunci oleh pemilik lain.")
+        return
+    ALLOWED_USER_ID = user_id
+    save_allowed_user_id(user_id)
+    await update.message.reply_text(
+        f"🔒 *Sukses! Bot Sekarang Dikunci Khusus Untuk Akun Kamu.*\n\n"
+        f"• Owner ID: `{user_id}`\n"
+        f"• Pengguna Telegram lain yang mengirim chat ke bot ini akan otomatis ditolak.\n"
+        f"• Pengaturan tersimpan aman di `.env.local`.",
+        parse_mode="Markdown",
+    )
+
+
+async def myid_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = update.effective_user.id
+    await update.message.reply_text(
+        f"🆔 Telegram ID kamu: `{user_id}`\n"
+        f"Status hak akses: {'✅ Diizinkan' if is_user_allowed(user_id) else '⛔ Ditolak'}",
+        parse_mode="Markdown",
+    )
+
+
 async def status_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if ALLOWED_USER_ID and str(update.effective_user.id) != str(ALLOWED_USER_ID):
-        await update.message.reply_text("⛔ Akses ditolak.")
+    if not is_user_allowed(update.effective_user.id):
+        await update.message.reply_text("⛔ Akses ditolak. Bot ini privat.")
         return
     status_text = get_git_status()
     await update.message.reply_text(status_text, parse_mode="Markdown")
 
 
 async def push_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if ALLOWED_USER_ID and str(update.effective_user.id) != str(ALLOWED_USER_ID):
-        await update.message.reply_text("⛔ Akses ditolak.")
+    if not is_user_allowed(update.effective_user.id):
+        await update.message.reply_text("⛔ Akses ditolak. Bot ini privat.")
         return
     msg = await update.message.reply_text("⏳ Mendorong commit ke GitHub...")
     push_result = auto_git_push("manual push command")
@@ -129,10 +186,23 @@ async def push_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def handle_prompt(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    global ALLOWED_USER_ID
     user_id = update.effective_user.id
-    if ALLOWED_USER_ID and str(user_id) != str(ALLOWED_USER_ID):
+
+    # Auto-lock on first prompt if not locked yet
+    if not ALLOWED_USER_ID:
+        ALLOWED_USER_ID = str(user_id)
+        save_allowed_user_id(str(user_id))
         await update.message.reply_text(
-            f"⛔ Akses ditolak. ID `{user_id}` tidak diizinkan.",
+            f"🔒 *Keamanan Diaktifkan!*\n"
+            f"Bot otomatis dikunci khusus untuk Telegram kamu (`{user_id}`).\n"
+            f"Orang lain tidak dapat mengakses atau memberikan perintah ke bot ini lagi.",
+            parse_mode="Markdown",
+        )
+    elif not is_user_allowed(user_id):
+        await update.message.reply_text(
+            "⛔ *Akses Ditolak!*\n"
+            "Bot ini bersifat privat dan hanya dapat diperintah oleh pemilik workspace.",
             parse_mode="Markdown",
         )
         return
@@ -270,6 +340,8 @@ def main():
 
     app.add_handler(CommandHandler("start", start_command))
     app.add_handler(CommandHandler("help", start_command))
+    app.add_handler(CommandHandler("lock", lock_command))
+    app.add_handler(CommandHandler("myid", myid_command))
     app.add_handler(CommandHandler("status", status_command))
     app.add_handler(CommandHandler("push", push_command))
     app.add_handler(MessageHandler(filters.TEXT & (~filters.COMMAND), handle_prompt))
