@@ -223,7 +223,7 @@ async def handle_prompt(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "and follow project conventions. Keep output concise."
     )
 
-    model_name = os.getenv("ANTIGRAVITY_MODEL", "gemini-3.5-flash")
+    model_name = os.getenv("ANTIGRAVITY_MODEL", "gemini-3.1-flash-lite")
 
     config = LocalAgentConfig(
         model=model_name,
@@ -309,11 +309,18 @@ async def handle_prompt(update: Update, context: ContextTypes.DEFAULT_TYPE):
     except Exception as e:
         err_str = str(e)
         if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
-            error_msg = (
-                "⚠️ *Google Gemini API Rate Limit (Quota Exceeded - 429)*\n\n"
-                "Akun Free Tier Gemini memiliki kuota terbatas per menit. "
-                "Tunggu ~1 menit sebelum mengirim prompt berikutnya, atau upgrade ke Pay-as-you-go di Google AI Studio."
-            )
+            if "PerDay" in err_str:
+                error_msg = (
+                    "⚠️ *Google Gemini API Limit Harian Tercapai (20 Request/Hari)*\n\n"
+                    "Model preview di akun Free Tier memiliki batas 20 request per hari. "
+                    "Gunakan model `gemini-3.1-flash-lite` (1.500 request/hari) atau aktifkan Pay-as-you-go di Google AI Studio."
+                )
+            else:
+                error_msg = (
+                    "⚠️ *Google Gemini API Rate Limit (Quota Exceeded - 429)*\n\n"
+                    "Akun Free Tier Gemini memiliki kuota terbatas per menit. "
+                    "Tunggu ~1 menit sebelum mengirim prompt berikutnya, atau upgrade ke Pay-as-you-go di Google AI Studio."
+                )
         else:
             error_msg = f"❌ Terjadi kesalahan saat eksekusi:\n```\n{err_str[:800]}\n```"
         await status_msg.edit_text(error_msg, parse_mode="Markdown")
