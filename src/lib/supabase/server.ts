@@ -1,6 +1,15 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
+/**
+ * Creates an authenticated Supabase client configured for Next.js Server Components,
+ * Server Actions, and Route Handlers.
+ * 
+ * Uses `@supabase/ssr` to securely read and persist authentication session cookies
+ * via Next.js `cookies()` store.
+ * 
+ * @returns A configured Supabase client instance with server cookie handling.
+ */
 export async function createClient() {
   const cookieStore = await cookies();
 

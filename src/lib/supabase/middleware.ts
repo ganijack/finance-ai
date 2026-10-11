@@ -1,6 +1,18 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+/**
+ * Updates the Supabase authentication session and handles route-based access control.
+ * 
+ * - Synchronizes and refreshes authentication cookies between request and response.
+ * - Protects authenticated routes (/dashboard, /expenses, /analytics, /settings)
+ *   by redirecting unauthenticated users to `/login`.
+ * - Redirects authenticated users attempting to access auth pages (/login, /register)
+ *   directly to `/dashboard`.
+ * 
+ * @param request NextRequest instance representing the incoming HTTP request.
+ * @returns NextResponse containing updated cookie headers or redirect responses.
+ */
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
